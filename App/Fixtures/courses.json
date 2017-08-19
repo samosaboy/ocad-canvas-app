@@ -1,0 +1,342 @@
+[
+  {
+    "id": 22192,
+    "name": "Advanced Typography GRPH-3013-003",
+    "account_id": 12,
+    "start_at": "2016-08-17T19:52:14Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "Advanced Typography 003",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 192,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_SYwTRRLkRFcmjQXMaC72rhnE0bDcAvGDg1mek30t.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 22463,
+    "name": "Animation & Motion Graphics GDES-3010-001",
+    "account_id": 45,
+    "start_at": "2016-09-07T04:00:00Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "Animation & Motion Graphics 001",
+    "default_view": "wiki",
+    "root_account_id": 1,
+    "enrollment_term_id": 192,
+    "end_at": "2016-12-14T05:00:00Z",
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_vKoG8Ed18UuP5TAheZp6DzsBO2fjnKIGaqD8lMhL.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 17399,
+    "name": "Colour In Context S11",
+    "account_id": 45,
+    "start_at": "2014-08-27T18:32:07Z",
+    "grading_standard_id": null,
+    "is_public": false,
+    "course_code": "GDES 1B16 Colour In Context S11",
+    "default_view": "wiki",
+    "root_account_id": 1,
+    "enrollment_term_id": 178,
+    "end_at": "2014-12-08T22:30:00Z",
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_9JUoJq2SZXQEEY99MyZkTXWgzCgUm9bbv2m2dpYt.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 17294,
+    "name": "Communication Design 1 S15",
+    "account_id": 45,
+    "start_at": "2014-08-13T13:38:32Z",
+    "grading_standard_id": null,
+    "is_public": false,
+    "course_code": "GDES 1B09 Communication Design 1 S15",
+    "default_view": "syllabus",
+    "root_account_id": 1,
+    "enrollment_term_id": 178,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_JyLSElUxNNOkH8rMNOpaah1xWMIfRyVnGoEMA7Lp.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 18317,
+    "name": "Communication Design 2 S01",
+    "account_id": 45,
+    "start_at": "2014-12-15T15:28:57Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "GDES 1B18 Communication Design 2 S01",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 179,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_Fj6CF57yWHX0NxzOaUyZztOP7dgD9bWJK7Us3FUz.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 18404,
+    "name": "Drawing: Translation S02",
+    "account_id": 45,
+    "start_at": "2014-12-19T17:30:01Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "GDES 1B20 Drawing: Translation S02",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 179,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_WRME8ft43Z9IDXu2066BExlrt7qnHtTeZaxA6HKb.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 17323,
+    "name": "Drawing: Visualization S05",
+    "account_id": 45,
+    "start_at": "2014-08-05T22:21:50Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "GDES 1B10 Drawing: Visualization S05",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 178,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_pKV4ION7sJ7695lLM3otWXbDvBSg7wFPPykTUc9w.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 22855,
+    "name": "Editorial Design: Authorship GDES-3086-002",
+    "account_id": 45,
+    "start_at": "2016-12-21T15:37:27Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "Editorial Design: Authorship 002",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 194,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_r6GFq6GO9JabFZg0OrZyFolLuqFMnk61jkhLOO1M.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 23118,
+    "name": "Experimental Typography GRPH-3009-003",
+    "account_id": 12,
+    "start_at": "2016-12-22T20:26:13Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "Experimental Typography 003",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 194,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": false,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_ddjE0c9avbI9b0y2BpOVXeT0QNRu4LFraQokLg09.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  },
+  {
+    "id": 17922,
+    "name": "Global Visual And Material Culture: 1800 To T S01",
+    "account_id": 32,
+    "start_at": "2014-12-19T18:41:41Z",
+    "grading_standard_id": null,
+    "is_public": null,
+    "course_code": "VISC 1B07 Global Visual And Material Culture: 1800 To T S01",
+    "default_view": "feed",
+    "root_account_id": 1,
+    "enrollment_term_id": 179,
+    "end_at": null,
+    "public_syllabus": false,
+    "public_syllabus_to_auth": false,
+    "storage_quota_mb": 2048,
+    "is_public_to_auth_users": false,
+    "apply_assignment_group_weights": true,
+    "calendar": {
+      "ics": "https://canvas.ocadu.ca/feeds/calendars/course_IXvoyRmU94gI8RKpDJJIGTpRovN09NWtHJDL0Ntk.ics"
+    },
+    "time_zone": "America/New_York",
+    "enrollments": [
+      {
+        "type": "student",
+        "role": "StudentEnrollment",
+        "role_id": 20,
+        "user_id": 35239,
+        "enrollment_state": "active"
+      }
+    ],
+    "hide_final_grades": false,
+    "workflow_state": "available",
+    "restrict_enrollments_to_course_dates": false
+  }
+]
