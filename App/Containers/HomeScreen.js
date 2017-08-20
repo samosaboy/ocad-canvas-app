@@ -1,8 +1,9 @@
 // import _ from 'lodash'
 import React from 'react'
-import { ActivityIndicator, FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
+import { FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
 import API from '../Services/Api'
 import styles from './Styles/HomeScreenStyles'
+import ScreenLadda from '../Components/ScreenLadda'
 
 export default class HomeScreen extends React.Component {
   api = {}
@@ -45,9 +46,7 @@ export default class HomeScreen extends React.Component {
   render () {
     if (this.state.loading) {
       return (
-        <View style={styles.mainContainer}>
-          <ActivityIndicator />
-        </View>
+        <ScreenLadda text={'Populating Courses'} />
       )
     }
     return (

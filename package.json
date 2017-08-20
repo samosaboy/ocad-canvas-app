@@ -36,6 +36,7 @@
     "react-native-animatable": "^1.2.3",
     "react-native-config": "^0.2.1",
     "react-native-device-info": "0.10.2",
+    "react-native-dimension": "^1.0.6",
     "react-native-drawer": "^2.3.0",
     "react-native-i18n": "1.0.0",
     "react-native-vector-icons": "4.1.1",
