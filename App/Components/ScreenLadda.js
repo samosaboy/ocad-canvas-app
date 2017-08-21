@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, ActivityIndicator } from 'react-native'
-import styles from './Styles/ScreenLadda'
+import styles from './Styles/ScreenLaddaStyles'
 
 export default class ScreenLadda extends Component {
   static defaultProps = { text: '' }

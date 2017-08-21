@@ -1,6 +1,6 @@
 // import _ from 'lodash'
 import React from 'react'
-import { FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
+import { ScrollView, FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
 import API from '../Services/Api'
 import styles from './Styles/HomeScreenStyles'
 import ScreenLadda from '../Components/ScreenLadda'
@@ -33,13 +33,44 @@ export default class HomeScreen extends React.Component {
       })
   }
 
+  _showCourseName = (code) => {
+    return code.replace(/.{3}$/, '')
+  }
+
+  _showCourseCode = (name) => {
+    const txt = name
+    const re1 = '.*?'
+    const re2 = '\\s+'
+    const re3 = '.*?'
+    const re4 = '\\s+'
+    const re5 = '.*?'
+    const re6 = '(\\s+)'
+    const re7 = '((?:[a-z][a-z]+))'
+    const re8 = '([-+]\\d+)'
+    const re9 = '([-+]\\d+)'
+    const p = new RegExp(re1 + re2 + re3 + re4 + re5 + re6 + re7 + re8 + re9, ['i'])
+    const m = p.exec(txt)
+    if (m != null) {
+      const ws1 = m[1]
+      const word1 = m[2]
+      const signedInt1 = m[3]
+      const signedInt2 = m[4]
+      return ws1.replace(/</, '') + word1.replace(/</, '') + signedInt1.replace(/</, '') + signedInt2.replace(/</, '')
+    }
+  }
+
   _filterCourseView = ({item}) => {
     return (
-      <TouchableHighlight>
-        <View style={styles.courseBox}>
-          <Text onPress={() => this._getCourseDetails(item.id)}>{item.name}</Text>
-        </View>
-      </TouchableHighlight>
+      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+        <TouchableHighlight>
+          <View style={styles.courseBox}>
+            <View onPress={() => this._getCourseDetails(item.id)}>
+              <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
+              <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
+            </View>
+          </View>
+        </TouchableHighlight>
+      </ScrollView>
     )
   }
 
@@ -50,7 +81,7 @@ export default class HomeScreen extends React.Component {
       )
     }
     return (
-      <View style={styles.mainContainer}>
+      <View style={[styles.homeContainer]}>
         <StatusBar
           barStyle='dark-content'
         />
