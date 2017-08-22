@@ -8,13 +8,12 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.borderLight,
     padding: Metrics.baseMargin,
-    borderRadius: 15,
-    height: 150,
+    borderRadius: 5,
+    height: 184,
     flex: 0.5,
     flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: Metrics.baseMargin,
-    marginBottom: Metrics.baseMargin
+    marginTop: Metrics.baseMargin
   },
   courseCode: {
     fontSize: Fonts.size.small,

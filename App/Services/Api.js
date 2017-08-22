@@ -10,15 +10,27 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     },
     timeout: 10000
   })
-  const getCourses = () => api.get('courses', {
-    'enrollment_state': 'active'
-  })
-  const getCourseActivity = (id) => api.get(`courses/${id}/activity_stream/summary`)
-  const getConversationList = () => api.get('conversations')
+  // Prepare for rate limit exceeded (403) https://canvas.instructure.com/doc/api/file.throttling.html
+  // Required
+  const getCourses = () => api.get('courses', { 'enrollment_state': 'completed', 'per_page': '50' }) // implement scroll down to fetch more (do 10 at a time)
+  // Users
+  const getUserConversations = () => api.get('conversations')
+  // Courses
+  const getCourseActivity = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
+  const getCourseDiscussions = (courseId) => api.get(`courses/${courseId}/discussion_topics`)
+  const getCourseAllFiles = (courseId) => api.get(`courses/${courseId}/files`)
+  const getCourseAssignments = (userId, courseId) => api.get(`users/${userId}/courses/${courseId}/assignments`)
+
   return {
+    // Required
     getCourses,
+    // Users
+    getUserConversations,
+    // Courses
     getCourseActivity,
-    getConversationList
+    getCourseAssignments,
+    getCourseDiscussions,
+    getCourseAllFiles
   }
 }
 

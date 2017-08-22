@@ -1,11 +1,19 @@
 // import _ from 'lodash'
 import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { ScrollView, FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
 import API from '../Services/Api'
-import styles from './Styles/HomeScreenStyles'
+import styles from './Styles/CourseScreenStyles'
 import ScreenLadda from '../Components/ScreenLadda'
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = ({navigation}) => ({
+    title: 'My Courses',
+    tabBarLabel: 'Courses',
+    tabBarIcon: ({tintColor}) => (
+      <Icon name='ios-cube-outline' size={25} style={{color: tintColor}} />
+    )
+  })
   api = {}
 
   constructor (props) {
@@ -26,10 +34,13 @@ export default class HomeScreen extends React.Component {
       })
   }
 
-  _getCourseDetails = (id) => {
+  _getCourseDetails = (id, name) => {
+    // send ID down as a prop?
+    const { navigate } = this.props.navigation
+    navigate('SingleCourseView', { id, name: this._showCourseName(name) })
     this.api.getCourseActivity(id)
       .then((response) => {
-        console.log(response.data)
+        console.tron.log(response.data)
       })
   }
 
@@ -62,12 +73,10 @@ export default class HomeScreen extends React.Component {
   _filterCourseView = ({item}) => {
     return (
       <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-        <TouchableHighlight>
+        <TouchableHighlight onPress={() => this._getCourseDetails(item.id, item.course_code)}>
           <View style={styles.courseBox}>
-            <View onPress={() => this._getCourseDetails(item.id)}>
-              <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
-              <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
-            </View>
+            <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
+            <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
           </View>
         </TouchableHighlight>
       </ScrollView>
@@ -81,15 +90,17 @@ export default class HomeScreen extends React.Component {
       )
     }
     return (
-      <View style={[styles.homeContainer]}>
+      <View style={styles.homeContainer}>
         <StatusBar
           barStyle='dark-content'
         />
-        <FlatList
-          data={this.state.courseList}
-          keyExtractor={item => item.id}
-          renderItem={this._filterCourseView}
-        />
+        <View style={styles.groupContainer}>
+          <FlatList
+            data={this.state.courseList}
+            keyExtractor={item => item.id}
+            renderItem={this._filterCourseView}
+          />
+        </View>
       </View>
     )
   }

@@ -1,5 +1,6 @@
 import Colors from './Colors'
 import Metrics from './Metrics'
+// import { width, height, totalSize } from 'react-native-dimension'
 
 const Containers = {
   mainContainer: {
@@ -32,12 +33,7 @@ const Containers = {
     alignItems: 'center'
   },
   homeContainer: {
-    marginLeft: Metrics.section,
-    marginRight: Metrics.section,
-    marginTop: Metrics.section,
-    flexDirection: 'row',
-    backgroundColor: Colors.white,
-    flex: 0.5
+    backgroundColor: Colors.white
   }
 }
 

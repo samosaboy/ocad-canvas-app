@@ -3,6 +3,6 @@ import { Colors } from '../../Common/index'
 
 export default StyleSheet.create({
   header: {
-    backgroundColor: Colors.backgroundColor
+    backgroundColor: Colors.white
   }
 })
