@@ -8,8 +8,7 @@ import { Text } from 'react-native'
 
 export default class CoursesScreenSingle extends React.Component {
   static navigationOptions = ({navigation}) => ({
-    title: `${navigation.state.params.name}`,
-    headerBackTitle: 'Back to Courses'
+    title: `${navigation.state.params.name}`
   })
 
   render () {

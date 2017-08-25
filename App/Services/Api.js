@@ -12,9 +12,12 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   })
   // Prepare for rate limit exceeded (403) https://canvas.instructure.com/doc/api/file.throttling.html
   // Required
-  const getCourses = () => api.get('courses', { 'enrollment_state': 'completed', 'per_page': '50' }) // implement scroll down to fetch more (do 10 at a time)
+  const getCourses = () => api.get('courses', { 'enrollment_state': 'active', 'per_page': '50' }) // implement scroll down to fetch more (do 10 at a time)
   // Users
-  const getUserConversations = () => api.get('conversations')
+  const getUserConversations = (count, page) => api.get('conversations', { include: 'participant_avatars', 'per_page': count, 'page': page })
+  const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`)
+  const getUserUnreadCount = () => api.get('conversations/unread_count')
+  const editUserConversationSingle = (conversationId, params) => api.put(`conversations/${conversationId}?${params}`)
   // Courses
   const getCourseActivity = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
   const getCourseDiscussions = (courseId) => api.get(`courses/${courseId}/discussion_topics`)
@@ -26,6 +29,9 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     getCourses,
     // Users
     getUserConversations,
+    getUserConversationSingle,
+    getUserUnreadCount,
+    editUserConversationSingle,
     // Courses
     getCourseActivity,
     getCourseAssignments,

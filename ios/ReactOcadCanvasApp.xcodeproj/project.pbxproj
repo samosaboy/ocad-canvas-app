@@ -14,12 +14,9 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ReactOcadCanvasAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactOcadCanvasAppTests.m */; };
 		0AECAF11ACDC4946A64C8BF8 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7C2B731343843A38EB14892 /* libRNDeviceInfo.a */; };
-		103222591F4BC76300B4F729 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1032224F1F4BC76300B4F729 /* Entypo.ttf */; };
 		1032225A1F4BC76300B4F729 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222501F4BC76300B4F729 /* EvilIcons.ttf */; };
-		1032225B1F4BC76300B4F729 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222511F4BC76300B4F729 /* FontAwesome.ttf */; };
 		1032225C1F4BC76300B4F729 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222521F4BC76300B4F729 /* Foundation.ttf */; };
 		1032225D1F4BC76300B4F729 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222531F4BC76300B4F729 /* Ionicons.ttf */; };
-		1032225E1F4BC76300B4F729 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222541F4BC76300B4F729 /* MaterialCommunityIcons.ttf */; };
 		1032225F1F4BC76300B4F729 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222551F4BC76300B4F729 /* MaterialIcons.ttf */; };
 		103222601F4BC76300B4F729 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222561F4BC76300B4F729 /* Octicons.ttf */; };
 		103222611F4BC76300B4F729 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103222571F4BC76300B4F729 /* SimpleLineIcons.ttf */; };
@@ -46,22 +43,15 @@
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* ReactOcadCanvasAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactOcadCanvasAppTests.m */; };
 		39EBB1A5BB104D84AFA95C22 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7F1BFDFD9F84FD0A89D55AF /* Entypo.ttf */; };
-		415E788DCDC4404D8440F490 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE0FB6EC4C584C6CAC468A52 /* Foundation.ttf */; };
 		4E9E585A8C6D4711B3FF5DC2 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89271E2AB544F728F8223AF /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6E452CB7F7D9472EBE7F9742 /* libyoga.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 599BB5CE411B4D209F414181 /* libyoga.a */; };
-		828CC983EBC94AE6B458B904 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D662A54735A444DEBF415077 /* Octicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		85C4FF9DED2C43F5AD573D91 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D39C9A9384D14F2D8D21D1C2 /* libRNVectorIcons.a */; };
 		8F257F0809C64912B390AD62 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6610FBE3CEE842678D5BBC1A /* FontAwesome.ttf */; };
 		95AA09FD704247C3A30E5979 /* libjschelpers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B15E08313B24D54A26B5BE2 /* libjschelpers.a */; };
 		9FE17AE90BB14FEB8748B33B /* libcxxreact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8763737DC18405B8AECC9D9 /* libcxxreact.a */; };
-		AB9303E922C84FE1AEE12930 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2D8FF0C15432087C364AE /* SimpleLineIcons.ttf */; };
-		B103D5AF036745B090FACC70 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3C2924837B8E453ABF396D99 /* Zocial.ttf */; };
 		BF8FF1E7C57D4674B7B04E96 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10AB0A655B954B3485BD99EB /* MaterialCommunityIcons.ttf */; };
-		DAA19E30EFC74EB59713877D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA1E815FD6CD41298D1D9231 /* MaterialIcons.ttf */; };
-		DDE49F9F215C4284A62DF2DE /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30E87B2B8556469BBED2E283 /* EvilIcons.ttf */; };
-		FD2E3B21377641078381B330 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1C1B96DCE6B42429EF0BF6F /* Ionicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -471,6 +461,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1004B30C1F4E5C110060FE2F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				C7C2B731343843A38EB14892 /* libRNDeviceInfo.a */,
+				D39C9A9384D14F2D8D21D1C2 /* libRNVectorIcons.a */,
+				D89271E2AB544F728F8223AF /* libReact.a */,
+				599BB5CE411B4D209F414181 /* libyoga.a */,
+				B8763737DC18405B8AECC9D9 /* libcxxreact.a */,
+				7B15E08313B24D54A26B5BE2 /* libjschelpers.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		100563241F490CA00072B16C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +640,7 @@
 				00E356EF1AD99517003FC87E /* ReactOcadCanvasAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				1D4B47CD1E414BC4AECF2687 /* Resources */,
+				1004B30C1F4E5C110060FE2F /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -734,19 +738,27 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = M6F9H8C9UX;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = M6F9H8C9UX;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = M6F9H8C9UX;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = M6F9H8C9UX;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1072,19 +1084,9 @@
 				103222621F4BC76300B4F729 /* Zocial.ttf in Resources */,
 				1032225D1F4BC76300B4F729 /* Ionicons.ttf in Resources */,
 				1032225A1F4BC76300B4F729 /* EvilIcons.ttf in Resources */,
-				DDE49F9F215C4284A62DF2DE /* EvilIcons.ttf in Resources */,
 				8F257F0809C64912B390AD62 /* FontAwesome.ttf in Resources */,
-				415E788DCDC4404D8440F490 /* Foundation.ttf in Resources */,
 				103222601F4BC76300B4F729 /* Octicons.ttf in Resources */,
-				FD2E3B21377641078381B330 /* Ionicons.ttf in Resources */,
-				103222591F4BC76300B4F729 /* Entypo.ttf in Resources */,
 				BF8FF1E7C57D4674B7B04E96 /* MaterialCommunityIcons.ttf in Resources */,
-				DAA19E30EFC74EB59713877D /* MaterialIcons.ttf in Resources */,
-				1032225B1F4BC76300B4F729 /* FontAwesome.ttf in Resources */,
-				828CC983EBC94AE6B458B904 /* Octicons.ttf in Resources */,
-				AB9303E922C84FE1AEE12930 /* SimpleLineIcons.ttf in Resources */,
-				1032225E1F4BC76300B4F729 /* MaterialCommunityIcons.ttf in Resources */,
-				B103D5AF036745B090FACC70 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,6 +1205,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1229,7 +1233,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactOcadCanvasApp.app/ReactOcadCanvasApp";
 			};
 			name = Debug;
@@ -1238,7 +1244,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1261,7 +1269,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactOcadCanvasApp.app/ReactOcadCanvasApp";
 			};
 			name = Release;
@@ -1270,8 +1280,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1279,13 +1291,17 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 				);
 				INFOPLIST_FILE = ReactOcadCanvasApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ReactOcadCanvasApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1294,7 +1310,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1302,13 +1320,17 @@
 					"$(SRCROOT)/../node_modules/react-native-i18n/RNI18n",
 				);
 				INFOPLIST_FILE = ReactOcadCanvasApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ReactOcadCanvasApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1322,7 +1344,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1348,9 +1372,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ReactOcadCanvasApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Debug;
 		};
@@ -1363,8 +1388,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1389,9 +1416,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ReactOcadCanvasApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 10.2;
 			};
 			name = Release;
 		};
@@ -1403,7 +1431,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ReactOcadCanvasApp-tvOSTests/Info.plist";
@@ -1419,6 +1449,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ReactOcadCanvasApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactOcadCanvasApp-tvOS.app/ReactOcadCanvasApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
@@ -1433,8 +1464,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M6F9H8C9UX;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ReactOcadCanvasApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1449,6 +1482,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ReactOcadCanvasApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReactOcadCanvasApp-tvOS.app/ReactOcadCanvasApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
@@ -1468,15 +1502,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1489,7 +1527,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1509,8 +1547,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1518,13 +1558,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

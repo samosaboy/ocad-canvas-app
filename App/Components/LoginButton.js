@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Modal } from 'react-native'
 import DebugConfig from '../Config/DebugConfig'
 import RoundedButton from './RoundedButton'
-import APITestingScreen from '../Containers/CoursesScreen'
+import APITestingScreen from '../Modules/Courses/CoursesScreen'
 
 export default class DevscreensButton extends React.Component {
   constructor (props) {

@@ -15,8 +15,10 @@ const colors = {
   windowTint: 'rgba(0, 0, 0, 0.4)',
   panther: '#161616',
   charcoal: '#595959',
+  ios: '#43484D',
   coal: '#2d2d2d',
   bloodOrange: '#F9674E',
+  blue: '#3D5BE8',
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',
@@ -26,6 +28,7 @@ const colors = {
   text: '#E0D7E5',
   borderLight: '#E8E8E8',
   lightGrey: '#ADADAD',
+  lighterGrey: '#DBDBDB',
   darkGrey: '#919191'
 }
 

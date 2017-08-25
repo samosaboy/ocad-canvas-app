@@ -2,16 +2,16 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { ScrollView, FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
-import API from '../Services/Api'
-import styles from './Styles/CourseScreenStyles'
-import ScreenLadda from '../Components/ScreenLadda'
+import API from '../../Services/Api'
+import styles from './CourseScreenStyles'
+import ScreenLadda from '../../Components/ScreenLadda'
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: 'My Courses',
     tabBarLabel: 'Courses',
     tabBarIcon: ({tintColor}) => (
-      <Icon name='ios-cube-outline' size={25} style={{color: tintColor}} />
+      <Icon name='ios-cube' size={30} style={{color: tintColor}} />
     )
   })
   api = {}
@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount () {
-    return this.api.getCourses()
+    this.api.getCourses()
       .then((response) => {
         this.setState({ courseList: response.data, loading: false })
       }).catch((e) => {
