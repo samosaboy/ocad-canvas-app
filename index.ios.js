@@ -26,17 +26,4 @@ Navigation.startTabBasedApp({
   }
 })
 
-// TODO: Like this
-// const tabs = [{
-//   label: 'Navigation',
-//   screen: 'example.Types',
-//   icon: require('../img/list.png'),
-//   title: 'Navigation Types',
-// }, {
-//   label: 'Actions',
-//   screen: 'example.Actions',
-//   icon: require('../img/swap.png'),
-//   title: 'Navigation Actions',
-// }];
-
 AppRegistry.registerComponent('ReactOcadCanvasApp', () => App)

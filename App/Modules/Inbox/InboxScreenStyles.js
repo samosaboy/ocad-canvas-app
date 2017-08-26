@@ -116,10 +116,15 @@ export default StyleSheet.create({
   lightBoxContainer: {
     width: width(100)
   },
+  textLabel: {
+    fontSize: Fonts.size.medium,
+    marginLeft: 0
+  },
   textInput: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    width: width(100)
+    fontSize: Fonts.size.medium,
+    width: width(100),
+    height: 200,
+    paddingLeft: 0
   },
   ...Containers
 })
