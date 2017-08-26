@@ -1,12 +1,13 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Fonts } from '../../Common/index'
-
-export default StyleSheet.create({
-  header: {
-    backgroundColor: Colors.white
-  },
-  label: {
-    fontSize: Fonts.size.medium,
-    paddingBottom: 1
-  }
-})
+export const navigatorStyle = {
+  navBarTextFontSize: 14,
+  navBarButtonColor: '#000000',
+  navBarHideOnScroll: true,
+  // drawUnderNavBar: true,
+  drawUnderTabBar: true,
+  // navBarBlur: true,
+  navBarTranslucent: true,
+  statusBarHideWithNavBar: true,
+  screenBackgroundColor: '#E9E9EF',
+  navBarButtonFontWeight: '300',
+  navBarLeftButtonFontWeight: '300'
+}

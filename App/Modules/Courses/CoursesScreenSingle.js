@@ -7,13 +7,9 @@ import { Text } from 'react-native'
 // import ScreenLadda from '../Components/ScreenLadda'
 
 export default class CoursesScreenSingle extends React.Component {
-  static navigationOptions = ({navigation}) => ({
-    title: `${navigation.state.params.name}`
-  })
-
   render () {
     return (
-      <Text>{this.props.navigation.state.params.id}</Text>
+      <Text key={this.props.id}>{this.props.id}</Text>
     )
   }
 }

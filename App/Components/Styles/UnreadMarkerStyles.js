@@ -8,6 +8,7 @@ export default StyleSheet.create({
     borderRadius: 100 / 2,
     backgroundColor: Colors.blue,
     alignSelf: 'center',
-    marginRight: 15
+    marginRight: 15,
+    marginLeft: 15
   }
 })

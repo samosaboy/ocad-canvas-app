@@ -34,6 +34,10 @@ const Containers = {
   },
   homeContainer: {
     backgroundColor: Colors.white
+  },
+  noBorderContainer: {
+    borderBottomWidth: 0,
+    borderTopWidth: 0
   }
 }
 

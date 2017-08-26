@@ -1,23 +1,22 @@
-// import _ from 'lodash'
 import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { ScrollView, FlatList, StatusBar, View, Text, TouchableHighlight } from 'react-native'
+import { ScrollView, FlatList, View, Text, TouchableHighlight } from 'react-native'
 import API from '../../Services/Api'
 import styles from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
+import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import { IconsMap, IconsLoaded } from '../../Common/Icons'
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = ({navigation}) => ({
-    title: 'My Courses',
-    tabBarLabel: 'Courses',
-    tabBarIcon: ({tintColor}) => (
-      <Icon name='ios-cube' size={30} style={{color: tintColor}} />
-    )
-  })
+export default class CoursesScreen extends React.Component {
+  static navigatorStyle = {
+    ...navigatorStyle,
+    navBarHideOnScroll: false,
+    statusBarHideWithNavBar: false
+  }
   api = {}
 
   constructor (props) {
     super(props)
+    this._renderNavButtons()
     this.state = {
       courseList: [],
       loading: true
@@ -34,10 +33,24 @@ export default class HomeScreen extends React.Component {
       })
   }
 
+  _renderNavButtons () {
+    IconsLoaded.then(() => {
+      this.props.navigator.setTabButton({
+        icon: IconsMap['courses'],
+        selectedIconColor: '#FFFFFF'
+      })
+    })
+  }
+
   _getCourseDetails = (id, name) => {
     // send ID down as a prop?
-    const { navigate } = this.props.navigation
-    navigate('SingleCourseView', { id, name: this._showCourseName(name) })
+    this.props.navigator.push({
+      screen: 'SingleCourseView',
+      passProps: {
+        id,
+        name
+      }
+    })
     this.api.getCourseActivity(id)
       .then((response) => {
         console.tron.log(response.data)
@@ -91,9 +104,6 @@ export default class HomeScreen extends React.Component {
     }
     return (
       <View style={styles.homeContainer}>
-        <StatusBar
-          barStyle='dark-content'
-        />
         <View style={styles.groupContainer}>
           <FlatList
             data={this.state.courseList}

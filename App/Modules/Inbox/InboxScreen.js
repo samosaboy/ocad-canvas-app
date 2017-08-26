@@ -1,21 +1,29 @@
 import _ from 'lodash'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Text, FlatList, View } from 'react-native'
+import { AlertIOS, Text, FlatList, View } from 'react-native'
 import API from '../../Services/Api'
-import moment from 'moment'
 import { ListItem } from 'react-native-elements'
 import styles from './InboxScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 import UnreadMarker from '../../Components/UnreadMarker'
+import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import { IconsMap, IconsLoaded } from '../../Common/Icons'
 
 export default class InboxScreen extends React.Component {
-  static navigationOptions = {
-    title: `My Messages (${this.unread})`,
-    tabBarLabel: 'Inbox',
-    tabBarIcon: ({tintColor}) => (
-      <Icon name='ios-chatboxes' size={30} style={{color: tintColor}} />
-    )
+  static navigatorStyle = {
+    ...navigatorStyle
+  }
+  static navigatorButtons = {
+    rightButtons: [
+      {
+        title: 'New',
+        id: 'new',
+        disabled: false,
+        disableIconTint: false,
+        showAsAction: 'ifRoom'
+      }
+    ]
   }
   api = {}
 
@@ -25,28 +33,109 @@ export default class InboxScreen extends React.Component {
       messages: [],
       count: 10,
       page: 1,
-      loading: true
+      loading: true,
+      refreshing: false,
+      unreadCounter: null
     }
     this.api = API.create()
-    this.now = null
-    this.unread = 0
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+    this._renderNavComponents()
+  }
+
+  _renderNavComponents () {
+    IconsLoaded.then(() => {
+      this.props.navigator.setTabButton({
+        icon: IconsMap['message']
+      })
+      this.props.navigator.setButtons({
+        rightButtons: [
+          {
+            title: 'New',
+            id: 'new',
+            disabled: false,
+            disableIconTint: false,
+            showAsAction: 'ifRoom',
+            icon: IconsMap['compose']
+          }
+        ]
+      })
+    })
+  }
+
+  onNavigatorEvent (event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'new') {
+        this.props.navigator.showModal({
+          screen: 'CreateMessage',
+          title: 'Compose'
+        })
+      }
+    }
   }
 
   componentDidMount () {
-    this.api.getUserUnreadCount()
-      .then((response) => {
-        this.unread = response.data.unread_count
-        console.log(this.unread)
-      })
+    this._getUnreadCount()
     this._getConversations(this.state.count, this.state.page)
   }
 
-  _getConversations (count) {
-    this.now = moment().milliseconds()
+  _getConversations = () => {
     this.api.getUserConversations(this.state.count, this.state.page)
       .then((response) => {
-        this.setState({ messages: this.state.messages.concat(response.data), loading: false, page: this.state.page + 1 })
+        this.setState(
+          {
+            messages: [...this.state.messages, ...response.data],
+            loading: false,
+            refreshing: false
+          })
       })
+  }
+
+  _getUnreadCount = () => {
+    this.api.getUserUnreadCount()
+      .then((response) => {
+        this.props.navigator.setTabBadge({
+          badge: response.data.unread_count > 0 ? response.data.unread_count : null
+        })
+      })
+  }
+
+  _getUnreadCountAfter = () => {
+    this.api.getUserUnreadCount()
+      .then((response) => {
+        this.props.navigator.setTabBadge({
+          badge: (response.data.unread_count - 1 !== 0 && response.data.unread_count - 1 !== -1) ? response.data.unread_count - 1 : null
+        })
+      })
+  }
+
+  _getMoreConversations = () => {
+    this.setState(
+      { page: this.state.page + 1 },
+      () => {
+        this._getConversations()
+        // this._getUnreadCount() don't need right for infinite scroll
+      }
+    )
+  }
+
+  _onRefresh = () => {
+    this.setState(
+      { page: 1, refreshing: true },
+      () => {
+        this.api.getUserConversations(this.state.count, 1, 'unread')
+          .then((response) => {
+            _.forEach(response.data, newMessages => {
+              if (!_.some(this.state.messages, ['id', newMessages.id])) {
+                this.setState({ messages: [...response.data, ...this.state.messages], refreshing: false })
+              }
+            })
+            this.setState({ refreshing: false })
+            this._getUnreadCount()
+          }).catch(() => {
+            this.setState({ refreshing: false })
+          })
+      }
+    )
   }
 
   _removeLineBreaks = (message) => {
@@ -81,8 +170,15 @@ export default class InboxScreen extends React.Component {
     _.filter(markedAsRead, ['id', id])[0].workflow_state = 'read'
     this.setState({ messages: markedAsRead })
     // send ID down as a prop?
-    const { navigate } = this.props.navigation
-    navigate('SingleConversationView', { id, subject })
+    this.props.navigator.push({
+      screen: 'SingleConversationView',
+      backButtonTitle: '',
+      passProps: {
+        id,
+        subject
+      }
+    })
+    this._getUnreadCountAfter()
   }
 
   render () {
@@ -92,16 +188,15 @@ export default class InboxScreen extends React.Component {
       )
     }
     return (
+      // TODO: Fix group messages (currently shows the first avatar and name in a group message)
       <View>
         <FlatList
-          refreshing={this.state.loading}
+          refreshing={this.state.refreshing}
           data={this.state.messages}
-          keyExtractor={(item, index) => item.id} // cant use index b/c they are duplicates
-          onEndReached={({ distanceFromEnd }) => {
-            this._getConversations(this.state.count, this.state.page)
-          }}
-          onEndReachedThreshold={0.5}
-          onRefresh={() => this._getConversations(this.state.count, this.state.page)}
+          keyExtractor={(item, index) => item.id * index} // cant use index b/c they are duplicates
+          onEndReached={this._getMoreConversations}
+          onEndReachedThreshold={0}
+          onRefresh={this._onRefresh.bind(this)}
           renderItem={({ item }) => (
             <ListItem
               roundAvatar

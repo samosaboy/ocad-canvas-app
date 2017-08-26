@@ -14,7 +14,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   // Required
   const getCourses = () => api.get('courses', { 'enrollment_state': 'active', 'per_page': '50' }) // implement scroll down to fetch more (do 10 at a time)
   // Users
-  const getUserConversations = (count, page) => api.get('conversations', { include: 'participant_avatars', 'per_page': count, 'page': page })
+  const getUserConversations = (count, page, type?) => api.get('conversations', { include: 'participant_avatars', 'per_page': count, 'page': page, scope: type })
   const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`)
   const getUserUnreadCount = () => api.get('conversations/unread_count')
   const editUserConversationSingle = (conversationId, params) => api.put(`conversations/${conversationId}?${params}`)
