@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Containers, Colors, Fonts } from '../../Common/index'
-import { width, height, totalSize } from 'react-native-dimension'
+import { width } from 'react-native-dimension'
 
 export default StyleSheet.create({
   messageContainer: {

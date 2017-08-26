@@ -19,8 +19,7 @@ let IconsLoaded = new Promise((resolve, reject) => {
         icons[iconName][3]
       ))
   ).then(sources => {
-    Object.keys(icons)
-      .forEach((iconName, idx) => IconsMap[iconName] = sources[idx])
+    Object.keys(icons).forEach((iconName, idx) => (IconsMap[iconName] = sources[idx]))
     resolve(true)
   })
   .catch(err => reject(err))

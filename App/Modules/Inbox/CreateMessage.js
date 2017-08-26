@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text, View, Picker, TextInput } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
-import { Card, List, ListItem} from 'react-native-elements'
+import { List, ListItem } from 'react-native-elements'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import styles from './InboxScreenStyles'
 

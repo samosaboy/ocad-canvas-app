@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { AlertIOS, Text, FlatList, View } from 'react-native'
+import { Text, FlatList, View } from 'react-native'
 import API from '../../Services/Api'
 import { ListItem } from 'react-native-elements'
 import styles from './InboxScreenStyles'

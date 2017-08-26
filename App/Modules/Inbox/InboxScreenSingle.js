@@ -12,7 +12,6 @@ import { Colors } from '../../Common/index'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 
-
 export default class CoursesScreenSingle extends React.Component {
   static navigatorStyle = {
     ...navigatorStyle,
