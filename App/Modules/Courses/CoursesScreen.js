@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { ScrollView, FlatList, View, Text, TouchableHighlight } from 'react-native'
 import API from '../../Services/Api'
 import styles from './CourseScreenStyles'
@@ -7,6 +7,10 @@ import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 
 export default class CoursesScreen extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+    fetching: PropTypes.bool
+  }
   static navigatorStyle = {
     ...navigatorStyle,
     navBarHideOnScroll: false,
@@ -33,6 +37,10 @@ export default class CoursesScreen extends React.Component {
       })
   }
 
+  getCourseList = (courseList) => {
+    this.props.getCourseList(courseList)
+  }
+
   _renderNavButtons () {
     IconsLoaded.then(() => {
       this.props.navigator.setTabButton({
@@ -53,7 +61,7 @@ export default class CoursesScreen extends React.Component {
     })
     this.api.getCourseActivity(id)
       .then((response) => {
-        console.tron.log(response.data)
+        console.log(response.data)
       })
   }
 

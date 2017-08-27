@@ -5,6 +5,7 @@ import SingleCourseView from '../Modules/Courses/CoursesScreenSingle'
 import SingleConversationView from '../Modules/Inbox/InboxScreenSingle'
 import SingleConversationViewListParticipants from '../Modules/Inbox/InboxScreenSingleAllParticipants'
 import CreateMessage from '../Modules/Inbox/CreateMessage'
+import CreateMessageSelectCourse from '../Modules/Inbox/CreateMessageSelectCourse'
 
 export function registerScreens () {
   Navigation.registerComponent('CoursesScreen', () => CoursesScreen)
@@ -13,4 +14,5 @@ export function registerScreens () {
   Navigation.registerComponent('SingleConversationView', () => SingleConversationView)
   Navigation.registerComponent('SingleConversationViewListParticipants', () => SingleConversationViewListParticipants)
   Navigation.registerComponent('CreateMessage', () => CreateMessage)
+  Navigation.registerComponent('CreateMessageSelectCourse', () => CreateMessageSelectCourse)
 }

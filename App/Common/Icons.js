@@ -4,8 +4,9 @@ const icons = {
   'compose': [Ionicons, 'ios-create-outline', 25, '#000000'],
   'send': [Ionicons, 'ios-send-outline', 30, '#000000'],
   'close': [Ionicons, 'ios-close', 35, '#000000'],
-  'message': [Ionicons, 'ios-mail-outline', 25, '#000000'],
-  'courses': [Ionicons, 'ios-easel-outline', 25, '#000000']
+  // Tabs
+  'message': [Ionicons, 'ios-mail-outline', 35, '#000000'],
+  'courses': [Ionicons, 'ios-easel-outline', 30, '#000000']
 }
 
 let IconsMap = {}

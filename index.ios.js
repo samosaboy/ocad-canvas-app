@@ -1,8 +1,9 @@
-import './App/Config/ReactotronConfig'
 import { AppRegistry } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { registerScreens } from './App/Navigation/AppNavigation'
 import App from './App/Modules/App'
+
+import './App/Config/ReactotronConfig'
 
 registerScreens()
 
@@ -22,7 +23,7 @@ Navigation.startTabBasedApp({
   ],
   tabsStyle: {
     tabBarSelectedButtonColor: '#000000',
-    initialTabIndex: 1 // TODO: Change later
+    initialTabIndex: 0 // TODO: Change later
   }
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Picker, Alert, ScrollView, TextInput } from 'react-native'
+import { Text, Alert, ScrollView, TextInput } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { List, ListItem } from 'react-native-elements'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
@@ -18,8 +18,6 @@ export default class CreateMessageScreen extends React.Component {
     super(props)
     this.state = {
       courseList: [],
-      selectedCourse: {},
-      selectedUser: null,
       text: ''
     }
     this.api = API.create()
@@ -90,19 +88,33 @@ export default class CreateMessageScreen extends React.Component {
     }
   }
 
+  _popupCourseList () {
+    this.props.navigator.showLightBox({
+      screen: 'CreateMessageSelectCourse',
+      adjustSoftInput: 'resize',
+      passProps: {
+        courseList: this.state.courseList
+      },
+      style: {
+        backgroundBlur: 'light',
+        backgroundColor: '#00000080'
+      }
+    })
+  }
+
   render () {
     // Fetch list of user's courses
     // On click -> fetch participants of that course
     // On click -> use that user_id for creation of message
     return (
       <ScrollView>
-        <Picker onValueChange={(value, index) => this.setState({ selectedCourse: value })}>
-          {
-            this.state.courseList.map((course) => (
-              <Picker.Item key={course.id} label={course.name} value={course.id} />
-            ))
-          }
-        </Picker>
+        <Text>{this.props.selectedId}</Text>
+        <List>
+          <ListItem
+            title={this.props.selectedName}
+            onPress={() => this._popupCourseList()}
+          />
+        </List>
         <List>
           <ListItem
             hideChevron
