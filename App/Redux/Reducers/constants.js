@@ -1,1 +1,2 @@
 export const RETRIEVE_COURSE_LIST = 'RETRIEVE_COURSE_LIST'
+export const IS_LOADING = 'IS_LOADING'

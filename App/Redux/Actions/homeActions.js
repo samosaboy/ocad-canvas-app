@@ -11,14 +11,22 @@ export function retrieveCoursesSuccess (res: Object) {
   }
 }
 
+export function isLoading (bool) {
+  return {
+    type: types.IS_LOADING,
+    isLoading: bool
+  }
+}
+
 export function retrieveCourses () {
   return function (dispatch) {
     return this.api.getCourses()
       .then(res => {
         dispatch(retrieveCoursesSuccess(res))
+        dispatch(isLoading(false))
       })
-      .catch(error => {
-        console.log(error)
+      .catch(() => {
+        dispatch(isLoading(true))
       })
   }
 }

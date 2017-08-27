@@ -25,8 +25,7 @@ class CoursesScreen extends Component {
     super(props)
     this._renderNavButtons()
     this.state = {
-      // courseList: [],
-      loading: false
+      loading: true
     }
     this.api = API.create()
   }
@@ -109,7 +108,7 @@ class CoursesScreen extends Component {
   }
 
   render () {
-    if (this.state.loading) {
+    if (this.props.isLoaded) {
       return (
         <ScreenLadda text={'Populating Courses'} />
       )
@@ -131,7 +130,8 @@ class CoursesScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     courseList: state.courseReducer.courseList,
-    userId: state.courseReducer.userId
+    userId: state.courseReducer.userId,
+    isLoaded: state.itemLoadReducer.isLoading
   }
 }
 

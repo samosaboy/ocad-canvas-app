@@ -1,14 +1,12 @@
 import * as types from './constants'
 
 const initialState = {
-  userId: null,
-  courseList: []
+  isLoading: true
 }
 
-// All kinds of ajax requests and logic/conditions to update state of store can be defined in this file.
 export default function (state = initialState, action) {
   switch (action.type) {
-    case types.RETRIEVE_COURSE_LIST:
+    case types.IS_LOADING:
       return {
         ...action
       }
