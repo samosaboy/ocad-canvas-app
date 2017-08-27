@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
-import App from './App/Modules/App'
+import App from './App/App'
 
 AppRegistry.registerComponent('ReactOcadCanvasApp', () => App)

@@ -1,16 +1,19 @@
-import React, { PropTypes } from 'react'
+import React, { Component } from 'react'
 import { ScrollView, FlatList, View, Text, TouchableHighlight } from 'react-native'
 import API from '../../Services/Api'
 import styles from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as homeActions from '../../Redux/Actions/homeActions'
 
-export default class CoursesScreen extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-    fetching: PropTypes.bool
-  }
+class CoursesScreen extends Component {
+  // static propTypes = {
+  //   dispatch: PropTypes.func,
+  //   fetching: PropTypes.bool
+  // }
   static navigatorStyle = {
     ...navigatorStyle,
     navBarHideOnScroll: false,
@@ -22,23 +25,24 @@ export default class CoursesScreen extends React.Component {
     super(props)
     this._renderNavButtons()
     this.state = {
-      courseList: [],
-      loading: true
+      // courseList: [],
+      loading: false
     }
     this.api = API.create()
   }
 
   componentDidMount () {
-    this.api.getCourses()
-      .then((response) => {
-        this.setState({ courseList: response.data, loading: false })
-      }).catch((e) => {
-        console.log(e)
-      })
+    this.props.actions.retrieveCourses()
+    // this.api.getCourses()
+    //   .then((response) => {
+    //     this.setState({ courseList: response.data, loading: false })
+    //   }).catch((e) => {
+    //     console.log(e)
+    //   })
   }
 
   getCourseList = (courseList) => {
-    this.props.getCourseList(courseList)
+    this.props.homeActions.getCourseList(courseList)
   }
 
   _renderNavButtons () {
@@ -114,7 +118,7 @@ export default class CoursesScreen extends React.Component {
       <View style={styles.homeContainer}>
         <View style={styles.groupContainer}>
           <FlatList
-            data={this.state.courseList}
+            data={this.props.courseList}
             keyExtractor={item => item.id}
             renderItem={this._filterCourseView}
           />
@@ -123,3 +127,18 @@ export default class CoursesScreen extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    courseList: state.courseReducer.courseList,
+    userId: state.courseReducer.userId
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(homeActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesScreen)
