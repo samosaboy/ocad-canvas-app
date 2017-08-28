@@ -1,12 +1,16 @@
-import React from 'react'
-import { Text, Alert, ScrollView, TextInput } from 'react-native'
+import React, { Component } from 'react'
+import { Alert, ScrollView, TextInput } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import { stringify } from 'qs'
 import { List, ListItem } from 'react-native-elements'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import API from '../../Services/Api'
-import styles from './InboxScreenStyles'
+import styles from './InboxScreenStyles d'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as homeActions from '../../Redux/Actions/homeActions'
 
-export default class CreateMessageScreen extends React.Component {
+class CreateMessageScreen extends Component {
   static navigatorStyle = {
     ...navigatorStyle,
     navBarHideOnScroll: false,
@@ -17,13 +21,20 @@ export default class CreateMessageScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      courseList: [],
-      text: ''
+      message: ''
     }
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
     this._renderNavComponents()
   }
+  //
+  // componentDidMount () {
+  //   console.log(this.props.selectedCourseName)
+  // }
+  //
+  // componentDidUpdate () {
+  //   console.log(this.props)
+  // }
 
   _renderNavComponents () {
     IconsLoaded.then(() => {
@@ -40,8 +51,8 @@ export default class CreateMessageScreen extends React.Component {
         ],
         rightButtons: [
           {
-            title: 'New',
-            id: 'new',
+            title: 'Send',
+            id: 'send',
             disabled: false,
             disableIconTint: false,
             showAsAction: 'ifRoom',
@@ -50,16 +61,6 @@ export default class CreateMessageScreen extends React.Component {
         ]
       })
     })
-  }
-
-  componentDidMount () {
-    this.api.getCourses()
-      .then((response) => {
-        this.setState({ courseList: response.data })
-        console.log(this.state.courseList)
-      }).catch((e) => {
-        console.log(e)
-      })
   }
 
   onNavigatorEvent (event) {
@@ -85,6 +86,14 @@ export default class CreateMessageScreen extends React.Component {
           })
         }
       }
+      if (event.id === 'send') {
+        const queryParams = stringify({ recipients: [this.props.selectedUserId], body: this.state.message }, { arrayFormat: 'brackets' })
+        this.api.postUserConversation(queryParams)
+        this.props.actions.createMessageSent()
+        this.props.navigator.dismissModal({
+          animationType: 'slide-down'
+        })
+      }
     }
   }
 
@@ -92,9 +101,17 @@ export default class CreateMessageScreen extends React.Component {
     this.props.navigator.showLightBox({
       screen: 'CreateMessageSelectCourse',
       adjustSoftInput: 'resize',
-      passProps: {
-        courseList: this.state.courseList
-      },
+      style: {
+        backgroundBlur: 'light',
+        backgroundColor: '#00000080'
+      }
+    })
+  }
+
+  _popupUserList () {
+    this.props.navigator.showLightBox({
+      screen: 'CreateMessageSelectUser',
+      adjustSoftInput: 'resize',
       style: {
         backgroundBlur: 'light',
         backgroundColor: '#00000080'
@@ -108,11 +125,14 @@ export default class CreateMessageScreen extends React.Component {
     // On click -> use that user_id for creation of message
     return (
       <ScrollView>
-        <Text>{this.props.selectedId}</Text>
         <List>
           <ListItem
-            title={this.props.selectedName}
+            title={this.props.courseName ? this.props.courseName : 'Select A Course'}
             onPress={() => this._popupCourseList()}
+          />
+          <ListItem
+            title={this.props.selectedUserName ? this.props.selectedUserName : 'Select A User'}
+            onPress={() => this._popupUserList()}
           />
         </List>
         <List>
@@ -125,8 +145,8 @@ export default class CreateMessageScreen extends React.Component {
                 multiline
                 placeholder='Enter your message'
                 style={styles.textInput}
-                onChangeText={(text) => this.setState({text})}
-                value={this.state.text}
+                onChangeText={(message) => this.setState({ message })}
+                value={this.state.message}
               />
             }
             subtitleContainerStyle={[styles.noBorderContainer]}
@@ -136,3 +156,20 @@ export default class CreateMessageScreen extends React.Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    courseId: state.messageReducer.courseId,
+    courseName: state.messageReducer.courseName,
+    selectedUserId: state.messageReducer.selectedUserId,
+    selectedUserName: state.messageReducer.selectedUserName
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(homeActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateMessageScreen)

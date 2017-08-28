@@ -32,16 +32,6 @@ class CoursesScreen extends Component {
 
   componentDidMount () {
     this.props.actions.retrieveCourses()
-    // this.api.getCourses()
-    //   .then((response) => {
-    //     this.setState({ courseList: response.data, loading: false })
-    //   }).catch((e) => {
-    //     console.log(e)
-    //   })
-  }
-
-  getCourseList = (courseList) => {
-    this.props.homeActions.getCourseList(courseList)
   }
 
   _renderNavButtons () {

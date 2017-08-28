@@ -2,12 +2,15 @@
 
 import { Navigation } from 'react-native-navigation'
 import CoursesScreen from '../Modules/Courses/CoursesScreen'
+
 import InboxScreen from '../Modules/Inbox/InboxScreen'
 import SingleCourseView from '../Modules/Courses/CoursesScreenSingle'
 import SingleConversationView from '../Modules/Inbox/InboxScreenSingle'
 import SingleConversationViewListParticipants from '../Modules/Inbox/InboxScreenSingleAllParticipants'
+
 import CreateMessage from '../Modules/Inbox/CreateMessage'
 import CreateMessageSelectCourse from '../Modules/Inbox/CreateMessageSelectCourse'
+import CreateMessageSelectUser from '../Modules/Inbox/CreateMessageSelectUser'
 
 export function registerScreens (store, Provider) {
   Navigation.registerComponent('CoursesScreen', () => CoursesScreen, store, Provider)
@@ -15,6 +18,7 @@ export function registerScreens (store, Provider) {
   Navigation.registerComponent('SingleCourseView', () => SingleCourseView)
   Navigation.registerComponent('SingleConversationView', () => SingleConversationView)
   Navigation.registerComponent('SingleConversationViewListParticipants', () => SingleConversationViewListParticipants)
-  Navigation.registerComponent('CreateMessage', () => CreateMessage)
-  Navigation.registerComponent('CreateMessageSelectCourse', () => CreateMessageSelectCourse)
+  Navigation.registerComponent('CreateMessage', () => CreateMessage, store, Provider)
+  Navigation.registerComponent('CreateMessageSelectCourse', () => CreateMessageSelectCourse, store, Provider)
+  Navigation.registerComponent('CreateMessageSelectUser', () => CreateMessageSelectUser, store, Provider)
 }
