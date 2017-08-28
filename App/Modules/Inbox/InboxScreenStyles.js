@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Containers, Colors, Fonts } from '../../Common/index'
-import { width } from 'react-native-dimension'
+// import { width } from 'react-native-dimension'
 
 export default StyleSheet.create({
   messageContainer: {
@@ -112,19 +112,6 @@ export default StyleSheet.create({
   conversationThread: {
     borderTopColor: Colors.lighterGrey,
     borderTopWidth: 0
-  },
-  lightBoxContainer: {
-    width: width(100)
-  },
-  textLabel: {
-    fontSize: Fonts.size.medium,
-    marginLeft: 0
-  },
-  textInput: {
-    fontSize: Fonts.size.medium,
-    width: width(100),
-    height: 200,
-    paddingLeft: 0
   },
   ...Containers
 })

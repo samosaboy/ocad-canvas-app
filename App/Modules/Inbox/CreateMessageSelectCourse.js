@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
-// import { View, Text } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { List, ListItem } from 'react-native-elements'
-import API from '../../Services/Api'
+import { navigatorLightBoxStyle } from '../../Navigation/Styles/LightBoxStyles'
+import styles from './CreateMessageStyles'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CreateMessageSelectCourse extends Component {
-  api = {}
-
+  static navigatorStyle = {
+    ...navigatorLightBoxStyle
+  }
   constructor (props) {
     super(props)
     this.state = {
       text: ''
     }
-    this.api = API.create()
+  }
+
+  _closeModal () {
+    this.props.navigator.dismissLightBox()
   }
 
   _dismissCourseListView (id, name) {
@@ -24,18 +30,27 @@ class CreateMessageSelectCourse extends Component {
   }
 
   render () {
+    // TODO: Come back to the way you add Icons here...
     return (
-      <List>
-        {
-          this.props.courseList.map((course) => (
-            <ListItem
-              title={course.name}
-              key={course.id}
-              onPress={() => this._dismissCourseListView(course.id, course.name)}
-            />
-          ))
-        }
-      </List>
+      <View style={styles.lightBoxContainer}>
+        <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
+          <Icon name='ios-close' size={40} color='#000000' />
+        </TouchableOpacity>
+        <View style={styles.lightBoxContent}>
+          <List style={{ marginTop: 0 }}>
+            {
+              this.props.courseList.map((course) => (
+                <ListItem
+                  title={course.name}
+                  key={course.id}
+                  style={styles.lightBoxList}
+                  onPress={() => this._dismissCourseListView(course.id, course.name)}
+                />
+              ))
+            }
+          </List>
+        </View>
+      </View>
     )
   }
 }

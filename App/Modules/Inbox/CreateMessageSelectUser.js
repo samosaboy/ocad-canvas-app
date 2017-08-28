@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View, ScrollView } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { List, ListItem } from 'react-native-elements'
-import API from '../../Services/Api'
+import styles from './CreateMessageStyles'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CreateMessageSelectUser extends Component {
-  api = {}
-
   constructor (props) {
     super(props)
     this.state = {
       text: ''
     }
-    this.api = API.create()
+  }
+
+  _closeModal () {
+    this.props.navigator.dismissLightBox()
   }
 
   _dismissCourseListView (id, name) {
@@ -23,27 +25,48 @@ class CreateMessageSelectUser extends Component {
   }
 
   render () {
-    // return (
-    //   <View>
-    //     <Text>{this.props.courseId}</Text>
-    //   </View>
-    // )
+    // TODO: Come back to the way you add Icons here...
     return (
-      <View>
-        <List>
-          {
+      <View style={styles.lightBoxContainer}>
+        <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
+          <Icon name='ios-close' size={40} color='#000000' />
+        </TouchableOpacity>
+        <ScrollView style={styles.lightBoxContent}>
+          <List style={{ marginTop: 0 }}>
+            {
             this.props.possibleUsers.map((user) => (
               <ListItem
                 title={user.name}
                 key={user.id}
+                style={styles.lightBoxList}
                 onPress={() => this._dismissCourseListView(user.id, user.name)}
               />
             ))
           }
-        </List>
+          </List>
+        </ScrollView>
       </View>
     )
   }
+
+//   render () {
+//     return (
+//       <View>
+//         <List>
+//           {
+//             this.props.possibleUsers.map((user) => (
+//               <ListItem
+//                 title={user.name}
+//                 key={user.id}
+//                 onPress={() => this._dismissCourseListView(user.id, user.name)}
+//               />
+//             ))
+//           }
+//         </List>
+//       </View>
+//     )
+//   }
+// }
 }
 
 const mapStateToProps = (state) => {

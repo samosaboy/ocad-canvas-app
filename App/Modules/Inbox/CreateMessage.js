@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Alert, ScrollView, TextInput } from 'react-native'
+import { Text, Alert, ScrollView, TextInput, View } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { stringify } from 'qs'
-import { List, ListItem } from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import API from '../../Services/Api'
-import styles from './InboxScreenStyles d'
+import styles from './CreateMessageStyles'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as homeActions from '../../Redux/Actions/homeActions'
@@ -21,20 +21,13 @@ class CreateMessageScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      errorMessage: null,
       message: ''
     }
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
     this._renderNavComponents()
   }
-  //
-  // componentDidMount () {
-  //   console.log(this.props.selectedCourseName)
-  // }
-  //
-  // componentDidUpdate () {
-  //   console.log(this.props)
-  // }
 
   _renderNavComponents () {
     IconsLoaded.then(() => {
@@ -66,33 +59,47 @@ class CreateMessageScreen extends Component {
   onNavigatorEvent (event) {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'cancel') {
-        if (this.state.text) {
+        if (this.state.text || this.props.courseId || this.props.selectedUserId) {
           Alert.alert(
             'Are you sure?',
             'You will lose the contents of this message if you continue.',
             [
-              { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-              { text: 'Continue',
+              {text: 'Cancel', style: 'cancel'},
+              {
+                text: 'Continue',
                 onPress: () => {
+                  this.props.actions.createMessageSent()
                   this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                   })
                 }
               }
-            ], { cancelable: false })
+            ])
         } else if (!this.state.text) {
+          this.props.actions.createMessageSent()
           this.props.navigator.dismissModal({
             animationType: 'slide-down'
           })
         }
       }
       if (event.id === 'send') {
-        const queryParams = stringify({ recipients: [this.props.selectedUserId], body: this.state.message }, { arrayFormat: 'brackets' })
-        this.api.postUserConversation(queryParams)
-        this.props.actions.createMessageSent()
-        this.props.navigator.dismissModal({
-          animationType: 'slide-down'
-        })
+        if (this.state.message && this.props.courseId && this.props.selectedUserId) {
+          const queryParams = stringify({
+            recipients: [this.props.selectedUserId],
+            body: this.state.message
+          }, {arrayFormat: 'brackets'})
+          this.api.postUserConversation(queryParams)
+          this.props.actions.createMessageSent()
+          Alert.alert('Success', 'Message sent!')
+          this.props.navigator.dismissModal({
+            animationType: 'slide-down'
+          })
+        } else if (!this.state.text || !this.props.courseId || !this.props.selectedUserId) {
+          Alert.alert(
+            'Error',
+            'You must pick a user and have a message.',
+            {cancelable: false})
+        }
       }
     }
   }
@@ -103,20 +110,26 @@ class CreateMessageScreen extends Component {
       adjustSoftInput: 'resize',
       style: {
         backgroundBlur: 'light',
-        backgroundColor: '#00000080'
+        backgroundColor: '#00000030'
       }
     })
   }
 
-  _popupUserList () {
-    this.props.navigator.showLightBox({
-      screen: 'CreateMessageSelectUser',
-      adjustSoftInput: 'resize',
-      style: {
-        backgroundBlur: 'light',
-        backgroundColor: '#00000080'
-      }
-    })
+  _popupUserList (e) {
+    if (this.props.courseId) {
+      this.setState({ errorMessage: null })
+      this.props.navigator.showLightBox({
+        screen: 'CreateMessageSelectUser',
+        adjustSoftInput: 'resize',
+        style: {
+          backgroundBlur: 'light',
+          backgroundColor: '#00000030'
+        }
+      })
+    }
+    if (e && !this.props.courseId) {
+      this.setState({ errorMessage: 'You must first select a course' })
+    }
   }
 
   render () {
@@ -125,17 +138,16 @@ class CreateMessageScreen extends Component {
     // On click -> use that user_id for creation of message
     return (
       <ScrollView>
-        <List>
+        <View style={{ backgroundColor: '#FFF' }}>
           <ListItem
             title={this.props.courseName ? this.props.courseName : 'Select A Course'}
             onPress={() => this._popupCourseList()}
           />
           <ListItem
             title={this.props.selectedUserName ? this.props.selectedUserName : 'Select A User'}
-            onPress={() => this._popupUserList()}
+            subtitle={this.state.errorMessage && !this.props.courseName ? <Text style={styles.textError}>{this.state.errorMessage}</Text> : null}
+            onPress={(e) => this._popupUserList(e)}
           />
-        </List>
-        <List>
           <ListItem
             hideChevron
             // title='Test'
@@ -151,7 +163,7 @@ class CreateMessageScreen extends Component {
             }
             subtitleContainerStyle={[styles.noBorderContainer]}
           />
-        </List>
+        </View>
       </ScrollView>
     )
   }

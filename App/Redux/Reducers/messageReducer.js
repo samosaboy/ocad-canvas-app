@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
       }
     case types.CREATE_MESSAGE_SENT:
       return {
-        state: initialState
+        state: null
       }
     default:
       return state
