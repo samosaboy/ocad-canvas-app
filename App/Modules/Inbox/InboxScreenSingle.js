@@ -49,7 +49,7 @@ export default class CoursesScreenSingle extends React.Component {
     }
   }
 
-  _showIcon = (type) => { // do switch case
+  _showIcon = (type) => {
     switch (type) {
       case 'pdf':
         return (<Icon type='octicons' name='file-pdf' size={20} />)
@@ -69,7 +69,6 @@ export default class CoursesScreenSingle extends React.Component {
   _getConversationParticipants = (members) => {
     this.props.navigator.push({
       screen: 'SingleConversationViewListParticipants',
-      backButtonTitle: '',
       passProps: {
         members
       }
@@ -106,16 +105,18 @@ export default class CoursesScreenSingle extends React.Component {
         <View style={styles.seeAll}>
           <ListItem
             // title={this._showCourseName(this.state.messages.context_name)}
-            title='Sent through course'
+            subtitle='Sent through course'
             hideChevron
-            subtitle={this.state.messages.context_name}
-            onPress={() => this._getConversationParticipants(this.state.messages.participants)}
+            title={this.state.messages.context_name}
+            // onPress={() => this._getConversationParticipants(this.state.messages.participants)}
             subtitleStyle={styles.courseNameTitle}
             titleStyle={styles.courseNameSubtitle}
+            containerStyle={{ paddingRight: 20, borderBottomWidth: 0.5 }}
           />
           <ListItem
             // title={this._showCourseName(this.state.messages.context_name)}
             title='See all in conversation'
+            containerStyle={{ borderBottomWidth: 0.5 }}
             badge={{value: this.state.messages.participants.length, textStyle: styles.messageCountText, containerStyle: styles.messageCount}}
             onPress={() => this._getConversationParticipants(this.state.messages.participants)}
           />

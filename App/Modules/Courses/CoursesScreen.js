@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { ScrollView, FlatList, View, Text, TouchableHighlight } from 'react-native'
+import { SegmentedControlIOS, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import API from '../../Services/Api'
-import styles from './CourseScreenStyles'
+import { styles } from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CoursesScreen extends Component {
@@ -25,13 +26,14 @@ class CoursesScreen extends Component {
     super(props)
     this._renderNavButtons()
     this.state = {
+      courseState: 0,
       loading: true
     }
     this.api = API.create()
   }
 
   componentDidMount () {
-    this.props.actions.retrieveCourses()
+    this.props.actions.retrieveCourses('active')
   }
 
   _renderNavButtons () {
@@ -86,15 +88,24 @@ class CoursesScreen extends Component {
 
   _filterCourseView = ({item}) => {
     return (
-      <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-        <TouchableHighlight onPress={() => this._getCourseDetails(item.id, item.course_code)}>
-          <View style={styles.courseBox}>
-            <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
-            <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
-          </View>
-        </TouchableHighlight>
-      </ScrollView>
+      <TouchableOpacity onPress={() => this._getCourseDetails(item.id, item.course_code)}>
+        <View style={EStyleSheet.child(styles, 'courseBox', item, item.length)}>
+          <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
+          <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
+        </View>
+      </TouchableOpacity>
     )
+  }
+
+  _changeCourseType = (value) => {
+    if (value === 'All') {
+      this.props.actions.retrieveCourses('completed')
+      this.setState({ courseState: 1 })
+    }
+    if (value === 'Current') {
+      this.props.actions.retrieveCourses('active')
+      this.setState({ courseState: 0 })
+    }
   }
 
   render () {
@@ -104,15 +115,28 @@ class CoursesScreen extends Component {
       )
     }
     return (
-      <View style={styles.homeContainer}>
-        <View style={styles.groupContainer}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        style={styles.homeContainer}
+        contentOffset={{ x: 0, y: 35 }}
+      >
+        <SegmentedControlIOS
+          tintColor='#000000'
+          values={['Current', 'All']}
+          selectedIndex={this.state.courseState}
+          onValueChange={(value) => {
+            this._changeCourseType(value)
+          }}
+        />
+        <View>
           <FlatList
             data={this.props.courseList}
             keyExtractor={item => item.id}
             renderItem={this._filterCourseView}
           />
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -121,6 +145,7 @@ const mapStateToProps = (state) => {
   return {
     courseList: state.courseReducer.courseList,
     userId: state.courseReducer.userId,
+    stateType: state.courseReducer.stateType,
     isLoaded: state.itemLoadReducer.isLoading
   }
 }

@@ -1,34 +1,41 @@
-import { StyleSheet } from 'react-native'
 import { Containers, Metrics, Colors, Fonts } from '../../Common/index'
-// import { width, height, totalSize } from 'react-native-dimension'
+import EStyleSheet from 'react-native-extended-stylesheet'
 
-export default StyleSheet.create({
+const styles = EStyleSheet.create({
   courseBox: {
     backgroundColor: Colors.white,
     borderWidth: 1,
     borderColor: Colors.borderLight,
     padding: Metrics.baseMargin,
     borderRadius: 5,
-    height: 184,
+    height: 100,
+    // height: 184,
     flex: 0.5,
     flexDirection: 'column',
     justifyContent: 'center',
     marginTop: Metrics.baseMargin
   },
+  'courseBox:first-child': {
+    marginTop: 0
+  },
   courseCode: {
     fontSize: Fonts.size.small,
     color: Colors.darkGrey,
     textAlign: 'left',
-    fontWeight: '200',
+    fontWeight: '400',
     padding: 0,
     marginLeft: -2
   },
   courseName: {
-    fontSize: Fonts.size.regular,
+    fontSize: Fonts.size.input,
     textAlign: 'left',
-    fontWeight: '300',
+    fontWeight: '400',
     padding: 0,
     margin: 0
   },
   ...Containers
 })
+
+EStyleSheet.build()
+
+export { styles }

@@ -28,12 +28,14 @@ const Containers = {
   },
   groupContainer: {
     justifyContent: 'space-around',
-    margin: Metrics.smallMargin,
     flexDirection: 'row',
     alignItems: 'center'
   },
   homeContainer: {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    paddingLeft: Metrics.smallMargin,
+    paddingRight: Metrics.smallMargin,
+    paddingTop: Metrics.smallMargin
   },
   noBorderContainer: {
     borderBottomWidth: 0,

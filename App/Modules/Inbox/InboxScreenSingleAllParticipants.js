@@ -1,6 +1,5 @@
-import _ from 'lodash'
 import React from 'react'
-import { ScrollView, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
 import styles from './InboxScreenStyles'
@@ -26,9 +25,9 @@ export default class CoursesScreenSingle extends React.Component {
   }
 
   _showParticipantType = (name, common) => {
-    _.forEach(common, type => {
-      console.log(type)
-    })
+    // _.forEach(common, type => {
+    //   console.log(type)
+    // })
     return name
   }
 
@@ -42,17 +41,16 @@ export default class CoursesScreenSingle extends React.Component {
       <ScrollView
         style={styles.messageContainer}
         automaticallyAdjustContentInsets={false}>
-        <View>
-          {this.props.members.map((participants) => (
-            <ListItem
-              roundAvatar
-              hideChevron
-              avatar={{uri: participants.avatar_url}}
-              key={participants.id}
-              title={this._showParticipantType(participants.name, participants.common_courses)}
-            />
-          ))}
-        </View>
+        {this.props.members.map((participants) => (
+          <ListItem
+            roundAvatar
+            hideChevron
+            containerStyle={{ borderBottomWidth: 0.5 }}
+            avatar={{uri: participants.avatar_url}}
+            key={participants.id}
+            title={this._showParticipantType(participants.name, participants.common_courses)}
+          />
+        ))}
       </ScrollView>
     )
   }

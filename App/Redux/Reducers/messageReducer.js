@@ -5,6 +5,7 @@ const initialState = {
   courseName: '',
   selectedUserId: null,
   selectedUserName: '',
+  possibleUsersLoaded: false,
   possibleUsers: []
 }
 
@@ -27,6 +28,12 @@ export default function (state = initialState, action) {
         ...state,
         ...action,
         possibleUsers: action.possibleUsers.data
+      }
+    case types.CREATE_MESSAGE_POPULATE_USER_AWAIT:
+      return {
+        ...state,
+        ...action,
+        possibleUsersLoaded: action.possibleUsersLoaded
       }
     case types.CREATE_MESSAGE_SENT:
       return {

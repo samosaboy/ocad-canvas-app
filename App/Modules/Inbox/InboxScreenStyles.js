@@ -5,14 +5,15 @@ import { Containers, Colors, Fonts } from '../../Common/index'
 export default StyleSheet.create({
   messageContainer: {
     backgroundColor: Colors.white,
+    borderTopWidth: 0,
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.lighterGrey,
-    padding: 0
+    paddingBottom: 10
   },
   seeAll: {
     backgroundColor: Colors.white,
-    borderTopWidth: 1,
-    borderTopColor: '#CBD2D9'
+    borderTopWidth: 0,
+    borderTopColor: Colors.ios
   },
   messageCount: {
     borderColor: Colors.lightGrey,
@@ -22,7 +23,7 @@ export default StyleSheet.create({
   },
   messageCountText: {
     color: Colors.lightGrey,
-    fontWeight: '600'
+    fontWeight: '400'
   },
   marginBottom: {
     marginBottom: 15
@@ -31,30 +32,32 @@ export default StyleSheet.create({
     marginBottom: 0
   },
   courseNameSubtitle: {
-    color: Colors.lightGrey,
-    fontSize: Fonts.size.small,
+    color: Colors.ios,
+    // fontSize: Fonts.size.small,
+    fontWeight: '600',
     paddingTop: 3
   },
   courseNameTitle: {
-    color: Colors.ios,
-    fontSize: Fonts.size.medium + 3,
-    fontWeight: '600',
+    fontWeight: '400',
+    color: Colors.lightGrey,
+    // fontSize: Fonts.size.small,
     paddingBottom: 3
   },
   messageSubject: {
-    fontWeight: '600',
+    fontWeight: '400',
+    fontSize: 14,
     color: Colors.background
   },
   messageSubtitle: {
     paddingLeft: 10
   },
-  messageSubtitleSender: {
-    fontWeight: '500',
+  messageSubtitleSubject: {
+    fontWeight: '400',
     color: Colors.ios
   },
   messageText: {
-    fontWeight: '400',
-    color: Colors.ios
+    fontWeight: '300',
+    color: Colors.darkGrey
   },
   fullMessageText: {
     padding: 20
@@ -68,7 +71,9 @@ export default StyleSheet.create({
     flexDirection: 'row'
   },
   messageContentContainer: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingTop: 15,
+    paddingBottom: 25
   },
   messageDateContainer: {
     color: Colors.lightGrey,

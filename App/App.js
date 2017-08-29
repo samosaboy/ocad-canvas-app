@@ -11,7 +11,7 @@ const store = configureStore()
 registerScreens(store, Provider)
 
 Navigation.startTabBasedApp({
-  animationType: 'fade',
+  animationType: 'none',
   tabs: [
     {
       label: 'Courses',
@@ -26,6 +26,6 @@ Navigation.startTabBasedApp({
   ],
   tabsStyle: {
     tabBarSelectedButtonColor: '#000000',
-    initialTabIndex: 1 // TODO: Change later
+    initialTabIndex: 0 // TODO: Change later
   }
 })

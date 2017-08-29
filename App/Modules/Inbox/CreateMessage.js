@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Alert, ScrollView, TextInput, View } from 'react-native'
+import { Alert, ScrollView, TextInput, View } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import { stringify } from 'qs'
 import { ListItem } from 'react-native-elements'
@@ -27,6 +27,10 @@ class CreateMessageScreen extends Component {
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
     this._renderNavComponents()
+  }
+
+  componentDidMount () {
+    this.props.actions.retrieveCourses('active')
   }
 
   _renderNavComponents () {
@@ -110,19 +114,23 @@ class CreateMessageScreen extends Component {
       adjustSoftInput: 'resize',
       style: {
         backgroundBlur: 'light',
-        backgroundColor: '#00000030'
+        backgroundColor: '#00000030',
+        tapBackgroundToDismiss: true
       }
     })
+    this.setState({ errorMessage: null })
   }
 
   _popupUserList (e) {
-    if (this.props.courseId) {
+    if (this.props.courseId && this.props.possibleUsersLoaded) {
       this.setState({ errorMessage: null })
       this.props.navigator.showLightBox({
         screen: 'CreateMessageSelectUser',
         adjustSoftInput: 'resize',
+        title: 'Create Message',
         style: {
           backgroundBlur: 'light',
+          tapBackgroundToDismiss: true,
           backgroundColor: '#00000030'
         }
       })
@@ -133,20 +141,21 @@ class CreateMessageScreen extends Component {
   }
 
   render () {
-    // Fetch list of user's courses
-    // On click -> fetch participants of that course
-    // On click -> use that user_id for creation of message
     return (
       <ScrollView>
         <View style={{ backgroundColor: '#FFF' }}>
           <ListItem
             title={this.props.courseName ? this.props.courseName : 'Select A Course'}
+            containerStyle={{ borderBottomWidth: 0.5 }}
             onPress={() => this._popupCourseList()}
           />
           <ListItem
-            title={this.props.selectedUserName ? this.props.selectedUserName : 'Select A User'}
-            subtitle={this.state.errorMessage && !this.props.courseName ? <Text style={styles.textError}>{this.state.errorMessage}</Text> : null}
+            // title={this.props.selectedUserName && this.props.possibleUsersLoaded ? this.props.selectedUserName : 'Select A User'}
+            title={this.state.errorMessage
+              ? this.state.errorMessage
+              : this.props.selectedUserName && this.props.possibleUsersLoaded ? this.props.selectedUserName : 'Select A User'}
             onPress={(e) => this._popupUserList(e)}
+            containerStyle={{ borderBottomWidth: 0.5 }}
           />
           <ListItem
             hideChevron
@@ -173,6 +182,7 @@ const mapStateToProps = (state) => {
   return {
     courseId: state.messageReducer.courseId,
     courseName: state.messageReducer.courseName,
+    possibleUsersLoaded: state.messageReducer.possibleUsersLoaded,
     selectedUserId: state.messageReducer.selectedUserId,
     selectedUserName: state.messageReducer.selectedUserName
   }

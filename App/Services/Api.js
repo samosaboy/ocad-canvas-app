@@ -13,19 +13,25 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   // Prepare for rate limit exceeded (403) https://canvas.instructure.com/doc/api/file.throttling.html
 
   // Required
-  const getCourses = () => api.get('courses', { 'enrollment_state': 'active', 'per_page': '50' }) // implement scroll down to fetch more (do 10 at a time)
+  const getCourses = (state?) => api.get('courses', { 'enrollment_state': state || 'active', 'per_page': '50' })
   // Users Conversations
   const getUserConversations = (count, page, type?) => api.get('conversations', { include: 'participant_avatars', 'per_page': count, 'page': page, scope: type })
   const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`)
   const getUserUnreadCount = () => api.get('conversations/unread_count')
   const postUserConversation = (params) => api.post(`conversations?${params}`)
-  // const postUserConversation = (recipients, body, group?) => api.post('conversations', { recipients, body, group_conversation: group })
   const editUserConversationSingle = (conversationId, params) => api.put(`conversations/${conversationId}?${params}`)
+  // User
+  const getUserGroups = () => api.get('users/self/groups')
+  const getUserGroupsSingle = (groupId) => api.get(`groups/${groupId}`)
+  const getUserActivityStream = () => api.get('users/activity_stream')
+  const getUserActivityStreamSummary = () => api.get('users/self/activity_stream/summary')
   // Courses
   const getCourseActivity = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
   const getCourseDiscussions = (courseId) => api.get(`courses/${courseId}/discussion_topics`)
+  const getCourseDiscussionsSingle = (courseId, discussionId) => api.get(`courses/${courseId}/discussion_topics/${discussionId}/entries`)
   const getCourseAllFiles = (courseId) => api.get(`courses/${courseId}/files`)
   const getCourseAssignments = (userId, courseId) => api.get(`users/${userId}/courses/${courseId}/assignments`)
+  const getCourseAnnouncements = (courseId) => api.get('announcements', { 'context_codes': courseId })
   // Recipients
   const getPossibleRecipients = (contextId) => api.get('search/recipients', { context: `${contextId}` })
 
@@ -38,11 +44,18 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     getUserUnreadCount,
     postUserConversation,
     editUserConversationSingle,
+    // User
+    getUserGroups,
+    getUserGroupsSingle,
+    getUserActivityStream,
+    getUserActivityStreamSummary,
     // Courses
     getCourseActivity,
-    getCourseAssignments,
     getCourseDiscussions,
+    getCourseDiscussionsSingle,
     getCourseAllFiles,
+    getCourseAssignments,
+    getCourseAnnouncements,
     // Recipients
     getPossibleRecipients
   }

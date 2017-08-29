@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { ScrollView, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { List, ListItem } from 'react-native-elements'
 import { navigatorLightBoxStyle } from '../../Navigation/Styles/LightBoxStyles'
@@ -36,20 +36,22 @@ class CreateMessageSelectCourse extends Component {
         <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
           <Icon name='ios-close' size={40} color='#000000' />
         </TouchableOpacity>
-        <View style={styles.lightBoxContent}>
+        <ScrollView style={styles.lightBoxContent}>
           <List style={{ marginTop: 0 }}>
             {
               this.props.courseList.map((course) => (
                 <ListItem
+                  hideChevron
                   title={course.name}
+                  titleStyle={{ marginLeft: 0 }}
                   key={course.id}
-                  style={styles.lightBoxList}
+                  style={[styles.lightBoxList, styles.lightBoxListWider]}
                   onPress={() => this._dismissCourseListView(course.id, course.name)}
                 />
               ))
             }
           </List>
-        </View>
+        </ScrollView>
       </View>
     )
   }

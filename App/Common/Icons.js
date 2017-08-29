@@ -1,9 +1,9 @@
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const icons = {
-  'compose': [Ionicons, 'ios-create-outline', 25, '#000000'],
-  'send': [Ionicons, 'ios-send-outline', 30, '#000000'],
-  'close': [Ionicons, 'ios-close', 35, '#000000'],
+  'compose': [Ionicons, 'ios-create-outline', 30, '#000000'],
+  'send': [Ionicons, 'ios-send-outline', 35, '#000000'],
+  'close': [Ionicons, 'ios-close', 40, '#000000'],
   // Tabs
   'message': [Ionicons, 'ios-mail-outline', 35, '#000000'],
   'courses': [Ionicons, 'ios-easel-outline', 30, '#000000']

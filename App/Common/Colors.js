@@ -29,7 +29,7 @@ const colors = {
   borderLight: '#E8E8E8',
   lightGrey: '#ADADAD',
   lighterGrey: '#DBDBDB',
-  darkGrey: '#919191'
+  darkGrey: '#737373'
 }
 
 export default colors

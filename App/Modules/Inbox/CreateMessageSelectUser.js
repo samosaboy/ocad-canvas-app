@@ -1,5 +1,6 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
-import { TouchableOpacity, View, ScrollView } from 'react-native'
+import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { List, ListItem } from 'react-native-elements'
 import styles from './CreateMessageStyles'
@@ -19,7 +20,7 @@ class CreateMessageSelectUser extends Component {
     this.props.navigator.dismissLightBox()
   }
 
-  _dismissCourseListView (id, name) {
+  _dismissCourseUserView (id, name) {
     this.props.actions.createMessageSelectUser(id, name)
     this.props.navigator.dismissLightBox()
   }
@@ -36,10 +37,16 @@ class CreateMessageSelectUser extends Component {
             {
             this.props.possibleUsers.map((user) => (
               <ListItem
+                roundAvatar
+                hideChevron
+                avatar={{uri: user.avatar_url}}
                 title={user.name}
+                titleStyle={{ marginLeft: 10 }}
                 key={user.id}
                 style={styles.lightBoxList}
-                onPress={() => this._dismissCourseListView(user.id, user.name)}
+                label={_.head(_.flatMap(user.common_courses)) === 'TeacherEnrollment' ? <Text style={styles.lightBoxListLabel}>(Instructor)</Text> : null}
+                rightTitleContainerStyle={{ flex: 1, alignItems: 'flex-start' }}
+                onPress={() => this._dismissCourseUserView(user.id, user.name)}
               />
             ))
           }

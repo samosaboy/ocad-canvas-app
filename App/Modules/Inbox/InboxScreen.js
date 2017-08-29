@@ -143,20 +143,20 @@ export default class InboxScreen extends React.Component {
 
   _showSubject = (item) => {
     return (
-      item.subject !== ''
-        ? item.subject
-        : '(No subject)'
+      item.participants[0].id === item.audience[0]
+        ? item.participants[0].name
+        : item.participants[1].name
     )
   }
 
   _showMessage = (item) => {
     return (
       <View>
-        <Text style={styles.messageSubtitleSender}>
+        <Text style={styles.messageSubtitleSubject}>
           { // TODO: come back to this, see all cases (i.e. multiple people conversation threads)
-            item.participants[0].id === item.audience[0]
-              ? item.participants[0].name
-              : item.participants[1].name
+            item.subject !== ''
+              ? item.subject
+              : '(No subject)'
           }
         </Text>
         <Text style={styles.messageText}>{this._removeLineBreaks(item.last_message)}</Text>
