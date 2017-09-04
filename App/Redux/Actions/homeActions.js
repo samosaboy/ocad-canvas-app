@@ -9,16 +9,6 @@ export function isLoading (bool) {
   }
 }
 
-export function createMessageSelectCourse (id: number, name: string) {
-  return (dispatch) => {
-    dispatch({
-      type: types.CREATE_MESSAGE_SELECT_COURSE,
-      courseId: id,
-      courseName: name
-    })
-  }
-}
-
 export function createMessagePopulateUsers (id: number) {
   return (dispatch) => {
     return this.api.getPossibleRecipients(`course_${id}`)
@@ -35,12 +25,34 @@ export function createMessagePopulateUsers (id: number) {
   }
 }
 
+export function createMessageSelectCourse (id: number, name: string) {
+  return (dispatch) => {
+    dispatch({
+      type: types.CREATE_MESSAGE_SELECT_COURSE,
+      courseId: id,
+      courseName: name
+    })
+  }
+}
+
 export function createMessageSelectUser (id: number, name: string) {
   return (dispatch) => {
     dispatch({
       type: types.CREATE_MESSAGE_SELECT_USER,
       selectedUserId: id,
       selectedUserName: name
+    })
+  }
+}
+
+export function createMessagePreSelected (courseId: number, userId: number, courseName: string, userName: string) {
+  return (dispatch) => {
+    dispatch({
+      type: types.CREATE_MESSAGE_PRE_SELECTED_USER,
+      selectedUserId: userId,
+      selectedUserName: userName,
+      courseId,
+      courseName
     })
   }
 }
@@ -78,7 +90,7 @@ export function retrieveCourses (state?: string) {
           dispatch({
             type: types.RETRIEVE_COMPLETED_COURSE_LIST,
             stateType: 'completed',
-            courseList: response.data
+            courseListComplete: response.data
           })
           dispatch(isLoading(false))
         })

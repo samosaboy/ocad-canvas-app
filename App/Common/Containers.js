@@ -3,9 +3,16 @@ import Metrics from './Metrics'
 // import { width, height, totalSize } from 'react-native-dimension'
 
 const Containers = {
+  messageContainer: {
+    backgroundColor: Colors.white,
+    borderTopWidth: 0,
+    borderBottomWidth: 0.5,
+    borderBottomColor: Colors.iosLight,
+    paddingBottom: 10
+  },
   mainContainer: {
     justifyContent: 'flex-start',
-    margin: Metrics.section,
+    // margin: Metrics.section,
     flexDirection: 'column',
     alignItems: 'center',
     flex: 1
@@ -32,10 +39,7 @@ const Containers = {
     alignItems: 'center'
   },
   homeContainer: {
-    backgroundColor: Colors.white,
-    paddingLeft: Metrics.smallMargin,
-    paddingRight: Metrics.smallMargin,
-    paddingTop: Metrics.smallMargin
+    backgroundColor: Colors.white
   },
   noBorderContainer: {
     borderBottomWidth: 0,

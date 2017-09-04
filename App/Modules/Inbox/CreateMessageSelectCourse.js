@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import { ScrollView, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { List, ListItem } from 'react-native-elements'
-import { navigatorLightBoxStyle } from '../../Navigation/Styles/LightBoxStyles'
-import styles from './CreateMessageStyles'
+import styles from '../../Components/Styles/LightBoxStyles'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CreateMessageSelectCourse extends Component {
-  static navigatorStyle = {
-    ...navigatorLightBoxStyle
-  }
   constructor (props) {
     super(props)
     this.state = {

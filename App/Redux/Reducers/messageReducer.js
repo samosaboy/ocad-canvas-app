@@ -39,6 +39,13 @@ export default function (state = initialState, action) {
       return {
         state: null
       }
+    case types.CREATE_MESSAGE_PRE_SELECTED_USER:
+      return {
+        selectedUserId: action.selectedUserId,
+        selectedUserName: action.selectedUserName,
+        courseId: action.courseId,
+        courseName: action.courseName
+      }
     default:
       return state
   }

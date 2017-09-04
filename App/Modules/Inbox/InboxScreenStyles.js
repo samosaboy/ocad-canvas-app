@@ -3,21 +3,14 @@ import { Containers, Colors, Fonts } from '../../Common/index'
 // import { width } from 'react-native-dimension'
 
 export default StyleSheet.create({
-  messageContainer: {
-    backgroundColor: Colors.white,
-    borderTopWidth: 0,
-    borderBottomWidth: 0.5,
-    borderBottomColor: Colors.lighterGrey,
-    paddingBottom: 10
-  },
   seeAll: {
     backgroundColor: Colors.white,
-    borderTopWidth: 0,
-    borderTopColor: Colors.ios
+    borderTopWidth: 0.5,
+    borderTopColor: Colors.iosLight
   },
   messageCount: {
-    borderColor: Colors.lightGrey,
-    borderWidth: 1,
+    borderColor: Colors.iosLight,
+    borderWidth: 0.5,
     backgroundColor: Colors.transparent,
     marginTop: 2
   },
@@ -26,7 +19,7 @@ export default StyleSheet.create({
     fontWeight: '400'
   },
   marginBottom: {
-    marginBottom: 15
+    marginBottom: 5
   },
   noMarginBottom: {
     marginBottom: 0
@@ -45,26 +38,46 @@ export default StyleSheet.create({
   },
   messageSubject: {
     fontWeight: '400',
-    fontSize: 14,
-    color: Colors.background
+    fontSize: 15,
+    color: Colors.background,
+    paddingBottom: 1,
+    paddingLeft: 10,
+    alignSelf: 'flex-start',
+    flexWrap: 'nowrap',
+    flex: 1
+  },
+  messageDate: {
+    // fontWeight: '300',
+    color: Colors.lightGrey,
+    fontSize: Fonts.size.small,
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
+    textAlign: 'right',
+    paddingRight: 10,
+    paddingBottom: 2,
+    flex: 1
   },
   messageSubtitle: {
     paddingLeft: 10
   },
   messageSubtitleSubject: {
     fontWeight: '400',
+    paddingBottom: 1,
     color: Colors.ios
   },
   messageText: {
-    fontWeight: '300',
+    fontWeight: '400',
     color: Colors.darkGrey
   },
   fullMessageText: {
-    padding: 20
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20
   },
   fullMessageTitle: {
     fontWeight: '600',
-    paddingBottom: 15
+    paddingBottom: 25
   },
   messageHeader: {
     flex: 1,
@@ -72,7 +85,6 @@ export default StyleSheet.create({
   },
   messageContentContainer: {
     flexDirection: 'column',
-    paddingTop: 15,
     paddingBottom: 25
   },
   messageDateContainer: {

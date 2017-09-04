@@ -11,7 +11,6 @@ export default StyleSheet.create({
   },
   textError: {
     color: Colors.black,
-    // fontSize: Fonts.size.input,
     marginLeft: 10
   },
   textLabel: {
@@ -24,6 +23,9 @@ export default StyleSheet.create({
     height: height(100),
     paddingLeft: 10,
     paddingTop: 10
+  },
+  textBold: {
+    fontWeight: '500'
   },
   lightBoxListLabel: {
     // fontSize: Fonts.size.small,
@@ -51,10 +53,29 @@ export default StyleSheet.create({
     minHeight: 10,
     maxHeight: 280
   },
+  lightBoxContentFull: {
+    marginTop: height(10),
+    padding: 20,
+    backgroundColor: Colors.white,
+    borderRadius: 5,
+    width: width(90),
+    minHeight: 20,
+    maxHeight: height(70)
+  },
   lightBoxIcon: {
     position: 'absolute',
     left: 15,
     top: 20
+  },
+  courseActivityText: {
+    paddingTop: 10
+  },
+  courseActivityTitle: {
+    fontSize: Fonts.size.regular
+  },
+  courseActivityDate: {
+    paddingBottom: 10,
+    color: Colors.lightGrey
   },
   ...Containers
 })

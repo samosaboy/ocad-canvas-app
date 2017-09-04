@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { Alert, ScrollView, TextInput, View } from 'react-native'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
@@ -5,7 +6,7 @@ import { stringify } from 'qs'
 import { ListItem } from 'react-native-elements'
 import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import API from '../../Services/Api'
-import styles from './CreateMessageStyles'
+import styles from '../../Components/Styles/LightBoxStyles'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as homeActions from '../../Redux/Actions/homeActions'
@@ -31,6 +32,10 @@ class CreateMessageScreen extends Component {
 
   componentDidMount () {
     this.props.actions.retrieveCourses('active')
+    if (this.props.psCourseId && this.props.psUserId) {
+      const courseName = _.find(this.props.courseList, [ 'id', this.props.psCourseId ]).name
+      this.props.actions.createMessagePreSelected(this.props.psCourseId, this.props.psUserId, courseName, this.props.psUserName)
+    }
   }
 
   _renderNavComponents () {
@@ -87,17 +92,27 @@ class CreateMessageScreen extends Component {
         }
       }
       if (event.id === 'send') {
+        const queryParams = stringify({
+          recipients: [this.props.selectedUserId],
+          body: this.state.message
+        }, {arrayFormat: 'brackets'})
         if (this.state.message && this.props.courseId && this.props.selectedUserId) {
-          const queryParams = stringify({
-            recipients: [this.props.selectedUserId],
-            body: this.state.message
-          }, {arrayFormat: 'brackets'})
           this.api.postUserConversation(queryParams)
           this.props.actions.createMessageSent()
-          Alert.alert('Success', 'Message sent!')
-          this.props.navigator.dismissModal({
-            animationType: 'slide-down'
-          })
+          Alert.alert(
+            'Success',
+            'Message sent!',
+            [
+              {
+                text: 'Ok',
+                onPress: () => {
+                  this.props.navigator.dismissModal({
+                    animationType: 'slide-down'
+                  })
+                }
+              }
+            ]
+          )
         } else if (!this.state.text || !this.props.courseId || !this.props.selectedUserId) {
           Alert.alert(
             'Error',
@@ -153,7 +168,7 @@ class CreateMessageScreen extends Component {
             // title={this.props.selectedUserName && this.props.possibleUsersLoaded ? this.props.selectedUserName : 'Select A User'}
             title={this.state.errorMessage
               ? this.state.errorMessage
-              : this.props.selectedUserName && this.props.possibleUsersLoaded ? this.props.selectedUserName : 'Select A User'}
+              : (this.props.selectedUserName && this.props.possibleUsersLoaded) || this.props.selectedUserName ? this.props.selectedUserName : 'Select A User'}
             onPress={(e) => this._popupUserList(e)}
             containerStyle={{ borderBottomWidth: 0.5 }}
           />
@@ -184,7 +199,8 @@ const mapStateToProps = (state) => {
     courseName: state.messageReducer.courseName,
     possibleUsersLoaded: state.messageReducer.possibleUsersLoaded,
     selectedUserId: state.messageReducer.selectedUserId,
-    selectedUserName: state.messageReducer.selectedUserName
+    selectedUserName: state.messageReducer.selectedUserName,
+    courseList: state.courseReducer.courseList
   }
 }
 

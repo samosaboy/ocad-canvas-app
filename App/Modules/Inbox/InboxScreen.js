@@ -4,6 +4,7 @@ import { Text, FlatList, View } from 'react-native'
 import API from '../../Services/Api'
 import { ListItem } from 'react-native-elements'
 import styles from './InboxScreenStyles'
+import moment from 'moment'
 import ScreenLadda from '../../Components/ScreenLadda'
 import UnreadMarker from '../../Components/UnreadMarker'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
@@ -34,10 +35,12 @@ export default class InboxScreen extends React.Component {
       page: 1,
       loading: true,
       refreshing: false,
+      refreshTime: moment().toISOString(),
       unreadCounter: null
     }
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+    this.tick = this.tick.bind(this)
     this._renderNavComponents()
   }
 
@@ -58,6 +61,9 @@ export default class InboxScreen extends React.Component {
           }
         ]
       })
+      // this.props.navigator.setSubTitle({
+      //   subtitle: moment().toISOString()
+      // })
     })
   }
 
@@ -70,11 +76,23 @@ export default class InboxScreen extends React.Component {
         })
       }
     }
+    switch (event.id) {
+      case 'didAppear':
+        this.interval = setInterval(this.tick, 1000)
+        break
+      case 'willDisappear':
+        clearInterval(this.interval)
+        break
+    }
   }
 
   componentDidMount () {
     this._getUnreadCount()
     this._getConversations(this.state.count, this.state.page)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
   }
 
   _getConversations = () => {
@@ -117,21 +135,32 @@ export default class InboxScreen extends React.Component {
     )
   }
 
+  tick = () => {
+    const timeStamp = this.state.refreshTime
+    this.props.navigator.setSubTitle({
+      subtitle: moment(timeStamp).fromNow()
+    })
+    this.props.navigator.setStyle({
+      navBarSubtitleFontSize: 11,
+      navBarSubtitleColor: '#b0b0b0'
+    })
+  }
+
   _onRefresh = () => {
     this.setState(
       { page: 1, refreshing: true },
       () => {
-        this.api.getUserConversations(this.state.count, 1, 'unread')
+        this.api.getUserConversations(this.state.count, this.state.page)
           .then((response) => {
-            _.forEach(response.data, newMessages => {
-              if (!_.some(this.state.messages, ['id', newMessages.id])) {
-                this.setState({ messages: [...response.data, ...this.state.messages], refreshing: false })
-              }
-            })
-            this.setState({ refreshing: false })
             this._getUnreadCount()
-          }).catch(() => {
-            this.setState({ refreshing: false })
+            this.setState({ messages: [] })
+            this.setState(
+              {
+                messages: [...this.state.messages, ...response.data],
+                loading: false,
+                refreshing: false,
+                refreshTime: moment().toISOString()
+              })
           })
       }
     )
@@ -141,11 +170,21 @@ export default class InboxScreen extends React.Component {
     return message.replace(/[\n\r]+/g, ' ')
   }
 
+  _formatDate = (date) => {
+    return moment.utc(date).fromNow()
+  }
+
   _showSubject = (item) => {
     return (
-      item.participants[0].id === item.audience[0]
-        ? item.participants[0].name
-        : item.participants[1].name
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <UnreadMarker requirements={item.workflow_state === 'read'} />
+        <Text style={styles.messageSubject}>{item.participants[0].id === item.audience[0]
+          ? item.participants[0].name
+          : item.participants[1].name}</Text>
+        <Text style={styles.messageDate}>
+          {this._formatDate(item.last_message_at)}
+        </Text>
+      </View>
     )
   }
 
@@ -164,7 +203,7 @@ export default class InboxScreen extends React.Component {
     )
   }
 
-  _getConversationDetails = (id, subject) => {
+  _getConversationDetails = (id, subject, course) => {
     const markedAsRead = _.cloneDeep(this.state.messages)
     _.filter(markedAsRead, ['id', id])[0].workflow_state = 'read'
     this.setState({ messages: markedAsRead })
@@ -174,7 +213,8 @@ export default class InboxScreen extends React.Component {
       backButtonTitle: '',
       passProps: {
         id,
-        subject
+        subject,
+        course
       }
     })
     this._getUnreadCountAfter()
@@ -200,15 +240,13 @@ export default class InboxScreen extends React.Component {
             <ListItem
               roundAvatar
               hideChevron
-              titleStyle={styles.messageSubject}
               subtitleContainerStyle={styles.messageSubtitle}
               containerStyle={styles.messageContainer}
               title={this._showSubject(item)}
               subtitle={this._showMessage(item)}
-              onPress={() => this._getConversationDetails(item.id, item.subject)}
+              onPress={() => this._getConversationDetails(item.id, item.subject, item.context_name)}
               subtitleNumberOfLines={2}
               avatar={{ uri: item.participants[0].avatar_url }}
-              label={<UnreadMarker requirements={item.workflow_state === 'read'} />}
             />
           )}
         />

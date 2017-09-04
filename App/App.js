@@ -25,7 +25,11 @@ Navigation.startTabBasedApp({
     }
   ],
   tabsStyle: {
-    tabBarSelectedButtonColor: '#000000',
+    tabBarButtonColor: '#343434',
+    tabBarSelectedButtonColor: '#343434',
+    tabBarLabelColor: '#343434',
+    tabBarSelectedLabelColor: '#343434',
+    tabBarBackgroundColor: '#FFFFFF',
     initialTabIndex: 0 // TODO: Change later
   }
 })

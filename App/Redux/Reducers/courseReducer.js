@@ -3,7 +3,8 @@ import * as types from './constants'
 const initialState = {
   userId: null,
   stateType: 'active',
-  courseList: []
+  courseList: [],
+  courseListComplete: []
 }
 
 // All kinds of ajax requests and logic/conditions to update state of store can be defined in this file.
@@ -17,7 +18,7 @@ export default function (state = initialState, action) {
     case types.RETRIEVE_COMPLETED_COURSE_LIST:
       return {
         ...state,
-        courseList: action.courseList,
+        courseListComplete: action.courseListComplete,
         stateType: action.stateType
       }
     default:

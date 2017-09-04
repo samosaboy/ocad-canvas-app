@@ -11,6 +11,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CoursesScreen extends Component {
+  // https://github.com/wix/react-native-navigation/issues/1742 <- useful perhaps?
   // static propTypes = {
   //   dispatch: PropTypes.func,
   //   fetching: PropTypes.bool
@@ -24,7 +25,7 @@ class CoursesScreen extends Component {
 
   constructor (props) {
     super(props)
-    this._renderNavButtons()
+    this._renderNavComponents()
     this.state = {
       courseState: 0,
       loading: true
@@ -32,11 +33,7 @@ class CoursesScreen extends Component {
     this.api = API.create()
   }
 
-  componentDidMount () {
-    this.props.actions.retrieveCourses('active')
-  }
-
-  _renderNavButtons () {
+  _renderNavComponents () {
     IconsLoaded.then(() => {
       this.props.navigator.setTabButton({
         icon: IconsMap['courses'],
@@ -45,19 +42,21 @@ class CoursesScreen extends Component {
     })
   }
 
-  _getCourseDetails = (id, name) => {
+  componentDidMount () {
+    this.props.actions.retrieveCourses('active')
+  }
+
+  _getCourseDetails = (id, fullName, shortName) => {
     // send ID down as a prop?
     this.props.navigator.push({
       screen: 'SingleCourseView',
+      backButtonTitle: '',
       passProps: {
         id,
-        name
+        fullName,
+        shortName
       }
     })
-    this.api.getCourseActivity(id)
-      .then((response) => {
-        console.log(response.data)
-      })
   }
 
   _showCourseName = (code) => {
@@ -88,10 +87,10 @@ class CoursesScreen extends Component {
 
   _filterCourseView = ({item}) => {
     return (
-      <TouchableOpacity onPress={() => this._getCourseDetails(item.id, item.course_code)}>
+      <TouchableOpacity onPress={() => this._getCourseDetails(item.id, item.name, this._showCourseName(item.course_code))}>
         <View style={EStyleSheet.child(styles, 'courseBox', item, item.length)}>
-          <Text style={styles.courseCode}>{this._showCourseCode(item.name)}</Text>
           <Text style={styles.courseName}>{this._showCourseName(item.course_code)}</Text>
+          <Text>{item.term.name}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -99,11 +98,15 @@ class CoursesScreen extends Component {
 
   _changeCourseType = (value) => {
     if (value === 'All') {
-      this.props.actions.retrieveCourses('completed')
+      if (!this.props.courseListComplete) {
+        this.props.actions.retrieveCourses('completed')
+      }
       this.setState({ courseState: 1 })
     }
     if (value === 'Current') {
-      this.props.actions.retrieveCourses('active')
+      if (!this.props.courseList) {
+        this.props.actions.retrieveCourses('active')
+      }
       this.setState({ courseState: 0 })
     }
   }
@@ -122,16 +125,17 @@ class CoursesScreen extends Component {
         contentOffset={{ x: 0, y: 35 }}
       >
         <SegmentedControlIOS
-          tintColor='#000000'
+          tintColor='#43484D'
           values={['Current', 'All']}
           selectedIndex={this.state.courseState}
+          style={{ marginLeft: 5, marginRight: 5, marginTop: 5 }}
           onValueChange={(value) => {
             this._changeCourseType(value)
           }}
         />
         <View>
           <FlatList
-            data={this.props.courseList}
+            data={this.state.courseState === 1 ? this.props.courseListComplete : this.props.courseList}
             keyExtractor={item => item.id}
             renderItem={this._filterCourseView}
           />
@@ -144,6 +148,7 @@ class CoursesScreen extends Component {
 const mapStateToProps = (state) => {
   return {
     courseList: state.courseReducer.courseList,
+    courseListComplete: state.courseReducer.courseListComplete,
     userId: state.courseReducer.userId,
     stateType: state.courseReducer.stateType,
     isLoaded: state.itemLoadReducer.isLoading

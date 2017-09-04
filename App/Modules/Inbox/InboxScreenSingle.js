@@ -17,7 +17,9 @@ export default class CoursesScreenSingle extends React.Component {
     ...navigatorStyle,
     navBarHideOnScroll: false,
     statusBarHideWithNavBar: false,
-    tabBarHidden: true
+    tabBarHidden: true,
+    navBarSubtitleFontSize: 11,
+    navBarSubtitleColor: '#b0b0b0'
   }
   api = {}
 
@@ -28,7 +30,14 @@ export default class CoursesScreenSingle extends React.Component {
       loading: true
     }
     this.props.navigator.setTitle({
-      title: `${this.props.subject}`
+      title: this.props.subject
+    })
+    this.props.navigator.setSubTitle({
+      subtitle: this.props.course
+    })
+    this.props.navigator.setStyle({
+      navBarSubtitleFontSize: 11,
+      navBarSubtitleColor: '#b0b0b0'
     })
     this.api = API.create()
   }
@@ -105,18 +114,8 @@ export default class CoursesScreenSingle extends React.Component {
         <View style={styles.seeAll}>
           <ListItem
             // title={this._showCourseName(this.state.messages.context_name)}
-            subtitle='Sent through course'
-            hideChevron
-            title={this.state.messages.context_name}
-            // onPress={() => this._getConversationParticipants(this.state.messages.participants)}
-            subtitleStyle={styles.courseNameTitle}
-            titleStyle={styles.courseNameSubtitle}
-            containerStyle={{ paddingRight: 20, borderBottomWidth: 0.5 }}
-          />
-          <ListItem
-            // title={this._showCourseName(this.state.messages.context_name)}
             title='See all in conversation'
-            containerStyle={{ borderBottomWidth: 0.5 }}
+            containerStyle={{ borderBottomWidth: 0.5, borderBottomColor: '#2C333F20' }}
             badge={{value: this.state.messages.participants.length, textStyle: styles.messageCountText, containerStyle: styles.messageCount}}
             onPress={() => this._getConversationParticipants(this.state.messages.participants)}
           />
