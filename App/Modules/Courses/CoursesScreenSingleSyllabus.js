@@ -10,7 +10,9 @@ import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 export default class CoursesScreenSingleSyllabus extends React.Component {
   static navigatorStyle = {
     ...navigatorStyle,
-    tabBarHidden: true
+    tabBarHidden: true,
+    navBarHideOnScroll: false,
+    statusBarHideWithNavBar: false
   }
   api = {}
   constructor (props) {

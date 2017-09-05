@@ -150,9 +150,9 @@ export default class InboxScreen extends React.Component {
     this.setState(
       { page: 1, refreshing: true },
       () => {
+        this._getUnreadCount()
         this.api.getUserConversations(this.state.count, this.state.page)
           .then((response) => {
-            this._getUnreadCount()
             this.setState({ messages: [] })
             this.setState(
               {
@@ -171,7 +171,7 @@ export default class InboxScreen extends React.Component {
   }
 
   _formatDate = (date) => {
-    return moment.utc(date).fromNow()
+    return moment.utc(date).fromNow() // TODO: Update time stamp with tick()?
   }
 
   _showSubject = (item) => {

@@ -84,8 +84,7 @@ export default StyleSheet.create({
     flexDirection: 'row'
   },
   messageContentContainer: {
-    flexDirection: 'column',
-    paddingBottom: 25
+    flexDirection: 'column'
   },
   messageDateContainer: {
     color: Colors.lightGrey,

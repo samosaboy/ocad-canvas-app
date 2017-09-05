@@ -35,6 +35,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   const getCourseAnnouncements = (courseId) => api.get('announcements', { 'context_codes': courseId })
   const getCourseSyllabus = (courseId) => api.get(`courses/${courseId}`, { include: ['syllabus_body'], 'plain_messages': true })
   const getCourseMemberList = (courseId) => api.get(`courses/${courseId}/users`, { include: ['enrollments', 'avatar_url'] })
+  const getCourseSubmissions = (courseId) => api.get(`courses/${courseId}/students/submissions`, { per_page: '50' }) // match assignment_id in this response w/ getCourseAssignment's id
   // Recipients
   const getPossibleRecipients = (contextId) => api.get('search/recipients', { context: `${contextId}` })
 
@@ -62,6 +63,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     getCourseAnnouncements,
     getCourseSyllabus,
     getCourseMemberList,
+    getCourseSubmissions,
     // Recipients
     getPossibleRecipients
   }

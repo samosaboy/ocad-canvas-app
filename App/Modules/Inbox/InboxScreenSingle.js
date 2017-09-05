@@ -30,7 +30,7 @@ export default class CoursesScreenSingle extends React.Component {
       loading: true
     }
     this.props.navigator.setTitle({
-      title: this.props.subject
+      title: this.props.subject ? this.props.subject : '(No Subject)'
     })
     this.props.navigator.setSubTitle({
       subtitle: this.props.course
@@ -137,11 +137,14 @@ export default class CoursesScreenSingle extends React.Component {
                 : [styles.messageContainer, styles.fullMessageText, styles.noMarginBottom, styles.conversationThread]}>
                 <View style={styles.messageContentContainer}>
                   <View style={styles.messageTextContainer}>
-                    <View>{_.isEqual(index, 0)
-                      ? `${this.props.subject}` === ''
-                        ? <Text style={[styles.fullMessageTitle]}>(No Subject)</Text>
-                        : <Text style={[styles.fullMessageTitle]} key={messages.id}>{this.props.subject}</Text>
-                      : null}
+                    <View>
+                      {
+                        _.isEqual(index, 0)
+                          ? (`${this.props.subject}` === '' || `${!this.props.subject}`)
+                          ? <Text style={[styles.fullMessageTitle]}>(No Subject)</Text>
+                          : <Text style={[styles.fullMessageTitle]} key={messages.id}>{this.props.subject}</Text>
+                        : null
+                      }
                     </View>
                     <Text key={messages.id}>
                       {messages.body}
