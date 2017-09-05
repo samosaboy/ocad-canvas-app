@@ -32,13 +32,6 @@ const styles = EStyleSheet.create({
     padding: 0,
     margin: 0
   },
-  courseList: {
-    backgroundColor: Colors.white,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0,
-    borderBottomColor: Colors.iosLight,
-    borderTopColor: Colors.iosLight
-  },
   summaryContainer: {
     flex: 1,
     flexWrap: 'nowrap',

@@ -34,7 +34,7 @@ export default class CoursesScreenSingle extends React.Component {
   render () {
     if (this.state.loading) {
       return (
-        <ScreenLadda text={'Finding your friends'} />
+        <ScreenLadda text={'Getting recipient list'} />
       )
     }
     return (

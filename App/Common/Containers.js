@@ -1,6 +1,5 @@
 import Colors from './Colors'
 import Metrics from './Metrics'
-// import { width, height, totalSize } from 'react-native-dimension'
 
 const Containers = {
   messageContainer: {
@@ -44,6 +43,13 @@ const Containers = {
   noBorderContainer: {
     borderBottomWidth: 0,
     borderTopWidth: 0
+  },
+  listContainer: {
+    backgroundColor: Colors.white,
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0,
+    borderBottomColor: Colors.iosLight,
+    borderTopColor: Colors.iosLight
   }
 }
 

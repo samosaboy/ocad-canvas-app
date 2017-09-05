@@ -58,7 +58,7 @@ export default class CoursesScreenSinglePeople extends React.Component {
           <ListItem
             roundAvatar
             hideChevron
-            containerStyle={{ borderBottomWidth: 0.5 }}
+            containerStyle={styles.listContainer}
             avatar={{uri: participants.avatar_url}}
             key={participants.id}
             title={participants.name}

@@ -25,19 +25,24 @@ export default class CoursesScreenSingle extends React.PureComponent {
     })
     this.state = {
       loading: true,
-      courseActivity: []
+      courseActivity: [],
+      courseActivitySummary: []
     }
     this.api = API.create()
   }
 
   componentDidMount () {
+    this._getCourseActivity()
+  }
+
+  _getCourseActivity = () => {
     this.api.getCourseActivity(this.props.id)
       .then((response) => {
         this.setState({ courseActivity: _.reject(response.data, { title: null, message: null }), loading: false })
       })
-    this.api.getCourseDiscussions(this.props.id, true)
+    this.api.getCourseActivitySummary(this.props.id)
       .then((response) => {
-        console.tron.log(response.data)
+        this.setState({ courseActivitySummary: response.data })
       })
   }
 
@@ -76,9 +81,29 @@ export default class CoursesScreenSingle extends React.PureComponent {
     )
   }
 
+  _toCourseAnnouncements = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleAnnouncements',
+      backButtonTitle: '',
+      passProps: {
+        id
+      }
+    })
+  }
+
   _toCourseParticipants = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSinglePeople',
+      backButtonTitle: '',
+      passProps: {
+        id
+      }
+    })
+  }
+
+  _toCourseSyllabus = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleSyllabus',
       backButtonTitle: '',
       passProps: {
         id
@@ -107,34 +132,57 @@ export default class CoursesScreenSingle extends React.PureComponent {
           snapToInterval={width - 60}
           snaptoAlignment={'center'}
         />
-        <ListItem
-          title='Announcements'
-          containerStyle={[styles.courseList, { borderTopWidth: 0 }]}
-        />
-        <ListItem
-          title='Assignments'
-          containerStyle={styles.courseList}
-        />
-        <ListItem
-          title='Discussions'
-          containerStyle={styles.courseList}
-        />
+        {
+          _.find(this.state.courseActivitySummary, { type: 'Announcement' })
+          ? <ListItem
+            title='Announcements'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseAnnouncements(this.props.id)}
+            badge={{
+              value: _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
+            }}
+            />
+          : null
+        }
+        {
+          _.find(this.state.courseActivitySummary, { notification_category: 'Due Date' })
+            ? <ListItem
+              title='Assignments'
+              containerStyle={styles.listContainer}
+              badge={{
+                value: _.find(this.state.courseActivitySummary, { notification_category: 'Due Date' }).count
+              }}
+            />
+            : null
+        }
+        {
+          _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
+            ? <ListItem
+              title='Discussions'
+              containerStyle={styles.listContainer}
+              badge={{
+                value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
+              }}
+            />
+            : null
+        }
         <ListItem
           title='Grades'
-          containerStyle={styles.courseList}
+          containerStyle={styles.listContainer}
         />
         <ListItem
           title='People'
-          containerStyle={styles.courseList}
+          containerStyle={styles.listContainer}
           onPress={() => this._toCourseParticipants(this.props.id)}
         />
         <ListItem
           title='Files'
-          containerStyle={styles.courseList}
+          containerStyle={styles.listContainer}
         />
         <ListItem
           title='Outline'
-          containerStyle={styles.courseList}
+          containerStyle={styles.listContainer}
+          onPress={() => this._toCourseSyllabus(this.props.id)}
         />
       </ScrollView>
     )

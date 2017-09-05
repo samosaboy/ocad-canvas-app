@@ -28,11 +28,12 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   // Courses
   const getCourseActivity = (courseId) => api.get(`courses/${courseId}/activity_stream`)
   const getCourseActivitySummary = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
-  const getCourseDiscussions = (courseId, announcement ? = false) => api.get(`courses/${courseId}/discussion_topics`, { 'only_announcements': announcement, 'plain_messages': true, 'exclude_assignment_descriptions': true, 'order_by': 'recent_activity', 'per_page': 50 })
+  const getCourseDiscussions = (courseId, isAnnouncement = null) => api.get(`courses/${courseId}/discussion_topics`, { 'only_announcements': isAnnouncement, 'plain_messages': true, 'order_by': 'recent_activity', 'per_page': 50 })
   const getCourseDiscussionsSingle = (courseId, discussionId) => api.get(`courses/${courseId}/discussion_topics/${discussionId}/entries`)
   const getCourseAllFiles = (courseId) => api.get(`courses/${courseId}/files`)
-  const getCourseAssignments = (userId, courseId) => api.get(`users/${userId}/courses/${courseId}/assignments`)
+  const getCourseAssignments = (userId, courseId) => api.get(`courses/${courseId}/assignments`)
   const getCourseAnnouncements = (courseId) => api.get('announcements', { 'context_codes': courseId })
+  const getCourseSyllabus = (courseId) => api.get(`courses/${courseId}`, { include: ['syllabus_body'], 'plain_messages': true })
   const getCourseMemberList = (courseId) => api.get(`courses/${courseId}/users`, { include: ['enrollments', 'avatar_url'] })
   // Recipients
   const getPossibleRecipients = (contextId) => api.get('search/recipients', { context: `${contextId}` })
@@ -59,6 +60,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     getCourseAllFiles,
     getCourseAssignments,
     getCourseAnnouncements,
+    getCourseSyllabus,
     getCourseMemberList,
     // Recipients
     getPossibleRecipients
