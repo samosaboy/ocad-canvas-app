@@ -118,12 +118,7 @@ class CoursesScreen extends Component {
       )
     }
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        style={styles.homeContainer}
-        contentOffset={{ x: 0, y: 35 }}
-      >
+      <View>
         <SegmentedControlIOS
           tintColor='#43484D'
           values={['Current', 'All']}
@@ -133,14 +128,20 @@ class CoursesScreen extends Component {
             this._changeCourseType(value)
           }}
         />
-        <View>
-          <FlatList
-            data={this.state.courseState === 1 ? this.props.courseListComplete : this.props.courseList}
-            keyExtractor={item => item.id}
-            renderItem={this._filterCourseView}
-          />
-        </View>
-      </ScrollView>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          style={styles.homeContainer}
+        >
+          <View>
+            <FlatList
+              data={this.state.courseState === 1 ? this.props.courseListComplete : this.props.courseList}
+              keyExtractor={item => item.id}
+              renderItem={this._filterCourseView}
+            />
+          </View>
+        </ScrollView>
+      </View>
     )
   }
 }

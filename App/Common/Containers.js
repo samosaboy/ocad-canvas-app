@@ -49,7 +49,37 @@ const Containers = {
     borderTopWidth: 0.5,
     borderBottomWidth: 0,
     borderBottomColor: Colors.iosLight,
-    borderTopColor: Colors.iosLight
+    borderTopColor: Colors.iosLight,
+    paddingTop: 15, // TODO: Check if this looks right
+    paddingBottom: 15
+  },
+  infoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 10
+  },
+  subTitleText: {
+    fontWeight: '400',
+    color: Colors.lightGrey
+  },
+  headerTitle: {
+    fontWeight: '600'
+  },
+  labelTitle: {
+    fontWeight: '600'
+  },
+  infoTitle: {
+    alignSelf: 'flex-start',
+    fontWeight: '500'
+  },
+  infoDesc: {
+    alignSelf: 'flex-end'
+  },
+  heading: {
+    fontSize: 17,
+    fontWeight: '600',
+    marginBottom: 10
   }
 }
 

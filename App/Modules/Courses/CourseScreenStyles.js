@@ -63,6 +63,24 @@ const styles = EStyleSheet.create({
   summaryBoxMessage: {
     paddingTop: 5
   },
+  assignmentContainer: {
+    marginLeft: 10
+  },
+  assignmentName: {
+    fontWeight: '400'
+  },
+  assignmentDueDate: {
+    color: Colors.lightGrey
+  },
+  assignmentContent: {
+    padding: 10
+  },
+  rubricContainer: {
+    marginTop: 15
+  },
+  rubricHeader: {
+    fontWeight: '500'
+  },
   ...Containers
 })
 

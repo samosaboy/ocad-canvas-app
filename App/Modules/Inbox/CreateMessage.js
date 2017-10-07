@@ -23,7 +23,8 @@ class CreateMessageScreen extends Component {
     super(props)
     this.state = {
       errorMessage: null,
-      message: ''
+      message: '',
+      title: ''
     }
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
@@ -94,6 +95,7 @@ class CreateMessageScreen extends Component {
       if (event.id === 'send') {
         const queryParams = stringify({
           recipients: [this.props.selectedUserId],
+          subject: this.state.title,
           body: this.state.message
         }, {arrayFormat: 'brackets'})
         if (this.state.message && this.props.courseId && this.props.selectedUserId) {
@@ -177,13 +179,21 @@ class CreateMessageScreen extends Component {
             // title='Test'
             titleStyle={styles.textLabel}
             subtitle={
-              <TextInput
-                multiline
-                placeholder='Enter your message'
-                style={styles.textInput}
-                onChangeText={(message) => this.setState({ message })}
-                value={this.state.message}
-              />
+              <View>
+                <TextInput
+                  placeholder='Enter a title'
+                  style={[styles.textInput, { height: 50 }]}
+                  onChangeText={(title) => this.setState({ title })}
+                  value={this.state.title}
+                />
+                <TextInput
+                  multiline
+                  placeholder='Enter a message'
+                  style={styles.textInput}
+                  onChangeText={(message) => this.setState({ message })}
+                  value={this.state.message}
+                />
+              </View>
             }
             subtitleContainerStyle={[styles.noBorderContainer]}
           />

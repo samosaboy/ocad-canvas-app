@@ -193,7 +193,7 @@ export default class InboxScreen extends React.Component {
       <View>
         <Text style={styles.messageSubtitleSubject}>
           { // TODO: come back to this, see all cases (i.e. multiple people conversation threads)
-            item.subject !== ''
+            item.subject !== '' && item.subject !== null
               ? item.subject
               : '(No subject)'
           }

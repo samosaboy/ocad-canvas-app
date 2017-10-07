@@ -6,7 +6,7 @@ export const navigatorStyle = {
   navBarBackgroundColor: '#FFFFFF',
   navBarHideOnScroll: true,
   // statusBarBlur: true,
-  // navBarNoBorder: true,
+  navBarNoBorder: true,
   // drawUnderNavBar: true,
   // drawUnderTabBar: true,
   // navBarBlur: true,

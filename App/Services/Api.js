@@ -30,14 +30,15 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   const getCourseActivitySummary = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
   const getCourseDiscussions = (courseId, isAnnouncement = null) => api.get(`courses/${courseId}/discussion_topics`, { 'only_announcements': isAnnouncement, 'plain_messages': true, 'order_by': 'recent_activity', 'per_page': 50 })
   const getCourseDiscussionsSingle = (courseId, discussionId) => api.get(`courses/${courseId}/discussion_topics/${discussionId}/entries`)
-  const getCourseAllFiles = (courseId) => api.get(`courses/${courseId}/files`)
-  const getCourseAssignments = (userId, courseId) => api.get(`courses/${courseId}/assignments`)
+  const getCourseAssignments = (courseId) => api.get(`courses/${courseId}/assignments`)
+  const getCourseAssignmentsSingle = (courseId, assignId) => api.get(`courses/${courseId}/assignments/${assignId}`)
   const getCourseAnnouncements = (courseId) => api.get('announcements', { 'context_codes': courseId })
   const getCourseSyllabus = (courseId) => api.get(`courses/${courseId}`, { include: ['syllabus_body'], 'plain_messages': true })
-  const getCourseMemberList = (courseId) => api.get(`courses/${courseId}/users`, { include: ['enrollments', 'avatar_url'] })
+  const getCourseMemberList = (courseId) => api.get(`courses/${courseId}/users`, { include: ['enrollments', 'avatar_url'], 'per_page': 200 })
   const getCourseSubmissions = (courseId) => api.get(`courses/${courseId}/students/submissions`, { per_page: '50' }) // match assignment_id in this response w/ getCourseAssignment's id
+  const getCourseFiles = (courseId) => api.get(`courses/${courseId}/files`)
   // Recipients
-  const getPossibleRecipients = (contextId) => api.get('search/recipients', { context: `${contextId}` })
+  const getPossibleRecipients = (contextId) => api.get('search/recipients', { context: `${contextId}`, 'per_page': 200 })
 
   return {
     // Required
@@ -58,12 +59,13 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
     getCourseActivitySummary,
     getCourseDiscussions,
     getCourseDiscussionsSingle,
-    getCourseAllFiles,
     getCourseAssignments,
+    getCourseAssignmentsSingle,
     getCourseAnnouncements,
     getCourseSyllabus,
     getCourseMemberList,
     getCourseSubmissions,
+    getCourseFiles,
     // Recipients
     getPossibleRecipients
   }

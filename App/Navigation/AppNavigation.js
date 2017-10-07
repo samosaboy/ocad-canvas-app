@@ -9,6 +9,10 @@ import CoursesScreenSinglePeople from '../Modules/Courses/CoursesScreenSinglePeo
 import CourseScreenActivitySingle from '../Modules/Courses/CoursesScreenActivitySingle'
 import CoursesScreenSingleAnnouncements from '../Modules/Courses/CoursesScreenSingleAnnouncements'
 import CoursesScreenSingleSyllabus from '../Modules/Courses/CoursesScreenSingleSyllabus'
+import CoursesScreenSingleAssignments from '../Modules/Courses/CoursesScreenSingleAssignments'
+import CoursesScreenSingleAssignmentsSingle from '../Modules/Courses/CoursesScreenSingleAssignmentsSingle'
+import CoursesScreenSingleFiles from '../Modules/Courses/CoursesScreenSingleFiles'
+import CoursesScreenSingleGrades from '../Modules/Courses/CoursesScreenSingleGrades'
 import SingleConversationView from '../Modules/Inbox/InboxScreenSingle'
 import SingleConversationViewListParticipants from '../Modules/Inbox/InboxScreenSingleAllParticipants'
 
@@ -25,6 +29,10 @@ export function registerScreens (store, Provider) {
   Navigation.registerComponent('CoursesScreenSinglePeople', () => CoursesScreenSinglePeople)
   Navigation.registerComponent('CoursesScreenSingleAnnouncements', () => CoursesScreenSingleAnnouncements)
   Navigation.registerComponent('CoursesScreenSingleSyllabus', () => CoursesScreenSingleSyllabus)
+  Navigation.registerComponent('CoursesScreenSingleAssignments', () => CoursesScreenSingleAssignments)
+  Navigation.registerComponent('CoursesScreenSingleAssignmentsSingle', () => CoursesScreenSingleAssignmentsSingle)
+  Navigation.registerComponent('CoursesScreenSingleFiles', () => CoursesScreenSingleFiles)
+  Navigation.registerComponent('CoursesScreenSingleGrades', () => CoursesScreenSingleGrades)
   Navigation.registerComponent('SingleConversationViewListParticipants', () => SingleConversationViewListParticipants)
   Navigation.registerComponent('CreateMessage', () => CreateMessage, store, Provider)
   Navigation.registerComponent('CreateMessageSelectCourse', () => CreateMessageSelectCourse, store, Provider)

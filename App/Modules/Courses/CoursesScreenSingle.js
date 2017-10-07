@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import { ListItem } from 'react-native-elements'
-import { TouchableOpacity, FlatList, ScrollView, Text, Dimensions } from 'react-native'
+import { View, RefreshControl, TouchableOpacity, FlatList, ScrollView, Text, Dimensions } from 'react-native'
 import API from '../../Services/Api'
 import { styles } from './CourseScreenStyles'
 import moment from 'moment'
@@ -81,6 +81,16 @@ export default class CoursesScreenSingle extends React.PureComponent {
     )
   }
 
+  _toCourseAssignments = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleAssignments',
+      backButtonTitle: '',
+      passProps: {
+        id
+      }
+    })
+  }
+
   _toCourseAnnouncements = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAnnouncements',
@@ -111,6 +121,31 @@ export default class CoursesScreenSingle extends React.PureComponent {
     })
   }
 
+  _toCourseFiles = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleFiles',
+      backButtonTitle: '',
+      passProps: {
+        id
+      }
+    })
+  }
+
+  _toCourseGrades = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleGrades',
+      backButtonTitle: '',
+      passProps: {
+        id
+      }
+    })
+  }
+
+  refresh = () => {
+    this.setState({ courseActivity: [], courseActivitySummary: [], loading: false })
+    this._getCourseActivity()
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -122,69 +157,77 @@ export default class CoursesScreenSingle extends React.PureComponent {
     // refresh calls every X minutes/hours
     // option to refresh it all -> deletes async storage, lets user fetch it all again?
     return (
-      <ScrollView horizontal={false}>
-        <FlatList
-          horizontal
-          data={this.state.courseActivity}
-          keyExtractor={item => item.id}
-          renderItem={this._activitySummary}
-          decelerationRate='fast'
-          snapToInterval={width - 60}
-          snaptoAlignment={'center'}
-        />
-        {
-          _.find(this.state.courseActivitySummary, { type: 'Announcement' })
-          ? <ListItem
+      <View>
+        <ScrollView
+          horizontal={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.loading}
+              onRefresh={this.refresh.bind(this)}
+              title='Pull to refresh'
+            />
+          }
+        >
+          <FlatList
+            horizontal
+            data={this.state.courseActivity}
+            keyExtractor={item => item.id}
+            renderItem={this._activitySummary}
+            decelerationRate='fast'
+            snapToInterval={width - 60}
+            snaptoAlignment={'center'}
+          />
+          <ListItem
             title='Announcements'
             containerStyle={styles.listContainer}
             onPress={() => this._toCourseAnnouncements(this.props.id)}
             badge={{
-              value: _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
+              value: _.find(this.state.courseActivitySummary, { type: 'Announcement' })
+                ? _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
+                : 0
             }}
-            />
-          : null
-        }
-        {
-          _.find(this.state.courseActivitySummary, { notification_category: 'Due Date' })
-            ? <ListItem
-              title='Assignments'
-              containerStyle={styles.listContainer}
-              badge={{
-                value: _.find(this.state.courseActivitySummary, { notification_category: 'Due Date' }).count
-              }}
-            />
-            : null
-        }
-        {
-          _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
-            ? <ListItem
-              title='Discussions'
-              containerStyle={styles.listContainer}
-              badge={{
-                value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
-              }}
-            />
-            : null
-        }
-        <ListItem
-          title='Grades'
-          containerStyle={styles.listContainer}
-        />
-        <ListItem
-          title='People'
-          containerStyle={styles.listContainer}
-          onPress={() => this._toCourseParticipants(this.props.id)}
-        />
-        <ListItem
-          title='Files'
-          containerStyle={styles.listContainer}
-        />
-        <ListItem
-          title='Outline'
-          containerStyle={styles.listContainer}
-          onPress={() => this._toCourseSyllabus(this.props.id)}
-        />
-      </ScrollView>
+          />
+          <ListItem
+            title='Assignments'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseAssignments(this.props.id)}
+            badge={{
+              value: _.find(this.state.courseActivitySummary, { type: 'Due Date' })
+                ? _.find(this.state.courseActivitySummary, { type: 'Due Date' }).count
+                : 0
+            }}
+          />
+          <ListItem
+            title='Discussions'
+            containerStyle={styles.listContainer}
+            badge={{
+              value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
+                ? _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
+                : 0
+            }}
+          />
+          <ListItem
+            title='Grades'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseGrades(this.props.id)}
+          />
+          <ListItem
+            title='People'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseParticipants(this.props.id)}
+          />
+          <ListItem
+            title='Files'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseFiles(this.props.id)}
+          />
+          <ListItem
+            title='Outline'
+            containerStyle={styles.listContainer}
+            onPress={() => this._toCourseSyllabus(this.props.id)}
+          />
+        </ScrollView>
+      </View>
     )
   }
 }

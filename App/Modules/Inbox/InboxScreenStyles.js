@@ -38,7 +38,7 @@ export default StyleSheet.create({
   },
   messageSubject: {
     fontWeight: '400',
-    fontSize: 15,
+    // fontSize: 15,
     color: Colors.background,
     paddingBottom: 1,
     paddingLeft: 10,
@@ -49,7 +49,7 @@ export default StyleSheet.create({
   messageDate: {
     // fontWeight: '300',
     color: Colors.lightGrey,
-    fontSize: Fonts.size.small,
+    // fontSize: Fonts.size.small,
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
     textAlign: 'right',
@@ -126,8 +126,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   conversationThread: {
-    borderTopColor: Colors.lighterGrey,
-    borderTopWidth: 0
+    borderTopWidth: 0,
+    borderBottomWidth: 0.5
   },
   ...Containers
 })

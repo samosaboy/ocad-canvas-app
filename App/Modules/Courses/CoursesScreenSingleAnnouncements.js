@@ -53,6 +53,7 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
             title={announcements.title}
             subtitle={announcements.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', '')}
             subtitleNumberOfLines={5}
+            subtitleStyle={styles.subTitleText}
           />
         ))}
       </ScrollView>
