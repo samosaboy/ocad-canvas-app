@@ -29,12 +29,12 @@ export default class CoursesScreenSingle extends React.Component {
       messages: {},
       loading: true
     }
-    this.props.navigator.setTitle({
-      title: this.props.subject ? this.props.subject : '(No Subject)'
-    })
-    this.props.navigator.setSubTitle({
-      subtitle: this.props.course
-    })
+    // this.props.navigator.setTitle({
+    //   title: this.props.subject ? this.props.subject : '(No Subject)'
+    // })
+    // this.props.navigator.setSubTitle({
+    //   subtitle: this.props.course
+    // })
     this.props.navigator.setStyle({
       navBarSubtitleFontSize: 11,
       navBarSubtitleColor: '#b0b0b0'
@@ -130,7 +130,7 @@ export default class CoursesScreenSingle extends React.Component {
                 key={messages.id}
                 title={_.find(this.state.messages.participants, ['id', messages.author_id]).name}
                 rightTitle={this._formatDate(messages.created_at)}
-                containerStyle={styles.noBorderContainer}
+                containerStyle={[styles.noBorderContainer, styles.authorContainer]}
               />
               <View style={_.isEqual(index, 0)
                 ? [styles.messageContainer, styles.fullMessageText, styles.marginBottom]
@@ -139,11 +139,9 @@ export default class CoursesScreenSingle extends React.Component {
                   <View style={styles.messageTextContainer}>
                     <View>
                       {
-                        _.isEqual(index, 0)
-                          ? (`${this.props.subject}` === '' || `${!this.props.subject}`)
-                          ? <Text style={[styles.fullMessageTitle]}>(No Subject)</Text>
-                          : <Text style={[styles.fullMessageTitle]} key={messages.id}>{this.props.subject}</Text>
-                        : null
+                        this.state.messages.subject !== '' && this.state.messages.subject !== null
+                        ? <Text style={styles.fullMessageTitle}>{this.state.messages.subject}</Text>
+                        : <Text style={styles.fullMessageTitle}>No Subject</Text>
                       }
                     </View>
                     <Text key={messages.id}>

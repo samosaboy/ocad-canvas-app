@@ -59,7 +59,7 @@ export default class CoursesScreenSingleAssignments extends React.Component {
     const courseId = this.props.id
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAssignmentsSingle',
-      backButtonTitle: '',
+      // backButtonTitle: '',
       passProps: {
         courseId,
         assignId

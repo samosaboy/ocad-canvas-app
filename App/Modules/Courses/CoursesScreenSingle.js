@@ -68,15 +68,22 @@ export default class CoursesScreenSingle extends React.PureComponent {
   }
 
   _activitySummary = ({ item }) => {
+    // TODO: Come back to this
     return (
       <TouchableOpacity style={[styles.summaryBox, { width: width - 80 }]} onPress={() => { this._activityFull(item) }}>
         <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
         <Text style={styles.summaryBoxTitle} numberOfLines={1}>
           {_.truncate(this._formatCourseName(item.title), { length: 60, seperator: '...' })}
         </Text>
-        <Text style={styles.summaryBoxMessage} numberOfLines={4}>
-          {_.truncate(item.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', ''), { length: 90, seperator: '...' })}
-        </Text>
+        {
+          item.message
+          ? <Text style={styles.summaryBoxMessage} numberOfLines={4}>
+            {_.truncate(item.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', ''),
+              { length: 90, seperator: '...' })
+            }
+          </Text>
+          : <Text>{item.grade}</Text>
+        }
       </TouchableOpacity>
     )
   }
@@ -84,7 +91,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseAssignments = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAssignments',
-      backButtonTitle: '',
+      title: 'Assignments',
+      // backButtonTitle: '',
       passProps: {
         id
       }
@@ -94,7 +102,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseAnnouncements = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAnnouncements',
-      backButtonTitle: '',
+      // backButtonTitle: '',
+      title: 'Announcements',
       passProps: {
         id
       }
@@ -104,7 +113,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseParticipants = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSinglePeople',
-      backButtonTitle: '',
+      title: 'People',
+      // backButtonTitle: '',
       passProps: {
         id
       }
@@ -114,7 +124,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseSyllabus = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleSyllabus',
-      backButtonTitle: '',
+      title: 'Syllabus',
+      // backButtonTitle: '',
       passProps: {
         id
       }
@@ -124,7 +135,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseFiles = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleFiles',
-      backButtonTitle: '',
+      title: 'Files',
+      // backButtonTitle: '',
       passProps: {
         id
       }
@@ -134,7 +146,8 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _toCourseGrades = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleGrades',
-      backButtonTitle: '',
+      title: 'Grades',
+      // backButtonTitle: '',
       passProps: {
         id
       }
@@ -142,7 +155,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
   }
 
   refresh = () => {
-    this.setState({ courseActivity: [], courseActivitySummary: [], loading: false })
+    this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
     this._getCourseActivity()
   }
 
@@ -164,7 +177,6 @@ export default class CoursesScreenSingle extends React.PureComponent {
             <RefreshControl
               refreshing={this.state.loading}
               onRefresh={this.refresh.bind(this)}
-              title='Pull to refresh'
             />
           }
         >

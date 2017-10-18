@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, ScrollView } from 'react-native'
+import { ActionSheetIOS, Text, ScrollView } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
 import { styles } from './CourseScreenStyles'
@@ -35,6 +35,14 @@ export default class CoursesScreenSinglePeople extends React.Component {
       })
   }
 
+  showActionSheet = (psUserId, psCourseId, psUserName) => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ['Message', 'Cancel'],
+      cancelButtonIndex: 1
+    },
+    () => this.messageUser(psUserId, psCourseId, psUserName))
+  }
+
   // ps = pre selected
   messageUser = (psUserId, psCourseId, psUserName) => {
     this.props.navigator.showModal({
@@ -64,7 +72,8 @@ export default class CoursesScreenSinglePeople extends React.Component {
             title={participants.name}
             label={participants.enrollments[0].type === 'TeacherEnrollment' ? <Text style={styles.label}>(Instructor)</Text> : null}
             rightTitleContainerStyle={{ flex: 1, alignItems: 'flex-start' }}
-            onPress={() => this.messageUser(participants.id, participants.enrollments[0].course_id, participants.name)}
+            onPress={() => this.showActionSheet(participants.id, participants.enrollments[0].course_id, participants.name)}
+            // onPress={() => this.messageUser(participants.id, participants.enrollments[0].course_id, participants.name)}
           />
         ))}
       </ScrollView>

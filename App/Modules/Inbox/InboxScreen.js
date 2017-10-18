@@ -210,7 +210,7 @@ export default class InboxScreen extends React.Component {
     // send ID down as a prop?
     this.props.navigator.push({
       screen: 'SingleConversationView',
-      backButtonTitle: '',
+      // backButtonTitle: '',
       passProps: {
         id,
         subject,

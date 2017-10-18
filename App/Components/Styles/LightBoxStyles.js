@@ -55,12 +55,18 @@ export default StyleSheet.create({
   },
   lightBoxContentFull: {
     marginTop: height(10),
-    padding: 20,
+    // padding: 20,
     backgroundColor: Colors.white,
-    borderRadius: 5,
+    borderRadius: 15,
     width: width(90),
-    minHeight: 20,
-    maxHeight: height(70)
+    // minHeight: 20,
+    maxHeight: height(50)
+  },
+  lightBoxContentFullContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 15,
+    paddingBottom: 15
   },
   lightBoxIcon: {
     position: 'absolute',
@@ -74,7 +80,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.regular
   },
   courseActivityDate: {
-    paddingBottom: 10,
     color: Colors.lightGrey
   },
   ...Containers

@@ -29,7 +29,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   const getCourseActivity = (courseId) => api.get(`courses/${courseId}/activity_stream`)
   const getCourseActivitySummary = (courseId) => api.get(`courses/${courseId}/activity_stream/summary`)
   const getCourseDiscussions = (courseId, isAnnouncement = null) => api.get(`courses/${courseId}/discussion_topics`, { 'only_announcements': isAnnouncement, 'plain_messages': true, 'order_by': 'recent_activity', 'per_page': 50 })
-  const getCourseDiscussionsSingle = (courseId, discussionId) => api.get(`courses/${courseId}/discussion_topics/${discussionId}/entries`)
+  const getCourseDiscussionsSingle = (courseId, discussionId) => api.get(`courses/${courseId}/discussion_topics/${discussionId}`)
   const getCourseAssignments = (courseId) => api.get(`courses/${courseId}/assignments`)
   const getCourseAssignmentsSingle = (courseId, assignId) => api.get(`courses/${courseId}/assignments/${assignId}`)
   const getCourseAnnouncements = (courseId) => api.get('announcements', { 'context_codes': courseId })

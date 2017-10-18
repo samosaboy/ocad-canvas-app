@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
-import { styles } from './CourseScreenStyles'
+import Pages from '../../Common/DeepPages'
+import moment from 'moment'
 import ScreenLadda from '../../Components/ScreenLadda'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
@@ -35,6 +36,36 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
       })
   }
 
+  _formatDate = (date) => {
+    return moment.utc(date).fromNow() // TODO: Update time stamp with tick()?
+  }
+
+  _showTitle = (item) => {
+    return (
+      <View style={Pages.itemHeader}>
+        <Text style={Pages.headerTitle}>{item.title}</Text>
+        <Text style={Pages.date}>{
+          item.posted_at
+          ? this._formatDate(item.posted_at)
+          : <Text>No Date</Text>
+        }</Text>
+      </View>
+
+    )
+  }
+
+  getSingleItem = (itemId) => {
+    const courseId = this.props.id
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleAnnouncementsSingle',
+      // backButtonTitle: '',
+      passProps: {
+        courseId,
+        itemId
+      }
+    })
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -46,14 +77,14 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
         automaticallyAdjustContentInsets={false}>
         {this.state.announcements.map((announcements) => (
           <ListItem
-            roundAvatar
-            hideChevron
-            containerStyle={styles.listContainer}
+            containerStyle={Pages.listContainer}
             key={announcements.id}
-            title={announcements.title}
+            title={this._showTitle(announcements)}
+            titleStyle={Pages.headerTitle}
             subtitle={announcements.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', '')}
             subtitleNumberOfLines={5}
-            subtitleStyle={styles.subTitleText}
+            subtitleStyle={Pages.subTitleText}
+            onPress={() => this.getSingleItem(announcements.id)}
           />
         ))}
       </ScrollView>

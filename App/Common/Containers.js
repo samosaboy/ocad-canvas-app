@@ -44,6 +44,10 @@ const Containers = {
     borderBottomWidth: 0,
     borderTopWidth: 0
   },
+  authorContainer: {
+    paddingLeft: 10,
+    paddingRight: 10
+  },
   listContainer: {
     backgroundColor: Colors.white,
     borderTopWidth: 0.5,
@@ -61,7 +65,7 @@ const Containers = {
   },
   subTitleText: {
     fontWeight: '400',
-    color: Colors.lightGrey
+    color: Colors.charcoal
   },
   headerTitle: {
     fontWeight: '600'

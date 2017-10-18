@@ -45,7 +45,7 @@ const styles = EStyleSheet.create({
     height: 160,
     padding: 20,
     overflow: 'hidden',
-    borderRadius: 5,
+    borderRadius: 15,
     borderColor: Colors.iosLight,
     flexDirection: 'column',
     justifyContent: 'center'

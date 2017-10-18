@@ -50,7 +50,7 @@ class CoursesScreen extends Component {
     // send ID down as a prop?
     this.props.navigator.push({
       screen: 'SingleCourseView',
-      backButtonTitle: '',
+      // backButtonTitle: '',
       passProps: {
         id,
         fullName,
