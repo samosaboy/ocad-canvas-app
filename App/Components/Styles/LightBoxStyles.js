@@ -17,13 +17,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.input,
     marginLeft: 0
   },
-  textInput: {
-    fontSize: Fonts.size.medium,
-    width: width(100),
-    height: height(100),
-    paddingLeft: 10,
-    paddingTop: 10
-  },
   textBold: {
     fontWeight: '500'
   },
@@ -48,10 +41,9 @@ export default StyleSheet.create({
   lightBoxContent: {
     marginTop: 0,
     backgroundColor: Colors.white,
-    borderRadius: 5,
+    borderRadius: 25,
     width: width(90),
-    minHeight: 10,
-    maxHeight: 280
+    minHeight: 10
   },
   lightBoxContentFull: {
     marginTop: height(10),
@@ -60,7 +52,7 @@ export default StyleSheet.create({
     borderRadius: 15,
     width: width(90),
     // minHeight: 20,
-    maxHeight: height(50)
+    maxHeight: height(30)
   },
   lightBoxContentFullContainer: {
     paddingLeft: 20,
@@ -81,6 +73,13 @@ export default StyleSheet.create({
   },
   courseActivityDate: {
     color: Colors.lightGrey
+  },
+  textInput: {
+    fontSize: Fonts.size.medium,
+    width: width(100),
+    height: height(100),
+    paddingLeft: 10,
+    paddingTop: 10
   },
   ...Containers
 })

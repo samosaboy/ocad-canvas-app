@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Containers, Colors, Fonts } from '../../Common/index'
-// import { width } from 'react-native-dimension'
+import { width, height } from 'react-native-dimension'
 
 export default StyleSheet.create({
   seeAll: {
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     paddingBottom: 3
   },
   messageSubject: {
-    fontWeight: '400',
+    fontWeight: '600',
     // fontSize: 15,
     color: Colors.background,
     paddingBottom: 1,
@@ -128,6 +128,13 @@ export default StyleSheet.create({
   conversationThread: {
     borderTopWidth: 0,
     borderBottomWidth: 0.5
+  },
+  textInput: {
+    fontSize: Fonts.size.medium,
+    width: width(100),
+    height: height(100),
+    paddingLeft: 10,
+    paddingTop: 10
   },
   ...Containers
 })

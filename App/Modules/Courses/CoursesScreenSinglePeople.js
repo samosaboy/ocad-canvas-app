@@ -1,5 +1,6 @@
+import _ from 'lodash'
 import React from 'react'
-import { ActionSheetIOS, Text, ScrollView } from 'react-native'
+import { View, ActionSheetIOS, Text, ScrollView } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
 import { styles } from './CourseScreenStyles'
@@ -35,20 +36,27 @@ export default class CoursesScreenSinglePeople extends React.Component {
       })
   }
 
+  test = () => {
+    return (
+      <View>
+        <Text>test</Text>
+      </View>
+    )
+  }
+
   showActionSheet = (psUserId, psCourseId, psUserName) => {
     ActionSheetIOS.showActionSheetWithOptions({
       options: ['Message', 'Cancel'],
       cancelButtonIndex: 1
     },
-    () => this.messageUser(psUserId, psCourseId, psUserName))
-  }
-
-  // ps = pre selected
-  messageUser = (psUserId, psCourseId, psUserName) => {
-    this.props.navigator.showModal({
-      screen: 'CreateMessage',
-      title: 'Compose',
-      passProps: { psUserId, psCourseId, psUserName }
+    (index) => {
+      if (_.isEqual(index, 0)) {
+        this.props.navigator.showModal({
+          screen: 'CreateMessage',
+          title: 'Compose',
+          passProps: { psUserId, psCourseId, psUserName }
+        })
+      }
     })
   }
 

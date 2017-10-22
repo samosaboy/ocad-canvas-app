@@ -40,7 +40,7 @@ export default class CoursesScreenSingleAssignments extends React.Component {
   }
 
   _formatDate = (date) => {
-    return moment.utc(date).format('D MMM hh:mm A')
+    return moment(date, moment.ISO_8601).format('D MMM hh:mm A')
   }
 
   showAssignmentInfo = (assignment) => {
@@ -50,9 +50,12 @@ export default class CoursesScreenSingleAssignments extends React.Component {
   }
 
   showAssignmentSubtitle = (assignment) => {
-    return (
-      <Text style={styles.assignmentDueDate}>{this._formatDate(assignment.due_at)}</Text>
-    )
+    if (assignment.due_at) {
+      return (
+        <Text style={styles.assignmentDueDate}>{this._formatDate(assignment.due_at)}</Text>
+      )
+    }
+    return null
   }
 
   getSingleAssignment = (assignId) => {
@@ -77,14 +80,14 @@ export default class CoursesScreenSingleAssignments extends React.Component {
       <ScrollView>
         <ListItem
           hideChevron
-          containerStyle={[styles.listContainer, { paddingLeft: 10, paddingRight: 10 }]}
-          title={<Text>Assignment</Text>}
-          label={<Text>Due Date</Text>}
+          containerStyle={[styles.listContainer, { paddingLeft: 10, paddingRight: 20 }]}
+          title={<Text style={styles.labelTitle}>Assignment</Text>}
+          label={<Text style={styles.labelTitle}>Due Date</Text>}
         />
         {this.state.assignments.map((assignment) => (
           <ListItem
             hideChevron
-            containerStyle={[styles.listContainer, styles.assignmentContainer, { paddingTop: 25, paddingBottom: 25 }]}
+            containerStyle={[styles.listContainer, styles.pageTableContainer, { paddingTop: 25, paddingBottom: 25 }]}
             key={assignment.id}
             title={this.showAssignmentInfo(assignment)}
             label={this.showAssignmentSubtitle(assignment)}

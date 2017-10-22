@@ -30,7 +30,7 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
   }
 
   _getCourseAnnouncements = () => {
-    this.api.getCourseDiscussions(this.props.id, false)
+    this.api.getCourseThreads(this.props.id, false)
       .then((response) => {
         this.setState({ announcements: response.data, loading: false })
       })
@@ -72,22 +72,27 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
         <ScreenLadda text={'Getting announcements'} />
       )
     }
+    if (this.state.announcements) {
+      return (
+        <ScrollView
+          automaticallyAdjustContentInsets={false}>
+          {this.state.announcements.map((announcements) => (
+            <ListItem
+              containerStyle={Pages.listContainer}
+              key={announcements.id}
+              title={this._showTitle(announcements)}
+              titleStyle={Pages.headerTitle}
+              subtitle={announcements.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', '')}
+              subtitleNumberOfLines={5}
+              subtitleStyle={Pages.subTitleText}
+              onPress={() => this.getSingleItem(announcements.id)}
+            />
+          ))}
+        </ScrollView>
+      )
+    }
     return (
-      <ScrollView
-        automaticallyAdjustContentInsets={false}>
-        {this.state.announcements.map((announcements) => (
-          <ListItem
-            containerStyle={Pages.listContainer}
-            key={announcements.id}
-            title={this._showTitle(announcements)}
-            titleStyle={Pages.headerTitle}
-            subtitle={announcements.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', '')}
-            subtitleNumberOfLines={5}
-            subtitleStyle={Pages.subTitleText}
-            onPress={() => this.getSingleItem(announcements.id)}
-          />
-        ))}
-      </ScrollView>
+      <Text>No information</Text>
     )
   }
 }

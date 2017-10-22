@@ -9,6 +9,7 @@ import API from '../../Services/Api'
 import styles from './InboxScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 import { Colors } from '../../Common/index'
+import { IconsMap } from '../../Common/Icons'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 
@@ -29,17 +30,40 @@ export default class CoursesScreenSingle extends React.Component {
       messages: {},
       loading: true
     }
-    // this.props.navigator.setTitle({
-    //   title: this.props.subject ? this.props.subject : '(No Subject)'
-    // })
-    // this.props.navigator.setSubTitle({
-    //   subtitle: this.props.course
-    // })
     this.props.navigator.setStyle({
       navBarSubtitleFontSize: 11,
       navBarSubtitleColor: '#b0b0b0'
     })
     this.api = API.create()
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+    this._renderNavComponents()
+  }
+
+  _renderNavComponents () {
+    this.props.navigator.setButtons({
+      rightButtons: [
+        {
+          title: 'Reply',
+          id: 'reply',
+          disabled: false,
+          disableIconTint: false,
+          showAsAction: 'ifRoom',
+          icon: IconsMap['reply']
+        }
+      ]
+    })
+  }
+
+  onNavigatorEvent (event) {
+    if (event.type === 'NavBarButtonPress') {
+      if (event.id === 'reply') {
+        this.props.navigator.showModal({
+          screen: 'SingleConversationReply',
+          title: 'Reply',
+          passProps: { id: this.props.id }
+        })
+      }
+    }
   }
 
   componentDidMount () {

@@ -55,16 +55,29 @@ export default class CoursesScreenSingle extends React.PureComponent {
   }
 
   _activityFull = (item) => {
-    this.props.navigator.showLightBox({
-      screen: 'CourseScreenActivitySingle',
-      adjustSoftInput: 'resize',
-      passProps: { item },
-      style: {
-        backgroundBlur: 'light',
-        backgroundColor: '#00000030',
-        tapBackgroundToDismiss: true
-      }
-    })
+    console.tron.log(item)
+    if (item.type === 'DiscussionTopic') {
+      this.props.navigator.push({
+        screen: 'CoursesScreenSingleDiscussionsSingle',
+        passProps: { courseId: item.course_id, itemId: item.discussion_topic_id }
+      })
+    }
+    if (item.type === 'Announcement') {
+      this.props.navigator.push({
+        screen: 'CoursesScreenSingleAnnouncementsSingle',
+        passProps: { courseId: item.course_id, itemId: item.announcement_id }
+      })
+    }
+    // this.props.navigator.showLightBox({
+    //   screen: 'CourseScreenActivitySingle',
+    //   adjustSoftInput: 'resize',
+    //   passProps: { item },
+    //   style: {
+    //     backgroundBlur: 'light',
+    //     backgroundColor: '#00000030',
+    //     tapBackgroundToDismiss: true
+    //   }
+    // })
   }
 
   _activitySummary = ({ item }) => {
@@ -99,10 +112,19 @@ export default class CoursesScreenSingle extends React.PureComponent {
     })
   }
 
+  _toCourseDiscussions = (id) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleDiscussions',
+      title: 'Discussions',
+      passProps: {
+        id
+      }
+    })
+  }
+
   _toCourseAnnouncements = (id) => {
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAnnouncements',
-      // backButtonTitle: '',
       title: 'Announcements',
       passProps: {
         id
@@ -212,6 +234,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
           <ListItem
             title='Discussions'
             containerStyle={styles.listContainer}
+            onPress={() => this._toCourseDiscussions(this.props.id)}
             badge={{
               value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
                 ? _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count

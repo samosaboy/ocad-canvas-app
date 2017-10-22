@@ -34,16 +34,24 @@ const Pages = {
     paddingRight: 10,
     marginBottom: 10
   },
+  author: {
+    paddingLeft: 10
+  },
   viewContainer: {
-    paddingLeft: 20,
-    paddingRight: 20
+    padding: 20
+  },
+  metaContainer: {
+    // borderBottomWidth: 0.5,
+    // borderBottomColor: Colors.iosLight,
+    marginTop: 20,
+    marginBottom: 20
   },
   bodyTitle: {
     fontWeight: '600',
     fontSize: Fonts.size.regular
   },
   body: {
-    paddingTop: 30
+    paddingTop: 15
   }
 }
 

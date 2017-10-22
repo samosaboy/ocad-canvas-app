@@ -63,11 +63,12 @@ const styles = EStyleSheet.create({
   summaryBoxMessage: {
     paddingTop: 5
   },
-  assignmentContainer: {
-    marginLeft: 10
+  pageTableContainer: {
+    paddingLeft: 10,
+    paddingRight: 20
   },
   assignmentName: {
-    fontWeight: '400'
+    fontWeight: '600'
   },
   assignmentDueDate: {
     color: Colors.lightGrey

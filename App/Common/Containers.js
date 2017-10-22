@@ -61,7 +61,8 @@ const Containers = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingRight: 10
   },
   subTitleText: {
     fontWeight: '400',

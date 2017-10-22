@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ScrollView, View, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { List, ListItem } from 'react-native-elements'
 import styles from '../../Components/Styles/LightBoxStyles'
 import { bindActionCreators } from 'redux'
@@ -13,6 +13,10 @@ class CreateMessageSelectCourse extends Component {
     this.state = {
       text: ''
     }
+  }
+
+  componentDidMount () {
+    this.setState({ itemHeight: this.props.courseList.length * 60 })
   }
 
   _closeModal () {
@@ -30,9 +34,9 @@ class CreateMessageSelectCourse extends Component {
     return (
       <View style={styles.lightBoxContainer}>
         <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
-          <Icon name='ios-close' size={40} color='#000000' />
+          <Icon name='close' size={35} color='#000000' />
         </TouchableOpacity>
-        <ScrollView style={styles.lightBoxContent}>
+        <ScrollView style={[styles.lightBoxContent, { maxHeight: this.state.itemHeight }]}>
           <List style={{ marginTop: 0 }}>
             {
               this.props.courseList.map((course) => (

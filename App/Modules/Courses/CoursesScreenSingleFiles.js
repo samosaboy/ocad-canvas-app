@@ -1,5 +1,6 @@
+import _ from 'lodash'
 import React from 'react'
-import { Linking, Text, ScrollView } from 'react-native'
+import { Linking, View, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Octicons'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
@@ -20,21 +21,57 @@ export default class CoursesScreenSingleFiles extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      folders: [],
       files: [],
+      page: 1,
+      numberOfFiles: null,
+      folderId: null,
       loading: true
     }
     this.api = API.create()
   }
 
   componentDidMount () {
-    this._getCourseFiles()
+    this._getCourseFolders()
   }
 
-  _getCourseFiles = () => {
-    this.api.getCourseFiles(this.props.id)
+  _getCourseFolders = () => {
+    this.api.getCourseFolders(this.props.id)
       .then((response) => {
-        this.setState({ files: response.data, loading: false })
+        const thisFolder = _.find(response.data, { name: 'course files' })
+        this.setState({
+          folders: _.reject(response.data, thisFolder),
+          folderId: thisFolder.id,
+          numberOfFiles: thisFolder.files_count
+        })
+        this._getFolder()
       })
+  }
+
+  _getFolder = () => {
+    this.api.getSingleFolder(this.state.folderId, this.state.page)
+    .then((response) => {
+      this.setState({
+        files: [...this.state.folders, ...response.data],
+        loading: false
+      })
+    })
+  }
+
+  _getMoreFiles = () => {
+    if (_.groupBy(this.state.files, 'folder_id')[this.state.folderId].length < this.state.numberOfFiles) {
+      this.setState(
+        { page: this.state.page + 1 },
+        () => {
+          this.api.getSingleFolder(this.state.folderId, this.state.page)
+          .then((response) => {
+            this.setState({
+              files: [...this.state.files, ...response.data]
+            })
+          })
+        }
+      )
+    }
   }
 
   convertFromByte = (byte, decimals) => {
@@ -49,11 +86,13 @@ export default class CoursesScreenSingleFiles extends React.Component {
   }
 
   _formatDate = (date) => {
-    return moment.utc(date).format('DD MMMM YYYY')
+    return moment.utc(date).format('MM/DD/YYYY h:mm A')
   }
 
   _showIcon = (type) => {
     switch (type) {
+      case 'folder':
+        return (<Icon type='octicons' name='file-directory' size={35} />)
       case 'pdf':
         return (<Icon type='octicons' name='file-pdf' size={35} />)
       case 'image':
@@ -65,32 +104,48 @@ export default class CoursesScreenSingleFiles extends React.Component {
     }
   }
 
-  _openAttachment = (url) => {
-    Linking.openURL(url)
+  _open = (item) => {
+    if (item.url) {
+      Linking.openURL(item.url)
+    } else {
+      const folderId = item.id
+      this.props.navigator.push({
+        screen: 'CoursesScreenSingleFolder',
+        passProps: {
+          folderId
+        }
+      })
+    }
   }
 
   render () {
     if (this.state.loading) {
       return (
-        <ScreenLadda text={'Getting assignments'} />
+        <ScreenLadda text={'Getting files'} />
       )
     }
     return (
-      <ScrollView>
-        {this.state.files.map((file) => (
-          <ListItem
-            hideChevron
-            containerStyle={[styles.listContainer, { paddingLeft: 5, paddingTop: 25, paddingBottom: 25 }]}
-            key={file.id}
-            title={file.display_name}
-            titleNumberOfLines={1}
-            subtitle={<Text style={{ marginLeft: 10 }}>{this.convertFromByte(file.size)}</Text>}
-            avatar={this._showIcon(file.mime_class)}
-            onPress={() => this._openAttachment(file.url)}
-            label={<Text style={[styles.subTitleText, { marginTop: 2 }]}>{this._formatDate(file.created_at)}</Text>}
-          />
-        ))}
-      </ScrollView>
+      <View>
+        <FlatList
+          data={this.state.files}
+          keyExtractor={(item) => item.id}
+          onEndReachedThreshold={0}
+          onEndReached={this._getMoreFiles}
+          renderItem={({ item }) => (
+            <ListItem
+              hideChevron={!item.files_count}
+              containerStyle={[styles.listContainer, { paddingLeft: 5, paddingTop: 25, paddingBottom: 25 }]}
+              title={item.display_name || item.name}
+              key={item.id}
+              rightTitle={this.convertFromByte(item.size)}
+              rightTitleContainerStyle={{ flex: 0, marginLeft: 10 }}
+              subtitle={item.files_count ? item.files_count + ' Files' : this._formatDate(item.created_at)}
+              avatar={this._showIcon(item.mime_class || 'folder')}
+              onPress={() => this._open(item)}
+            />
+          )}
+        />
+      </View>
     )
   }
 }

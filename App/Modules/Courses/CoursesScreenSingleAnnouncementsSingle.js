@@ -10,7 +10,7 @@ import HTMLView from 'react-native-htmlview'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 
-export default class CoursesScreenSingleAssignments extends React.Component {
+export default class CoursesScreenSingleAnnouncementSingle extends React.Component {
   static navigatorStyle = {
     ...navigatorStyle,
     navBarHideOnScroll: false,
@@ -32,9 +32,8 @@ export default class CoursesScreenSingleAssignments extends React.Component {
   }
 
   _getCourseItemSingle = () => {
-    this.api.getCourseDiscussionsSingle(this.props.courseId, this.props.itemId)
+    this.api.getCourseThreadsSingle(this.props.courseId, this.props.itemId)
       .then((response) => {
-        console.tron.log(response)
         this.setState({ item: response.data, loading: false })
       })
   }
@@ -61,6 +60,7 @@ export default class CoursesScreenSingleAssignments extends React.Component {
               avatar={{uri: item.author.avatar_image_url}}
               key={item.author.id}
               title={item.author.display_name}
+              titleNumberOfLines={3}
               rightTitle={this._formatDate(item.posted_at)}
               containerStyle={Pages.authorContainer}
               />

@@ -119,21 +119,22 @@ class CoursesScreen extends Component {
     }
     return (
       <View>
-        <SegmentedControlIOS
-          tintColor='#43484D'
-          values={['Current', 'All']}
-          selectedIndex={this.state.courseState}
-          style={{ marginLeft: 5, marginRight: 5, marginTop: 5 }}
-          onValueChange={(value) => {
-            this._changeCourseType(value)
-          }}
-        />
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           style={styles.homeContainer}
+          contentOffset={{x: 0, y: 35}}
         >
           <View>
+            <SegmentedControlIOS
+              tintColor='#43484D'
+              values={['Current', 'All']}
+              selectedIndex={this.state.courseState}
+              style={{ marginLeft: 5, marginRight: 5, marginTop: 5 }}
+              onValueChange={(value) => {
+                this._changeCourseType(value)
+              }}
+            />
             <FlatList
               data={this.state.courseState === 1 ? this.props.courseListComplete : this.props.courseList}
               keyExtractor={item => item.id}

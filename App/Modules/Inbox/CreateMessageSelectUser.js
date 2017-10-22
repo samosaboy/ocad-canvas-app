@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { List, ListItem } from 'react-native-elements'
 import styles from '../../Components/Styles/LightBoxStyles'
 import { bindActionCreators } from 'redux'
@@ -13,6 +13,13 @@ class CreateMessageSelectUser extends Component {
     super(props)
     this.state = {
       text: ''
+    }
+  }
+
+  componentDidMount () {
+    this.setState({ itemHeight: this.props.possibleUsers.length * 60 })
+    if (this.props.possibleUsers.length > 7) {
+      this.setState({ itemHeight: 436 })
     }
   }
 
@@ -30,9 +37,9 @@ class CreateMessageSelectUser extends Component {
     return (
       <View style={styles.lightBoxContainer}>
         <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
-          <Icon name='ios-close' size={40} color='#000000' />
+          <Icon name='close' size={35} color='#000000' />
         </TouchableOpacity>
-        <ScrollView style={styles.lightBoxContent}>
+        <ScrollView style={[styles.lightBoxContent, { maxHeight: this.state.itemHeight }]}>
           <List style={{ marginTop: 0 }}>
             {
             this.props.possibleUsers.map((user) => (
@@ -55,25 +62,6 @@ class CreateMessageSelectUser extends Component {
       </View>
     )
   }
-
-//   render () {
-//     return (
-//       <View>
-//         <List>
-//           {
-//             this.props.possibleUsers.map((user) => (
-//               <ListItem
-//                 title={user.name}
-//                 key={user.id}
-//                 onPress={() => this._dismissCourseListView(user.id, user.name)}
-//               />
-//             ))
-//           }
-//         </List>
-//       </View>
-//     )
-//   }
-// }
 }
 
 const mapStateToProps = (state) => {

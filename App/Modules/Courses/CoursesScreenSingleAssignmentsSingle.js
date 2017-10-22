@@ -32,13 +32,12 @@ export default class CoursesScreenSingleAssignments extends React.Component {
   _getCourseAssignmentsSingle = () => {
     this.api.getCourseAssignmentsSingle(this.props.courseId, this.props.assignId)
       .then((response) => {
-        console.tron.log(response.data)
         this.setState({ assignment: response.data, loading: false })
       })
   }
 
   _formatDate = (date) => {
-    return moment.utc(date).format('D MMMM YYYY HH:mm')
+    return moment(date, moment.ISO_8601).format('D MMM hh:mm A')
   }
 
   _showRubric = (assignment) => {
@@ -73,12 +72,16 @@ export default class CoursesScreenSingleAssignments extends React.Component {
     }
     return (
       <ScrollView>
-        <View style={{ paddingLeft: 30, paddingRight: 30 }}>
+        <View style={{ paddingLeft: 20, paddingRight: 20 }}>
           <View style={{ marginBottom: 10 }}>
             <Text style={styles.heading}>{assignment.name}</Text>
             <View style={styles.infoContainer}>
               <Text style={styles.infoTitle}>Due Date</Text>
-              <Text style={styles.infoDesc}>{this._formatDate(assignment.due_at)}</Text>
+              {
+                assignment.due_at
+                ? <Text style={styles.infoDesc}>{this._formatDate(assignment.due_at)}</Text>
+                : null
+              }
             </View>
             <View style={styles.infoContainer}>
               <Text style={styles.infoTitle}>Points Possible</Text>

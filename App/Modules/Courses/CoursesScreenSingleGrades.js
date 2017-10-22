@@ -31,9 +31,11 @@ export default class CoursesScreenSingleGrades extends React.Component {
     this._getCourseGrades()
     this._getCourseAssignments()
     this.setState({ loading: false })
-    setTimeout(() => {
-      console.tron.log(this.state)
-    }, 1000)
+    if (this.state.loading) {
+      setTimeout(() => {
+        console.tron.log(this.state)
+      }, 1000)
+    }
   }
 
   _getCourseGrades = () => {
@@ -70,7 +72,7 @@ export default class CoursesScreenSingleGrades extends React.Component {
   }
 
   showAssignmentDetails = (assignment) => {
-    const match = _.find(this.state.submissions, [ 'assignment_id', assignment.id ])
+    const match = _.find(this.state.submissions, ['assignment_id', assignment.id])
     if (match.grade) {
       return (
         <Text>{match.grade} / {assignment.points_possible}</Text>
@@ -84,6 +86,28 @@ export default class CoursesScreenSingleGrades extends React.Component {
     )
   }
 
+  goToAssignment = (courseId, assignId) => {
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleAssignmentsSingle',
+      passProps: {
+        courseId,
+        assignId
+      }
+    })
+  }
+
+  goToSubmission = (courseId, assignId) => {
+    const userId = _.find(this.state.submissions, ['assignment_id', assignId]).user_id
+    this.props.navigator.push({
+      screen: 'CoursesScreenSingleGradesSingle',
+      passProps: {
+        courseId,
+        assignId,
+        userId
+      }
+    })
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -94,21 +118,23 @@ export default class CoursesScreenSingleGrades extends React.Component {
       <ScrollView>
         <ListItem
           hideChevron
-          containerStyle={[styles.listContainer, { paddingLeft: 10, paddingRight: 10 }]}
-          title={<Text>Assignment</Text>}
+          containerStyle={[styles.listContainer, { paddingLeft: 10, paddingRight: 20 }]}
+          title={<Text style={styles.labelTitle}>Assignment</Text>}
           titleStyle={styles.headerTitle}
           label={<Text style={styles.labelTitle}>Due Date</Text>}
         />
         {this.state.assignments.map((assignment) => (
           <ListItem
             hideChevron
-            containerStyle={[styles.listContainer, styles.assignmentContainer, { paddingTop: 25, paddingBottom: 25 }]}
+            containerStyle={[styles.listContainer, styles.pageTableContainer, { paddingTop: 25, paddingBottom: 25 }]}
             key={assignment.id}
             title={this.showAssignmentInfo(assignment)}
             // subtitleStyle={styles.subTitleText}
             label={this.showAssignmentSubtitle(assignment)}
             labelStyle={styles.subtitleText}
             subtitle={this.showAssignmentDetails(assignment)}
+            onLongPress={() => this.goToAssignment(assignment.course_id, assignment.id)}
+            onPress={() => this.goToSubmission(this.props.id, assignment.id)}
           />
         ))}
       </ScrollView>
