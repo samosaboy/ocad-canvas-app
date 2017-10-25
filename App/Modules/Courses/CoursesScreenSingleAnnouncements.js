@@ -32,7 +32,12 @@ export default class CoursesScreenSingleAnnouncements extends React.Component {
   _getCourseAnnouncements = () => {
     this.api.getCourseThreads(this.props.id, false)
       .then((response) => {
-        this.setState({ announcements: response.data, loading: false })
+        const entries = response.data.sort((a, b) => {
+          const dateA = new Date(a.posted_at)
+          const dateB = new Date(b.posted_at)
+          return dateB - dateA
+        })
+        this.setState({ announcements: entries, loading: false })
       })
   }
 

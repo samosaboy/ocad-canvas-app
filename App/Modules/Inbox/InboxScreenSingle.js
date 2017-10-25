@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React from 'react'
-import Icon from 'react-native-vector-icons/Octicons'
 import { stringify } from 'qs'
 import { TouchableHighlight, Linking, ScrollView, View, Text } from 'react-native'
 import { ListItem } from 'react-native-elements'
@@ -10,6 +9,7 @@ import styles from './InboxScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 import { Colors } from '../../Common/index'
 import { IconsMap } from '../../Common/Icons'
+import AttachmentIcon from '../../Components/AttachmentIcon'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 
@@ -82,19 +82,6 @@ export default class CoursesScreenSingle extends React.Component {
     }
   }
 
-  _showIcon = (type) => {
-    switch (type) {
-      case 'pdf':
-        return (<Icon type='octicons' name='file-pdf' size={20} />)
-      case 'image':
-        return (<Icon type='octicons' name='file-media' size={20} />)
-      case 'doc':
-        return (<Icon type='octicons' name='file-text' size={20} />)
-      default:
-        return (<Icon type='octicons' name='file' size={20} />)
-    }
-  }
-
   _formatDate = (date) => {
     return moment.utc(date).fromNow()
   }
@@ -140,7 +127,7 @@ export default class CoursesScreenSingle extends React.Component {
             // title={this._showCourseName(this.state.messages.context_name)}
             title='See all in conversation'
             containerStyle={{ borderBottomWidth: 0.5, borderBottomColor: '#2C333F20' }}
-            badge={{value: this.state.messages.participants.length, textStyle: styles.messageCountText, containerStyle: styles.messageCount}}
+            badge={{ value: this.state.messages.participants.length, textStyle: styles.messageCountText, containerStyle: styles.messageCount }}
             onPress={() => this._getConversationParticipants(this.state.messages.participants)}
           />
         </View>
@@ -150,7 +137,7 @@ export default class CoursesScreenSingle extends React.Component {
               <ListItem
                 roundAvatar
                 hideChevron
-                avatar={{uri: _.find(this.state.messages.participants, ['id', messages.author_id]).avatar_url}}
+                avatar={{ uri: _.find(this.state.messages.participants, ['id', messages.author_id]).avatar_url }}
                 key={messages.id}
                 title={_.find(this.state.messages.participants, ['id', messages.author_id]).name}
                 rightTitle={this._formatDate(messages.created_at)}
@@ -164,8 +151,8 @@ export default class CoursesScreenSingle extends React.Component {
                     <View>
                       {
                         this.state.messages.subject !== '' && this.state.messages.subject !== null
-                        ? <Text style={styles.fullMessageTitle}>{this.state.messages.subject}</Text>
-                        : <Text style={styles.fullMessageTitle}>No Subject</Text>
+                          ? <Text style={styles.fullMessageTitle}>{this.state.messages.subject}</Text>
+                          : <Text style={styles.fullMessageTitle}>No Subject</Text>
                       }
                     </View>
                     <Text key={messages.id}>
@@ -177,12 +164,12 @@ export default class CoursesScreenSingle extends React.Component {
                         messages.attachments.map((attachments, index) => (
                           <View style={{ marginTop: 5 }} key={attachments.id}>
                             {index === 0 &&
-                            <View key={messages.attachments.length}>
-                              <Text style={{ marginBottom: 5, fontWeight: '600' }}>Attachments ({messages.attachments.length})</Text>
-                            </View>}
+                              <View key={messages.attachments.length}>
+                                <Text style={{ marginBottom: 5, fontWeight: '600' }}>Attachments ({messages.attachments.length})</Text>
+                              </View>}
                             <TouchableHighlight onPress={() => this._openAttachment(attachments.url)} key={attachments.id} underlayColor={Colors.transparent}>
                               <View style={styles.attachmentContainer} key={attachments.id}>
-                                <View style={styles.attachmentIcon}>{this._showIcon(attachments.mime_class)}</View>
+                                <AttachmentIcon style={styles.attachmentIcon} type={attachments.mime_class} />
                                 <View style={styles.attachmentNameSizeContainer}>
                                   <Text style={styles.attachmentName}>{attachments.display_name}</Text>
                                   <Text style={styles.attachmentSize}>

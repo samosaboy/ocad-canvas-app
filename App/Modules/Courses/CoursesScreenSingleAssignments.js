@@ -32,7 +32,12 @@ export default class CoursesScreenSingleAssignments extends React.Component {
   _getCourseAssignments = () => {
     this.api.getCourseAssignments(this.props.id)
       .then((response) => {
-        this.setState({ assignments: response.data, loading: false })
+        const entries = response.data.sort((a, b) => {
+          const dateA = new Date(a.due_at)
+          const dateB = new Date(b.due_at)
+          return dateA - dateB
+        })
+        this.setState({ assignments: entries, loading: false })
       })
       .catch(() => {
         this.setState({ loading: true })
@@ -58,7 +63,7 @@ export default class CoursesScreenSingleAssignments extends React.Component {
     return null
   }
 
-  getSingleAssignment = (assignId) => {
+  getSingleAssignment = (assignId, name) => {
     const courseId = this.props.id
     this.props.navigator.push({
       screen: 'CoursesScreenSingleAssignmentsSingle',

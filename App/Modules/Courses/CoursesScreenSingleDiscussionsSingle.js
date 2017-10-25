@@ -71,7 +71,7 @@ export default class CoursesScreenSingleDiscussionsSingle extends React.Componen
             containerStyle={Pages.authorContainer}
             titleStyle={{ marginLeft: 0 }}
           />
-          <View style={[Pages.viewContainer]}>
+          <View style={[Pages.viewContainer, { marginBottom: 20 }]}>
             <Text style={Pages.bodyTitle}>{this.state.item.title}</Text>
             <HTMLView
               style={Pages.body}

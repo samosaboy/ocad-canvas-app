@@ -207,7 +207,6 @@ export default class InboxScreen extends React.Component {
     const markedAsRead = _.cloneDeep(this.state.messages)
     _.filter(markedAsRead, ['id', id])[0].workflow_state = 'read'
     this.setState({ messages: markedAsRead })
-    // send ID down as a prop?
     this.props.navigator.push({
       screen: 'SingleConversationView',
       // backButtonTitle: '',

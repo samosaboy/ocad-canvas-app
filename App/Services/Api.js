@@ -13,7 +13,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   // Prepare for rate limit exceeded (403) https://canvas.instructure.com/doc/api/file.throttling.html
 
   // Required
-  const getCourses = (state?) => api.get('courses', { 'enrollment_state': state || 'active', 'per_page': '50', include: ['term'] })
+  const getCourses = (state) => api.get('courses', { 'enrollment_state': state || 'active', 'per_page': '50', include: ['term'] })
   // Users Conversations
   const getUserConversations = (count, page, type?) => api.get('conversations', { include: ['participant_avatars'], 'per_page': count, 'page': page, scope: type })
   const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`)
@@ -38,7 +38,7 @@ const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
   const getCourseSyllabus = (courseId) => api.get(`courses/${courseId}`, { include: ['syllabus_body'], 'plain_messages': true })
   const getCourseMemberList = (courseId) => api.get(`courses/${courseId}/users`, { include: ['enrollments', 'avatar_url'], 'per_page': 200 })
   const getCourseSubmissions = (courseId) => api.get(`courses/${courseId}/students/submissions`, { per_page: '50' }) // match assignment_id in this response w/ getCourseAssignment's id
-  const getCourseSubmissionsSingle = (courseId, assignId, userId) => api.get(`courses/${courseId}/assignments/${assignId}/submissions/${userId}`, { include: ['submission_comments'] })
+  const getCourseSubmissionsSingle = (courseId, assignId, userId) => api.get(`courses/${courseId}/assignments/${assignId}/submissions/${userId}`, { include: ['assignment', 'rubric_assessment', 'submission_comments'] })
   // const getCourseFiles = (courseId, page) => api.get(`courses/${courseId}/files`, { 'per_page': 10, 'page': page, 'sort': 'created_at' })
   const getCourseFolders = (courseId) => api.get(`courses/${courseId}/folders`, { 'per_page': 50, 'sort': 'name' })
   const getSingleFolderInfo = (folderId) => api.get(`folders/${folderId}`)

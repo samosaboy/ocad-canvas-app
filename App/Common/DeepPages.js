@@ -38,7 +38,9 @@ const Pages = {
     paddingLeft: 10
   },
   viewContainer: {
-    padding: 20
+    padding: 20,
+    paddingBottom: 0,
+    paddingTop: 5
   },
   metaContainer: {
     // borderBottomWidth: 0.5,

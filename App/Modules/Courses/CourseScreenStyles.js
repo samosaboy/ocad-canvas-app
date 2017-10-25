@@ -82,6 +82,32 @@ const styles = EStyleSheet.create({
   rubricHeader: {
     fontWeight: '500'
   },
+  rubricCommentsHeader: {
+    fontWeight: '500'
+  },
+  rubricComments: {
+    marginTop: 5,
+    color: Colors.error
+  },
+  attachmentContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginTop: 10
+  },
+  attachmentNameSizeContainer: {
+    flexDirection: 'column',
+    marginLeft: 5
+  },
+  attachmentIcon: {
+    paddingRight: 20,
+    marginLeft: 5
+  },
+  attachmentSize: {
+    textAlign: 'left',
+    color: Colors.lightGrey
+  },
   ...Containers
 })
 

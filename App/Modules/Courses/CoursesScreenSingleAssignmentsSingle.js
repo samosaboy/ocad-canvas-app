@@ -1,5 +1,6 @@
 import React from 'react'
 import { Linking, View, Text, ScrollView } from 'react-native'
+import { Divider } from 'react-native-elements'
 import API from '../../Services/Api'
 import moment from 'moment'
 import { styles } from './CourseScreenStyles'
@@ -42,23 +43,36 @@ export default class CoursesScreenSingleAssignments extends React.Component {
 
   _showRubric = (assignment) => {
     return (
-      <View style={styles.rubricContainer}>
-        <Text style={styles.heading}>Rubric</Text>
-        {
-          assignment.rubric.map(rubric => {
-            return (
-              <View key={rubric.id} style={{ marginBottom: 20 }}>
-                <Text style={styles.rubricHeader}>
-                  {rubric.description} ({rubric.points}
+      <View>
+        <Divider />
+        <View style={styles.rubricContainer}>
+          <Text style={styles.heading}>Rubric</Text>
+          {
+            assignment.rubric.map(rubric => {
+              return (
+                <View key={rubric.id} style={{ marginBottom: 20 }}>
+                  <Text style={styles.rubricHeader}>
+                    {rubric.description} ({rubric.points} points)
+                  </Text>
                   {
-                    assignment.grading_type === 'percent' ? '%' : ' points'
-                  })
-                </Text>
-                <Text>{rubric.long_description}</Text>
-              </View>
-            )
-          })
-        }
+                    rubric.long_description
+                    ? <Text>{rubric.long_description}</Text>
+                    : null
+                  }
+                  {
+                    rubric.ratings
+                    ? (
+                        rubric.ratings.map((rating) => (
+                          <Text style={{ marginTop: 5 }} key={rating.id}>{(rating.points)} - {rating.description}</Text>
+                        ))
+                      )
+                    : null
+                  }
+                </View>
+              )
+            })
+          }
+        </View>
       </View>
     )
   }
@@ -72,7 +86,7 @@ export default class CoursesScreenSingleAssignments extends React.Component {
     }
     return (
       <ScrollView>
-        <View style={{ paddingLeft: 20, paddingRight: 20 }}>
+        <View style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
           <View style={{ marginBottom: 10 }}>
             <Text style={styles.heading}>{assignment.name}</Text>
             <View style={styles.infoContainer}>

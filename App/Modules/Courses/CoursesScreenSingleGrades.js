@@ -29,26 +29,26 @@ export default class CoursesScreenSingleGrades extends React.Component {
 
   componentDidMount () {
     this._getCourseGrades()
-    this._getCourseAssignments()
-    this.setState({ loading: false })
-    if (this.state.loading) {
-      setTimeout(() => {
-        console.tron.log(this.state)
-      }, 1000)
-    }
   }
 
   _getCourseGrades = () => {
     this.api.getCourseSubmissions(this.props.id)
       .then((response) => {
         this.setState({ submissions: response.data })
+        this._getCourseAssignments()
       })
   }
 
   _getCourseAssignments = () => {
     this.api.getCourseAssignments(this.props.id)
       .then((response) => {
-        this.setState({ assignments: response.data })
+        const entries = response.data.sort((a, b) => {
+          const dateA = new Date(a.due_at)
+          const dateB = new Date(b.due_at)
+          return dateA - dateB
+        })
+        this.setState({ assignments: entries })
+        this.setState({ loading: false })
       })
   }
 
@@ -75,7 +75,7 @@ export default class CoursesScreenSingleGrades extends React.Component {
     const match = _.find(this.state.submissions, ['assignment_id', assignment.id])
     if (match.grade) {
       return (
-        <Text>{match.grade} / {assignment.points_possible}</Text>
+        <Text>{match.score} / {assignment.points_possible}</Text>
       )
     }
     if (_.isNull(match.grade)) {
@@ -96,14 +96,15 @@ export default class CoursesScreenSingleGrades extends React.Component {
     })
   }
 
-  goToSubmission = (courseId, assignId) => {
+  goToSubmission = (courseId, assignId, name) => {
     const userId = _.find(this.state.submissions, ['assignment_id', assignId]).user_id
     this.props.navigator.push({
       screen: 'CoursesScreenSingleGradesSingle',
       passProps: {
         courseId,
         assignId,
-        userId
+        userId,
+        name
       }
     })
   }
@@ -111,7 +112,7 @@ export default class CoursesScreenSingleGrades extends React.Component {
   render () {
     if (this.state.loading) {
       return (
-        <ScreenLadda text={'Getting assignments'} />
+        <ScreenLadda text={'Getting grades'} />
       )
     }
     return (
@@ -134,7 +135,7 @@ export default class CoursesScreenSingleGrades extends React.Component {
             labelStyle={styles.subtitleText}
             subtitle={this.showAssignmentDetails(assignment)}
             onLongPress={() => this.goToAssignment(assignment.course_id, assignment.id)}
-            onPress={() => this.goToSubmission(this.props.id, assignment.id)}
+            onPress={() => this.goToSubmission(this.props.id, assignment.id, assignment.name)}
           />
         ))}
       </ScrollView>

@@ -177,8 +177,18 @@ export default class CoursesScreenSingle extends React.PureComponent {
   }
 
   refresh = () => {
-    this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
-    this._getCourseActivity()
+    // this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
+    // this._getCourseActivity()
+    // TODO: Check back on this later...
+    this.api.getCourseActivity(this.props.id)
+      .then((response) => {
+        this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
+        this.setState({ courseActivity: _.reject(response.data, { title: null, message: null }), loading: false })
+      })
+    this.api.getCourseActivitySummary(this.props.id)
+      .then((response) => {
+        this.setState({ courseActivitySummary: response.data })
+      })
   }
 
   render () {
@@ -215,31 +225,31 @@ export default class CoursesScreenSingle extends React.PureComponent {
             title='Announcements'
             containerStyle={styles.listContainer}
             onPress={() => this._toCourseAnnouncements(this.props.id)}
-            badge={{
-              value: _.find(this.state.courseActivitySummary, { type: 'Announcement' })
-                ? _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
-                : 0
-            }}
+//            badge={{
+//             value: _.find(this.state.courseActivitySummary, { type: 'Announcement' })
+//                ? _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
+//                : 0
+//            }}
           />
           <ListItem
             title='Assignments'
             containerStyle={styles.listContainer}
             onPress={() => this._toCourseAssignments(this.props.id)}
-            badge={{
-              value: _.find(this.state.courseActivitySummary, { type: 'Due Date' })
-                ? _.find(this.state.courseActivitySummary, { type: 'Due Date' }).count
-                : 0
-            }}
+//            badge={{
+//              value: _.find(this.state.courseActivitySummary, { type: 'Due Date' })
+//                ? _.find(this.state.courseActivitySummary, { type: 'Due Date' }).count
+//                : 0
+//            }}
           />
           <ListItem
             title='Discussions'
             containerStyle={styles.listContainer}
             onPress={() => this._toCourseDiscussions(this.props.id)}
-            badge={{
-              value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
-                ? _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
-                : 0
-            }}
+//            badge={{
+//              value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
+//                ? _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
+//                : 0
+//            }}
           />
           <ListItem
             title='Grades'

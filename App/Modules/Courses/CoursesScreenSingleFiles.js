@@ -1,12 +1,12 @@
 import _ from 'lodash'
 import React from 'react'
 import { Linking, View, FlatList } from 'react-native'
-import Icon from 'react-native-vector-icons/Octicons'
 import { ListItem } from 'react-native-elements'
 import API from '../../Services/Api'
 import moment from 'moment'
 import { styles } from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
+import AttachmentIcon from '../../Components/AttachmentIcon'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 
@@ -51,6 +51,7 @@ export default class CoursesScreenSingleFiles extends React.Component {
   _getFolder = () => {
     this.api.getSingleFolder(this.state.folderId, this.state.page)
     .then((response) => {
+      console.tron.log(response.data)
       this.setState({
         files: [...this.state.folders, ...response.data],
         loading: false
@@ -89,21 +90,6 @@ export default class CoursesScreenSingleFiles extends React.Component {
     return moment.utc(date).format('MM/DD/YYYY h:mm A')
   }
 
-  _showIcon = (type) => {
-    switch (type) {
-      case 'folder':
-        return (<Icon type='octicons' name='file-directory' size={35} />)
-      case 'pdf':
-        return (<Icon type='octicons' name='file-pdf' size={35} />)
-      case 'image':
-        return (<Icon type='octicons' name='file-media' size={35} />)
-      case 'doc':
-        return (<Icon type='octicons' name='file-text' size={35} />)
-      default:
-        return (<Icon type='octicons' name='file' size={35} />)
-    }
-  }
-
   _open = (item) => {
     if (item.url) {
       Linking.openURL(item.url)
@@ -140,7 +126,7 @@ export default class CoursesScreenSingleFiles extends React.Component {
               rightTitle={this.convertFromByte(item.size)}
               rightTitleContainerStyle={{ flex: 0, marginLeft: 10 }}
               subtitle={item.files_count ? item.files_count + ' Files' : this._formatDate(item.created_at)}
-              avatar={this._showIcon(item.mime_class || 'folder')}
+              avatar={<AttachmentIcon type={item.mime_class ? item.mime_class : 'folder'} size={35} />}
               onPress={() => this._open(item)}
             />
           )}
