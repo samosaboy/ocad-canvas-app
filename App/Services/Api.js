@@ -1,12 +1,13 @@
 import apisauce from 'apisauce'
+import Config from 'react-native-config'
 
-const create = (baseURL = 'https://canvas.ocadu.ca/api/v1/') => {
+const create = (baseURL = Config.APP_URL) => {
   const api = apisauce.create({
     // TODO: Implement OAuth when you get client_Id, client_secret etc
     baseURL,
     headers: {
       'Cache-Control': 'no-cache',
-      'Authorization': 'Bearer xeA83l5Wnc2PS3TSosmDzrJJJa6kfjFmRqqHVkA1hR5tWLydKYkFGmohnrXepsSN'
+      'Authorization': 'Bearer ' + Config.TOKEN
     },
     timeout: 10000
   })
