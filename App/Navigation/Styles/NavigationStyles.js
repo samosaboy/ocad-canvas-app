@@ -10,7 +10,7 @@ export const navigatorStyle = {
   // drawUnderNavBar: true,
   // drawUnderTabBar: true,
   // navBarBlur: true,
-  navBarTranslucent: true,
+  // navBarTranslucent: true,
   statusBarHideWithNavBar: true,
   screenBackgroundColor: '#FFFFFF'
   // navBarButtonFontWeight: '500',
