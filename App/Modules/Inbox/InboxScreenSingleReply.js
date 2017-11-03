@@ -1,11 +1,10 @@
+import { stringify } from 'qs'
 import React, { Component } from 'react'
 import { Alert, ScrollView, TextInput, View } from 'react-native'
+import { IconsLoaded, IconsMap } from '../../Common/Icons'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
-import { stringify } from 'qs'
-import styles from './InboxScreenStyles'
-import { ListItem } from 'react-native-elements'
-import { IconsMap, IconsLoaded } from '../../Common/Icons'
 import API from '../../Services/Api'
+import styles from './InboxScreenStyles'
 
 export default class SingleConversationReply extends Component {
   static navigatorStyle = {
@@ -60,16 +59,17 @@ export default class SingleConversationReply extends Component {
             'Are you sure?',
             'You will lose the contents of this message if you continue.',
             [
-              {text: 'Cancel', style: 'cancel'},
               {
+                text: 'Cancel',
+                style: 'cancel'
+              }, {
                 text: 'Continue',
                 onPress: () => {
                   this.props.navigator.dismissModal({
                     animationType: 'slide-down'
                   })
                 }
-              }
-            ])
+              }])
         } else if (!this.state.message) {
           this.props.navigator.dismissModal({
             animationType: 'slide-down'
@@ -77,11 +77,11 @@ export default class SingleConversationReply extends Component {
         }
       }
       if (event.id === 'send') {
-        const queryParams = stringify({ body: this.state.message })
+        const queryParams = stringify({body: this.state.message})
         if (this.state.message) {
-          this.api.replyUserConversation(this.props.id, queryParams)
-          Alert.alert(
-            'Success',
+          this.api.replyUserConversation(this.props.id,
+            queryParams)
+          Alert.alert('Success',
             'Message sent!',
             [
               {
@@ -92,11 +92,9 @@ export default class SingleConversationReply extends Component {
                   })
                 }
               }
-            ]
-          )
+            ])
         } else if (!this.state.message) {
-          Alert.alert(
-            'Error',
+          Alert.alert('Error',
             'You must have a message.',
             {cancelable: false})
         }
@@ -107,22 +105,13 @@ export default class SingleConversationReply extends Component {
   render () {
     return (
       <ScrollView>
-        <View style={{ backgroundColor: '#FFF' }}>
-          <ListItem
-            hideChevron
-            titleStyle={styles.textLabel}
-            subtitle={
-              <View>
-                <TextInput
-                  multiline
-                  placeholder='Enter a message'
-                  style={styles.textInput}
-                  onChangeText={(message) => this.setState({ message })}
-                  value={this.state.message}
-                />
-              </View>
-            }
-            subtitleContainerStyle={[styles.noBorderContainer]}
+        <View style={{backgroundColor: '#FFF'}}>
+          <TextInput
+            multiline
+            placeholder='Enter a message'
+            style={styles.textInput}
+            onChangeText={(message) => this.setState({message})}
+            value={this.state.message}
           />
         </View>
       </ScrollView>

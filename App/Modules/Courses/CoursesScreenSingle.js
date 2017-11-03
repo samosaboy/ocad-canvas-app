@@ -1,14 +1,69 @@
 import _ from 'lodash'
+import moment from 'moment'
 import React from 'react'
-import { ListItem } from 'react-native-elements'
-import { View, RefreshControl, TouchableOpacity, FlatList, ScrollView, Text, Dimensions } from 'react-native'
+import {
+  Dimensions,
+  FlatList,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import { Divider, Icon, ListItem } from 'react-native-elements'
+import ScreenLadda from '../../Components/ScreenLadda'
+import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import API from '../../Services/Api'
 import { styles } from './CourseScreenStyles'
-import moment from 'moment'
-import ScreenLadda from '../../Components/ScreenLadda'
 
-import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
-const { width } = Dimensions.get('window')
+const {width} = Dimensions.get('window')
+
+const moduleLinks = [
+  {
+    title: 'Announcements',
+    screen: 'CoursesScreenSingleAnnouncements',
+    icon: 'ios-megaphone-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'Assignments',
+    screen: 'CoursesScreenSingleAssignments',
+    icon: 'ios-paper-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'Discussions',
+    screen: 'CoursesScreenSingleDiscussions',
+    icon: 'ios-list-box-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'Grades',
+    screen: 'CoursesScreenSingleGrades',
+    icon: 'ios-podium-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'People',
+    screen: 'CoursesScreenSinglePeople',
+    icon: 'ios-people-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'Files',
+    screen: 'CoursesScreenSingleFiles',
+    icon: 'ios-briefcase-outline',
+    badge: null,
+    props: {}
+  }, {
+    title: 'Outline',
+    screen: 'CoursesScreenSingleSyllabus',
+    icon: 'ios-book-outline',
+    badge: null,
+    props: {}
+  }
+]
 
 export default class CoursesScreenSingle extends React.PureComponent {
   static navigatorStyle = {
@@ -17,6 +72,175 @@ export default class CoursesScreenSingle extends React.PureComponent {
     statusBarHideWithNavBar: false
   }
   api = {}
+  _getCourseActivity = () => {
+    this.api.getCourseActivity(this.props.id)
+    .then((response) => {
+      console.log(response.data)
+      this.setState({
+        courseActivity: _.reject(response.data,
+          {
+            title: null,
+            message: null
+          }),
+        loading: false
+      })
+    })
+    this.api.getCourseActivitySummary(this.props.id)
+    .then((response) => {
+      this.setState({courseActivitySummary: response.data})
+    })
+  }
+  _formatDate = (date) => {
+    return moment.utc(date)
+    .fromNow()
+  }
+  _formatCourseName = (fullName) => {
+    return fullName.replace(`, ${this.props.fullName}`,
+      '')
+    .replace(`: ${this.props.fullName}`,
+      '')
+  }
+  _activityFull = (item) => {
+    console.tron.log(item)
+    switch (item.type) {
+      case 'DiscussionTopic':
+        this.props.navigator.push({
+          screen: 'CoursesScreenSingleDiscussionsSingle',
+          passProps: {
+            courseId: item.course_id,
+            itemId: item.discussion_topic_id
+          }
+        })
+        break
+      case 'Announcement':
+        this.props.navigator.push({
+          screen: 'CoursesScreenSingleAnnouncementsSingle',
+          passProps: {
+            courseId: item.course_id,
+            itemId: item.announcement_id
+          }
+        })
+        break
+      default:
+        break
+    }
+  }
+  _showType = (item) => {
+    switch (item.type) {
+      case 'DiscussionTopic':
+        return 'Discussion'
+      case 'Announcement':
+        return 'Announcement'
+      case 'Submission':
+        return 'Submission'
+      case 'Message':
+        return 'Message'
+      default:
+        return null
+    }
+  }
+  _showText = (item) => {
+    switch (item.type) {
+      case 'Submission':
+        return (
+          <View>
+            <Text>Grade: {item.grade}</Text>
+            {item.submission_comments.length
+              ? <View style={styles.iconItem}>
+                <Icon type='ionicon' name='ios-text-outline' size={20} color='#000000' />
+                <Text style={styles.iconItemText}>{item.submission_comments.length}</Text>
+              </View>
+              : null}
+          </View>
+        )
+      default:
+        return (
+          item.message
+            ? (
+              <Text>
+                {_.truncate(item.message.replace(/<\/?[^>]+>/gi,
+                  '')
+                  .replace(/\r?\n|\r/g,
+                    ' ')
+                  .replace('           ',
+                    ''),
+                  {
+                    length: 150,
+                    seperator: '...'
+                  })}
+              </Text>
+            )
+            : null
+        )
+    }
+  }
+  _activitySummary = ({item}) => {
+    // TODO: Come back to this
+    return (
+      <TouchableOpacity style={[styles.summaryBox, {width: width - 80}]} onPress={() => {
+        this._activityFull(item)
+      }}>
+        <View
+          style={[
+            styles.summaryBoxContent, {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap'
+            }
+          ]}>
+          <Text>
+            {this._showType(item)}
+          </Text>
+          <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
+        </View>
+        <Divider />
+        <View style={[styles.summaryBoxContent, {flex: 0.9}]}>
+          <Text style={styles.summaryBoxTitle} numberOfLines={1}>
+            {item.title}
+          </Text>
+          <View style={styles.summaryBoxMessage} numberOfLines={4}>
+            {this._showText(item)}
+          </View>
+        </View>
+        <View>
+          <Divider />
+          <Text style={styles.componentButton}>View {this._showType(item)}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+  _toCourseModule = (screen, title) => {
+    this.props.navigator.push({
+      screen,
+      title,
+      passProps: {
+        id: this.props.id
+      }
+    })
+  }
+  refresh = () => {
+    // TODO: Check back on this later...
+    this.api.getCourseActivity(this.props.id)
+    .then((response) => {
+      this.setState({
+        courseActivity: [],
+        courseActivitySummary: [],
+        loading: true
+      })
+      this.setState({
+        courseActivity: _.reject(response.data,
+          {
+            title: null,
+            message: null
+          }),
+        loading: false
+      })
+    })
+    this.api.getCourseActivitySummary(this.props.id)
+    .then((response) => {
+      this.setState({courseActivitySummary: response.data})
+    })
+  }
 
   constructor (props) {
     super(props)
@@ -28,167 +252,12 @@ export default class CoursesScreenSingle extends React.PureComponent {
       courseActivity: [],
       courseActivitySummary: []
     }
+    this.moduleLinks = moduleLinks
     this.api = API.create()
   }
 
   componentDidMount () {
     this._getCourseActivity()
-  }
-
-  _getCourseActivity = () => {
-    this.api.getCourseActivity(this.props.id)
-      .then((response) => {
-        this.setState({ courseActivity: _.reject(response.data, { title: null, message: null }), loading: false })
-      })
-    this.api.getCourseActivitySummary(this.props.id)
-      .then((response) => {
-        this.setState({ courseActivitySummary: response.data })
-      })
-  }
-
-  _formatDate = (date) => {
-    return moment.utc(date).fromNow()
-  }
-
-  _formatCourseName = (fullName) => {
-    return fullName.replace(`, ${this.props.fullName}`, '').replace(`: ${this.props.fullName}`, '')
-  }
-
-  _activityFull = (item) => {
-    console.tron.log(item)
-    if (item.type === 'DiscussionTopic') {
-      this.props.navigator.push({
-        screen: 'CoursesScreenSingleDiscussionsSingle',
-        passProps: { courseId: item.course_id, itemId: item.discussion_topic_id }
-      })
-    }
-    if (item.type === 'Announcement') {
-      this.props.navigator.push({
-        screen: 'CoursesScreenSingleAnnouncementsSingle',
-        passProps: { courseId: item.course_id, itemId: item.announcement_id }
-      })
-    }
-    // this.props.navigator.showLightBox({
-    //   screen: 'CourseScreenActivitySingle',
-    //   adjustSoftInput: 'resize',
-    //   passProps: { item },
-    //   style: {
-    //     backgroundBlur: 'light',
-    //     backgroundColor: '#00000030',
-    //     tapBackgroundToDismiss: true
-    //   }
-    // })
-  }
-
-  _activitySummary = ({ item }) => {
-    // TODO: Come back to this
-    return (
-      <TouchableOpacity style={[styles.summaryBox, { width: width - 80 }]} onPress={() => { this._activityFull(item) }}>
-        <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
-        <Text style={styles.summaryBoxTitle} numberOfLines={1}>
-          {_.truncate(this._formatCourseName(item.title), { length: 60, seperator: '...' })}
-        </Text>
-        {
-          item.message
-          ? <Text style={styles.summaryBoxMessage} numberOfLines={4}>
-            {_.truncate(item.message.replace(/<\/?[^>]+>/gi, '').replace(/\r?\n|\r/g, ' ').replace('           ', ''),
-              { length: 90, seperator: '...' })
-            }
-          </Text>
-          : <Text>{item.grade}</Text>
-        }
-      </TouchableOpacity>
-    )
-  }
-
-  _toCourseAssignments = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleAssignments',
-      title: 'Assignments',
-      // backButtonTitle: '',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseDiscussions = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleDiscussions',
-      title: 'Discussions',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseAnnouncements = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleAnnouncements',
-      title: 'Announcements',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseParticipants = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSinglePeople',
-      title: 'People',
-      // backButtonTitle: '',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseSyllabus = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleSyllabus',
-      title: 'Syllabus',
-      // backButtonTitle: '',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseFiles = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleFiles',
-      title: 'Files',
-      // backButtonTitle: '',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  _toCourseGrades = (id) => {
-    this.props.navigator.push({
-      screen: 'CoursesScreenSingleGrades',
-      title: 'Grades',
-      // backButtonTitle: '',
-      passProps: {
-        id
-      }
-    })
-  }
-
-  refresh = () => {
-    // this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
-    // this._getCourseActivity()
-    // TODO: Check back on this later...
-    this.api.getCourseActivity(this.props.id)
-      .then((response) => {
-        this.setState({ courseActivity: [], courseActivitySummary: [], loading: true })
-        this.setState({ courseActivity: _.reject(response.data, { title: null, message: null }), loading: false })
-      })
-    this.api.getCourseActivitySummary(this.props.id)
-      .then((response) => {
-        this.setState({ courseActivitySummary: response.data })
-      })
   }
 
   render () {
@@ -197,20 +266,14 @@ export default class CoursesScreenSingle extends React.PureComponent {
         <ScreenLadda text={'Getting course info'} />
       )
     }
-    // do api calls if the user click the screen
-    // store that information asyncstorage
-    // refresh calls every X minutes/hours
-    // option to refresh it all -> deletes async storage, lets user fetch it all again?
     return (
       <View>
         <ScrollView
           horizontal={false}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.loading}
-              onRefresh={this.refresh.bind(this)}
-            />
-          }
+          refreshControl={<RefreshControl
+            refreshing={this.state.loading}
+            onRefresh={this.refresh.bind(this)}
+          />}
         >
           <FlatList
             horizontal
@@ -221,58 +284,25 @@ export default class CoursesScreenSingle extends React.PureComponent {
             snapToInterval={width - 60}
             snaptoAlignment={'center'}
           />
-          <ListItem
-            title='Announcements'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseAnnouncements(this.props.id)}
-//            badge={{
-//             value: _.find(this.state.courseActivitySummary, { type: 'Announcement' })
-//                ? _.find(this.state.courseActivitySummary, { type: 'Announcement' }).count
-//                : 0
-//            }}
-          />
-          <ListItem
-            title='Assignments'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseAssignments(this.props.id)}
-//            badge={{
-//              value: _.find(this.state.courseActivitySummary, { type: 'Due Date' })
-//                ? _.find(this.state.courseActivitySummary, { type: 'Due Date' }).count
-//                : 0
-//            }}
-          />
-          <ListItem
-            title='Discussions'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseDiscussions(this.props.id)}
-//            badge={{
-//              value: _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' })
-//                ? _.find(this.state.courseActivitySummary, { type: 'DiscussionTopic' }).count
-//                : 0
-//            }}
-          />
-          <ListItem
-            title='Grades'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseGrades(this.props.id)}
-          />
-          <ListItem
-            title='People'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseParticipants(this.props.id)}
-          />
-          <ListItem
-            title='Files'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseFiles(this.props.id)}
-          />
-          <ListItem
-            title='Outline'
-            containerStyle={styles.listContainer}
-            onPress={() => this._toCourseSyllabus(this.props.id)}
-          />
+          {this.moduleLinks.map((module) => (
+            <ListItem
+              key={module.screen}
+              title={module.title}
+              containerStyle={styles.listContainer}
+              onPress={() => this._toCourseModule(module.screen,
+                module.title)}
+              leftIcon={<Icon type='ionicon' name={module.icon} size={25} color='#007AFF' style={courseStyle.icon} />}
+            />
+          ))}
         </ScrollView>
       </View>
     )
   }
 }
+
+const courseStyle = StyleSheet.create({
+  icon: {
+    paddingLeft: 10,
+    paddingRight: 10
+  }
+})

@@ -5,9 +5,10 @@ const Containers = {
   messageContainer: {
     backgroundColor: Colors.white,
     borderTopWidth: 0,
-    borderBottomWidth: 0.5,
-    borderBottomColor: Colors.iosLight,
-    paddingBottom: 10
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.iosLight
+    // paddingTop: 10,
+    // paddingBottom: 10
   },
   mainContainer: {
     justifyContent: 'flex-start',
@@ -38,21 +39,23 @@ const Containers = {
     alignItems: 'center'
   },
   homeContainer: {
-    backgroundColor: Colors.white
+    // backgroundColor: Colors.bloodOrange
   },
   noBorderContainer: {
     borderBottomWidth: 0,
     borderTopWidth: 0
   },
   authorContainer: {
+    borderBottomColor: Colors.iosLight,
+    borderBottomWidth: 1,
+    borderTopWidth: 0,
     paddingLeft: 10,
     paddingRight: 10
   },
   listContainer: {
     backgroundColor: Colors.white,
-    borderTopWidth: 0.5,
+    borderTopWidth: 1,
     borderBottomWidth: 0,
-    borderBottomColor: Colors.iosLight,
     borderTopColor: Colors.iosLight,
     paddingTop: 15, // TODO: Check if this looks right
     paddingBottom: 15

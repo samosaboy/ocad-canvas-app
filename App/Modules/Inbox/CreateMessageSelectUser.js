@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
-import styles from '../../Components/Styles/LightBoxStyles'
-import { bindActionCreators } from 'redux'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import styles from '../../Components/Styles/LightBoxStyles'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CreateMessageSelectUser extends Component {
@@ -17,9 +17,9 @@ class CreateMessageSelectUser extends Component {
   }
 
   componentDidMount () {
-    this.setState({ itemHeight: this.props.possibleUsers.length * 60 })
+    this.setState({itemHeight: this.props.possibleUsers.length * 60})
     if (this.props.possibleUsers.length > 7) {
-      this.setState({ itemHeight: 436 })
+      this.setState({itemHeight: 436})
     }
   }
 
@@ -28,7 +28,8 @@ class CreateMessageSelectUser extends Component {
   }
 
   _dismissCourseUserView (id, name) {
-    this.props.actions.createMessageSelectUser(id, name)
+    this.props.actions.createMessageSelectUser(id,
+      name)
     this.props.navigator.dismissLightBox()
   }
 
@@ -39,24 +40,28 @@ class CreateMessageSelectUser extends Component {
         <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
           <Icon name='close' size={35} color='#000000' />
         </TouchableOpacity>
-        <ScrollView style={[styles.lightBoxContent, { maxHeight: this.state.itemHeight }]}>
-          <List style={{ marginTop: 0 }}>
-            {
-            this.props.possibleUsers.map((user) => (
+        <ScrollView style={[styles.lightBoxContent, {maxHeight: this.state.itemHeight}]}>
+          <List style={{marginTop: 0}}>
+            {this.props.possibleUsers.map((user) => (
               <ListItem
                 roundAvatar
                 hideChevron
                 avatar={{uri: user.avatar_url}}
                 title={user.name}
-                titleStyle={{ marginLeft: 10 }}
+                titleStyle={{marginLeft: 10}}
                 key={user.id}
                 style={styles.lightBoxList}
-                label={_.head(_.flatMap(user.common_courses)) === 'TeacherEnrollment' ? <Text style={styles.lightBoxListLabel}>(Instructor)</Text> : null}
-                rightTitleContainerStyle={{ flex: 1, alignItems: 'flex-start' }}
-                onPress={() => this._dismissCourseUserView(user.id, user.name)}
+                label={_.head(_.flatMap(user.common_courses)) === 'TeacherEnrollment'
+                  ? <Text style={styles.lightBoxListLabel}>(Instructor)</Text>
+                  : null}
+                rightTitleContainerStyle={{
+                  flex: 1,
+                  alignItems: 'flex-start'
+                }}
+                onPress={() => this._dismissCourseUserView(user.id,
+                  user.name)}
               />
-            ))
-          }
+            ))}
           </List>
         </ScrollView>
       </View>
@@ -76,8 +81,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(homeActions, dispatch)
+    actions: bindActionCreators(homeActions,
+      dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateMessageSelectUser)
+export default connect(mapStateToProps,
+  mapDispatchToProps)(
+  CreateMessageSelectUser)

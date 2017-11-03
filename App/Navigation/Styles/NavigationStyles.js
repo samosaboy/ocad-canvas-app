@@ -1,18 +1,18 @@
 export const navigatorStyle = {
-  // navBarTextFontSize: 16,
-  navBarSubtitleFontSize: 11,
+  navBarTextFontSize: 17,
+  navBarSubtitleFontSize: 12,
   navBarSubtitleColor: '#b0b0b0',
-  navBarButtonColor: '#000000',
-  navBarBackgroundColor: '#FFFFFF',
+  navBarButtonColor: '#007AFF',
+  // navBarBackgroundColor: '#FFFFFF',
   navBarHideOnScroll: true,
   // statusBarBlur: true,
-  navBarNoBorder: true,
+  // navBarNoBorder: true,
   // drawUnderNavBar: true,
   // drawUnderTabBar: true,
   // navBarBlur: true,
-  // navBarTranslucent: true,
+  navBarTranslucent: true,
   statusBarHideWithNavBar: true,
-  screenBackgroundColor: '#FFFFFF'
+  screenBackgroundColor: '#F7F7F7'
   // navBarButtonFontWeight: '500',
   // navBarLeftButtonFontWeight: '500'
 }

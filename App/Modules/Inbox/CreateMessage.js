@@ -1,15 +1,15 @@
 import _ from 'lodash'
+import { stringify } from 'qs'
 import React, { Component } from 'react'
 import { Alert, ScrollView, TextInput, View } from 'react-native'
-import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
-import { stringify } from 'qs'
 import { ListItem } from 'react-native-elements'
-import { IconsMap, IconsLoaded } from '../../Common/Icons'
-import API from '../../Services/Api'
-import styles from '../../Components/Styles/LightBoxStyles'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { IconsLoaded, IconsMap } from '../../Common/Icons'
+import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import * as homeActions from '../../Redux/Actions/homeActions'
+import API from '../../Services/Api'
+import styles from './InboxScreenStyles'
 
 class CreateMessageScreen extends Component {
   static navigatorStyle = {
@@ -34,8 +34,12 @@ class CreateMessageScreen extends Component {
   componentDidMount () {
     this.props.actions.retrieveCourses('active')
     if (this.props.psCourseId && this.props.psUserId) {
-      const courseName = _.find(this.props.courseList, [ 'id', this.props.psCourseId ]).name
-      this.props.actions.createMessagePreSelected(this.props.psCourseId, this.props.psUserId, courseName, this.props.psUserName)
+      const courseName = _.find(this.props.courseList,
+        ['id', this.props.psCourseId]).name
+      this.props.actions.createMessagePreSelected(this.props.psCourseId,
+        this.props.psUserId,
+        courseName,
+        this.props.psUserName)
     }
   }
 
@@ -74,8 +78,10 @@ class CreateMessageScreen extends Component {
             'Are you sure?',
             'You will lose the contents of this message if you continue.',
             [
-              {text: 'Cancel', style: 'cancel'},
               {
+                text: 'Cancel',
+                style: 'cancel'
+              }, {
                 text: 'Continue',
                 onPress: () => {
                   this.props.actions.createMessageSent()
@@ -101,8 +107,7 @@ class CreateMessageScreen extends Component {
         if (this.state.message && this.props.courseId && this.props.selectedUserId) {
           this.api.postUserConversation(queryParams)
           this.props.actions.createMessageSent()
-          Alert.alert(
-            'Success',
+          Alert.alert('Success',
             'Message sent!',
             [
               {
@@ -113,11 +118,9 @@ class CreateMessageScreen extends Component {
                   })
                 }
               }
-            ]
-          )
+            ])
         } else if (!this.state.text || !this.props.courseId || !this.props.selectedUserId) {
-          Alert.alert(
-            'Error',
+          Alert.alert('Error',
             'You must pick a user and have a message.',
             {cancelable: false})
         }
@@ -135,12 +138,12 @@ class CreateMessageScreen extends Component {
         tapBackgroundToDismiss: true
       }
     })
-    this.setState({ errorMessage: null })
+    this.setState({errorMessage: null})
   }
 
   _popupUserList (e) {
     if (this.props.courseId && this.props.possibleUsersLoaded) {
-      this.setState({ errorMessage: null })
+      this.setState({errorMessage: null})
       this.props.navigator.showLightBox({
         screen: 'CreateMessageSelectUser',
         adjustSoftInput: 'resize',
@@ -153,49 +156,48 @@ class CreateMessageScreen extends Component {
       })
     }
     if (e && !this.props.courseId) {
-      this.setState({ errorMessage: 'You must first select a course' })
+      this.setState({errorMessage: 'You must first select a course'})
     }
   }
 
   render () {
     return (
       <ScrollView>
-        <View style={{ backgroundColor: '#FFF' }}>
+        <View style={{backgroundColor: '#FFF'}}>
           <ListItem
-            title={this.props.courseName ? this.props.courseName : 'Select A Course'}
-            containerStyle={{ borderBottomWidth: 0.5 }}
+            title={this.props.courseName
+              ? this.props.courseName
+              : 'Select A Course'}
+            containerStyle={{borderBottomWidth: 1}}
             onPress={() => this._popupCourseList()}
           />
           <ListItem
             // title={this.props.selectedUserName && this.props.possibleUsersLoaded ? this.props.selectedUserName : 'Select A User'}
             title={this.state.errorMessage
               ? this.state.errorMessage
-              : (this.props.selectedUserName && this.props.possibleUsersLoaded) || this.props.selectedUserName ? this.props.selectedUserName : 'Select A User'}
+              : (this.props.selectedUserName && this.props.possibleUsersLoaded) || this.props.selectedUserName
+                ? this.props.selectedUserName
+                : 'Select A User'}
             onPress={(e) => this._popupUserList(e)}
-            containerStyle={{ borderBottomWidth: 0.5 }}
+            containerStyle={{borderBottomWidth: 1}}
           />
-          <ListItem
-            hideChevron
-            // title='Test'
-            titleStyle={styles.textLabel}
-            subtitle={
-              <View>
-                <TextInput
-                  placeholder='Enter a title'
-                  style={[styles.textInput, { height: 50 }]}
-                  onChangeText={(title) => this.setState({ title })}
-                  value={this.state.title}
-                />
-                <TextInput
-                  multiline
-                  placeholder='Enter a message'
-                  style={styles.textInput}
-                  onChangeText={(message) => this.setState({ message })}
-                  value={this.state.message}
-                />
-              </View>
-            }
-            subtitleContainerStyle={[styles.noBorderContainer]}
+          <TextInput
+            placeholder='Enter a title'
+            style={[
+              styles.textInput, {
+                height: 50,
+                fontWeight: '600'
+              }
+            ]}
+            onChangeText={(title) => this.setState({title})}
+            value={this.state.title}
+          />
+          <TextInput
+            multiline
+            placeholder='Enter a message'
+            style={styles.textInput}
+            onChangeText={(message) => this.setState({message})}
+            value={this.state.message}
           />
         </View>
       </ScrollView>
@@ -216,8 +218,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(homeActions, dispatch)
+    actions: bindActionCreators(homeActions,
+      dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateMessageScreen)
+export default connect(mapStateToProps,
+  mapDispatchToProps)(
+  CreateMessageScreen)

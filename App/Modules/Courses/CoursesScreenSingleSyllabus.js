@@ -1,11 +1,11 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import API from '../../Services/Api'
+import WebHtmlView from 'react-native-webhtmlview'
 // import { styles } from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
-import WebHtmlView from 'react-native-webhtmlview'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import API from '../../Services/Api'
 
 export default class CoursesScreenSingleSyllabus extends React.Component {
   static navigatorStyle = {
@@ -15,6 +15,16 @@ export default class CoursesScreenSingleSyllabus extends React.Component {
     statusBarHideWithNavBar: false
   }
   api = {}
+  _getCourseSyllabus = () => {
+    this.api.getCourseSyllabus(this.props.id)
+    .then((response) => {
+      this.setState({
+        syllabus: response.data,
+        loading: false
+      })
+    })
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -28,13 +38,6 @@ export default class CoursesScreenSingleSyllabus extends React.Component {
     this._getCourseSyllabus()
   }
 
-  _getCourseSyllabus = () => {
-    this.api.getCourseSyllabus(this.props.id)
-      .then((response) => {
-        this.setState({ syllabus: response.data, loading: false })
-      })
-  }
-
   render () {
     if (this.state.loading || this.state.syllabus.syllabus_body === null || this.state.syllabus.syllabus_body === '') {
       return (
@@ -42,9 +45,12 @@ export default class CoursesScreenSingleSyllabus extends React.Component {
       )
     }
     return (
-      <ScrollView style={{flex: 1, padding: 10}}>
+      <ScrollView style={{
+        flex: 1,
+        padding: 10
+      }}>
         <WebHtmlView
-          source={{ html: this.state.syllabus.syllabus_body }}
+          source={{html: this.state.syllabus.syllabus_body}}
           innerCSS='
             body { font-size: 14px; font-family: sans-serif; font-weight: 300; }
             h1 { font-size: 18px; }

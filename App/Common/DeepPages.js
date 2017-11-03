@@ -4,7 +4,7 @@ import Fonts from './Fonts'
 const Pages = {
   listContainer: {
     backgroundColor: Colors.white,
-    borderTopWidth: 0.5,
+    borderTopWidth: 1,
     borderBottomWidth: 0,
     borderBottomColor: Colors.iosLight,
     borderTopColor: Colors.iosLight,
@@ -28,22 +28,20 @@ const Pages = {
   },
   authorContainer: {
     borderBottomColor: Colors.iosLight,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderTopWidth: 0,
     paddingLeft: 10,
-    paddingRight: 10,
-    marginBottom: 10
+    paddingRight: 10
   },
   author: {
     paddingLeft: 10
   },
   viewContainer: {
-    padding: 20,
-    paddingBottom: 0,
-    paddingTop: 5
+    backgroundColor: Colors.white,
+    padding: 20
   },
   metaContainer: {
-    // borderBottomWidth: 0.5,
+    // borderBottomWidth: 1,
     // borderBottomColor: Colors.iosLight,
     marginTop: 20,
     marginBottom: 20

@@ -1,18 +1,20 @@
-import { Containers, Metrics, Colors, Fonts } from '../../Common/index'
 import EStyleSheet from 'react-native-extended-stylesheet'
+import { Colors, Containers, Fonts, Metrics } from '../../Common/index'
 
 const styles = EStyleSheet.create({
   courseBox: {
     borderColor: Colors.iosLight,
-    borderWidth: 0.5,
+    borderWidth: 1,
+    borderRadius: 5,
     minHeight: 200,
-    margin: Metrics.baseMargin,
-    padding: Metrics.doubleBaseMargin
-  },
-  'courseBox:first-child': {
-    marginTop: 0
+    marginLeft: Metrics.baseMargin,
+    marginRight: Metrics.baseMargin,
+    marginTop: Metrics.baseMargin,
+    padding: Metrics.doubleBaseMargin,
+    backgroundColor: Colors.white
   },
   label: {
+    fontSize: Fonts.size.regular,
     color: Colors.lightGrey,
     alignSelf: 'center'
   },
@@ -40,15 +42,21 @@ const styles = EStyleSheet.create({
     borderColor: '#000000'
   },
   summaryBox: {
+    backgroundColor: Colors.white,
     margin: Metrics.baseMargin,
-    borderWidth: 0.5,
-    height: 160,
-    padding: 20,
+    borderWidth: 1,
+    height: 200, // padding: 20,
+    display: 'flex',
     overflow: 'hidden',
-    borderRadius: 15,
+    borderRadius: 5,
     borderColor: Colors.iosLight,
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'space-between'
+  },
+  summaryBoxContent: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10
   },
   summaryBoxDate: {
     paddingBottom: 5,
@@ -56,12 +64,28 @@ const styles = EStyleSheet.create({
   },
   summaryBoxTitle: {
     fontWeight: '500',
-    fontSize: Fonts.size.regular
+    fontSize: Fonts.size.regular,
+    alignItems: 'flex-start'
   },
-  summaryBoxCategory: {
-  },
+  summaryBoxCategory: {},
   summaryBoxMessage: {
-    paddingTop: 5
+    paddingTop: 1
+  },
+  iconItem: {
+    paddingTop: 5,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
+  iconItemText: {
+    fontSize: Fonts.size.regular + 1,
+    paddingLeft: 5
+  },
+  componentButton: {
+    textAlign: 'center',
+    color: Colors.blue,
+    paddingTop: 10,
+    paddingBottom: 10,
+    fontSize: Fonts.size.regular
   },
   pageTableContainer: {
     paddingLeft: 10,

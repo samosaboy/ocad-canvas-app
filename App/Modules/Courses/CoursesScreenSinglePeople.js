@@ -1,12 +1,11 @@
-import _ from 'lodash'
 import React from 'react'
-import { View, ActionSheetIOS, Text, ScrollView } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import API from '../../Services/Api'
-import { styles } from './CourseScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import API from '../../Services/Api'
+import { styles } from './CourseScreenStyles'
 
 export default class CoursesScreenSinglePeople extends React.Component {
   static navigatorStyle = {
@@ -16,6 +15,28 @@ export default class CoursesScreenSinglePeople extends React.Component {
     tabBarHidden: true
   }
   api = {}
+  _getCourseParticipants = () => {
+    this.api.getCourseMemberList(this.props.id)
+    .then((response) => {
+      this.setState({
+        members: response.data,
+        loading: false
+      })
+    })
+  }
+  goToUser = (courseId, userId) => {
+    this.props.navigator.showLightBox({
+      screen: 'CoursesScreenSinglePeopleSingle',
+      style: {
+        backgroundColor: '#00000060'
+      },
+      passProps: {
+        courseId,
+        userId
+      }
+    })
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -27,37 +48,6 @@ export default class CoursesScreenSinglePeople extends React.Component {
 
   componentDidMount () {
     this._getCourseParticipants()
-  }
-
-  _getCourseParticipants = () => {
-    this.api.getCourseMemberList(this.props.id)
-      .then((response) => {
-        this.setState({ members: response.data, loading: false })
-      })
-  }
-
-  test = () => {
-    return (
-      <View>
-        <Text>test</Text>
-      </View>
-    )
-  }
-
-  showActionSheet = (psUserId, psCourseId, psUserName) => {
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: ['Message', 'Cancel'],
-      cancelButtonIndex: 1
-    },
-    (index) => {
-      if (_.isEqual(index, 0)) {
-        this.props.navigator.showModal({
-          screen: 'CreateMessage',
-          title: 'Compose',
-          passProps: { psUserId, psCourseId, psUserName }
-        })
-      }
-    })
   }
 
   render () {
@@ -78,10 +68,15 @@ export default class CoursesScreenSinglePeople extends React.Component {
             avatar={{uri: participants.avatar_url}}
             key={participants.id}
             title={participants.name}
-            label={participants.enrollments[0].type === 'TeacherEnrollment' ? <Text style={styles.label}>(Instructor)</Text> : null}
-            rightTitleContainerStyle={{ flex: 1, alignItems: 'flex-start' }}
-            onPress={() => this.showActionSheet(participants.id, participants.enrollments[0].course_id, participants.name)}
-            // onPress={() => this.messageUser(participants.id, participants.enrollments[0].course_id, participants.name)}
+            label={participants.enrollments[0].type === 'TeacherEnrollment'
+              ? <Text style={styles.label}>(Instructor)</Text>
+              : null}
+            rightTitleContainerStyle={{
+              flex: 1,
+              alignItems: 'flex-start'
+            }}
+            onPress={() => this.goToUser(this.props.id,
+              participants.id)}
           />
         ))}
       </ScrollView>

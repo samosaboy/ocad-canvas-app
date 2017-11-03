@@ -6,6 +6,7 @@ import CoursesScreen from '../Modules/Courses/CoursesScreen'
 import InboxScreen from '../Modules/Inbox/InboxScreen'
 import SingleCourseView from '../Modules/Courses/CoursesScreenSingle'
 import CoursesScreenSinglePeople from '../Modules/Courses/CoursesScreenSinglePeople'
+import CoursesScreenSinglePeopleSingle from '../Modules/Courses/CoursesScreenSinglePeopleSingle'
 import CourseScreenSingleActivitySingle from '../Modules/Courses/CoursesScreenSingleActivitySingle'
 import CoursesScreenSingleAnnouncements from '../Modules/Courses/CoursesScreenSingleAnnouncements'
 import CoursesScreenSingleAnnouncementsSingle from '../Modules/Courses/CoursesScreenSingleAnnouncementsSingle'
@@ -21,6 +22,7 @@ import CoursesScreenSingleGradesSingle from '../Modules/Courses/CoursesScreenSin
 import SingleConversationView from '../Modules/Inbox/InboxScreenSingle'
 import SingleConversationReply from '../Modules/Inbox/InboxScreenSingleReply'
 import SingleConversationViewListParticipants from '../Modules/Inbox/InboxScreenSingleAllParticipants'
+import Profile from '../Modules/Profile/Profile'
 
 import CreateMessage from '../Modules/Inbox/CreateMessage'
 import CreateMessageSelectCourse from '../Modules/Inbox/CreateMessageSelectCourse'
@@ -34,6 +36,7 @@ export function registerScreens (store, Provider) {
   Navigation.registerComponent('SingleConversationReply', () => SingleConversationReply)
   Navigation.registerComponent('CourseScreenSingleActivitySingle', () => CourseScreenSingleActivitySingle)
   Navigation.registerComponent('CoursesScreenSinglePeople', () => CoursesScreenSinglePeople)
+  Navigation.registerComponent('CoursesScreenSinglePeopleSingle', () => CoursesScreenSinglePeopleSingle)
   Navigation.registerComponent('CoursesScreenSingleAnnouncements', () => CoursesScreenSingleAnnouncements)
   Navigation.registerComponent('CoursesScreenSingleAnnouncementsSingle', () => CoursesScreenSingleAnnouncementsSingle)
   Navigation.registerComponent('CoursesScreenSingleDiscussions', () => CoursesScreenSingleDiscussions)
@@ -45,8 +48,10 @@ export function registerScreens (store, Provider) {
   Navigation.registerComponent('CoursesScreenSingleFolder', () => CoursesScreenSingleFolder)
   Navigation.registerComponent('CoursesScreenSingleGrades', () => CoursesScreenSingleGrades)
   Navigation.registerComponent('CoursesScreenSingleGradesSingle', () => CoursesScreenSingleGradesSingle)
+  Navigation.registerComponent('SingleConversationView', () => SingleConversationView)
   Navigation.registerComponent('SingleConversationViewListParticipants', () => SingleConversationViewListParticipants)
   Navigation.registerComponent('CreateMessage', () => CreateMessage, store, Provider)
   Navigation.registerComponent('CreateMessageSelectCourse', () => CreateMessageSelectCourse, store, Provider)
   Navigation.registerComponent('CreateMessageSelectUser', () => CreateMessageSelectUser, store, Provider)
+  Navigation.registerComponent('Profile', () => Profile)
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { ScrollView, View, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ScrollView, TouchableOpacity, View } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
-import styles from '../../Components/Styles/LightBoxStyles'
-import { bindActionCreators } from 'redux'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import styles from '../../Components/Styles/LightBoxStyles'
 import * as homeActions from '../../Redux/Actions/homeActions'
 
 class CreateMessageSelectCourse extends Component {
@@ -16,7 +16,7 @@ class CreateMessageSelectCourse extends Component {
   }
 
   componentDidMount () {
-    this.setState({ itemHeight: this.props.courseList.length * 60 })
+    this.setState({itemHeight: this.props.courseList.length * 60})
   }
 
   _closeModal () {
@@ -24,7 +24,8 @@ class CreateMessageSelectCourse extends Component {
   }
 
   _dismissCourseListView (id, name) {
-    this.props.actions.createMessageSelectCourse(id, name)
+    this.props.actions.createMessageSelectCourse(id,
+      name)
     this.props.actions.createMessagePopulateUsers(id)
     this.props.navigator.dismissLightBox()
   }
@@ -36,20 +37,19 @@ class CreateMessageSelectCourse extends Component {
         <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
           <Icon name='close' size={35} color='#000000' />
         </TouchableOpacity>
-        <ScrollView style={[styles.lightBoxContent, { maxHeight: this.state.itemHeight }]}>
-          <List style={{ marginTop: 0 }}>
-            {
-              this.props.courseList.map((course) => (
-                <ListItem
-                  hideChevron
-                  title={course.name}
-                  titleStyle={{ marginLeft: 0 }}
-                  key={course.id}
-                  style={[styles.lightBoxList, styles.lightBoxListWider]}
-                  onPress={() => this._dismissCourseListView(course.id, course.name)}
-                />
-              ))
-            }
+        <ScrollView style={[styles.lightBoxContent, {maxHeight: this.state.itemHeight}]}>
+          <List style={{marginTop: 0}}>
+            {this.props.courseList.map((course) => (
+              <ListItem
+                hideChevron
+                title={course.name}
+                titleStyle={{marginLeft: 0}}
+                key={course.id}
+                style={[styles.lightBoxList, styles.lightBoxListWider]}
+                onPress={() => this._dismissCourseListView(course.id,
+                  course.name)}
+              />
+            ))}
           </List>
         </ScrollView>
       </View>
@@ -67,8 +67,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(homeActions, dispatch)
+    actions: bindActionCreators(homeActions,
+      dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateMessageSelectCourse)
+export default connect(mapStateToProps,
+  mapDispatchToProps)(
+  CreateMessageSelectCourse)

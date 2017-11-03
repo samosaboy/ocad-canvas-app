@@ -1,13 +1,20 @@
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const icons = {
-  'compose': [MaterialCommunityIcons, 'message-plus', 30, '#000000'],
-  'send': [MaterialCommunityIcons, 'send', 30, '#000000'],
-  'close': [MaterialCommunityIcons, 'close', 30, '#000000'],
-  'reply': [MaterialCommunityIcons, 'reply', 30, '#000000'],
+  'compose': [Ionicons, 'ios-create-outline', 35, '#8E8E93'],
+  'send': [Ionicons, 'ios-send-outline', 35, '#8E8E93'],
+  'close': [Ionicons, 'ios-close', 45, '#8E8E93'],
+  'reply': [Ionicons, 'ios-add', 40, '#8E8E93'],
+  'options': [Ionicons, 'ios-options-outline', 35, '#8E8E93'],
+  'people': [Ionicons, 'ios-people-outline', 35, '#8E8E93'],
+  'delete': [Ionicons, 'ios-trash-outline', 30, '#8E8E93'],
+  'share': [Ionicons, 'ios-share-outline', 35, '#8E8E93'],
+
   // Tabs
-  'message': [MaterialCommunityIcons, 'message-text-outline', 30, '#000000'],
-  'courses': [MaterialCommunityIcons, 'book-open', 30, '#000000']
+  'messages': [Entypo, 'message', 32, '#8E8E93'],
+  'courses': [Entypo, 'grid', 35, '#8E8E93'],
+  'profile': [Ionicons, 'ios-person', 35, '#8E8E93']
 }
 
 let IconsMap = {}
@@ -24,8 +31,8 @@ let IconsLoaded = new Promise((resolve, reject) => {
     Object.keys(icons).forEach((iconName, idx) => (IconsMap[iconName] = sources[idx]))
     resolve(true)
   })
-  .catch(err => reject(err))
-  .done()
+    .catch(err => reject(err))
+    .done()
 })
 
 export {

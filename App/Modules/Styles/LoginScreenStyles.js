@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Containers, Fonts, Metrics, Colors } from '../../Common/index'
+import { Colors, Containers, Fonts, Metrics } from '../../Common/index'
 
 const common = {
   color: Colors.white,
@@ -9,8 +9,7 @@ const common = {
 }
 
 const header = {
-  ...common,
-  ...Fonts.style.h1
+  ...common, ...Fonts.style.h1
 }
 
 const subtitle = {

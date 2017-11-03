@@ -1,11 +1,11 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { ListItem } from 'react-native-elements'
-import API from '../../Services/Api'
-import styles from './InboxScreenStyles'
 import ScreenLadda from '../../Components/ScreenLadda'
 
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
+import API from '../../Services/Api'
+import styles from './InboxScreenStyles'
 
 export default class CoursesScreenSingle extends React.Component {
   static navigatorStyle = {
@@ -15,6 +15,13 @@ export default class CoursesScreenSingle extends React.Component {
     tabBarHidden: true
   }
   api = {}
+  _showParticipantType = (name, common) => {
+    // _.forEach(common, type => {
+    //   console.log(type)
+    // })
+    return name
+  }
+
   constructor (props) {
     super(props)
     this.state = {
@@ -22,13 +29,6 @@ export default class CoursesScreenSingle extends React.Component {
       loading: false
     }
     this.api = API.create()
-  }
-
-  _showParticipantType = (name, common) => {
-    // _.forEach(common, type => {
-    //   console.log(type)
-    // })
-    return name
   }
 
   render () {
@@ -45,10 +45,11 @@ export default class CoursesScreenSingle extends React.Component {
           <ListItem
             roundAvatar
             hideChevron
-            containerStyle={{ borderBottomWidth: 0.5 }}
+            containerStyle={{borderBottomWidth: 1}}
             avatar={{uri: participants.avatar_url}}
             key={participants.id}
-            title={this._showParticipantType(participants.name, participants.common_courses)}
+            title={this._showParticipantType(participants.name,
+              participants.common_courses)}
           />
         ))}
       </ScrollView>

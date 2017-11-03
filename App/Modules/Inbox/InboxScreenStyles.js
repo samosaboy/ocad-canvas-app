@@ -1,44 +1,11 @@
 import { StyleSheet } from 'react-native'
-import { Containers, Colors, Fonts } from '../../Common/index'
-import { width, height } from 'react-native-dimension'
+import { height } from 'react-native-dimension'
+import { Colors, Containers, Fonts } from '../../Common/index'
 
 export default StyleSheet.create({
-  seeAll: {
-    backgroundColor: Colors.white,
-    borderTopWidth: 0.5,
-    borderTopColor: Colors.iosLight
-  },
-  messageCount: {
-    borderColor: Colors.iosLight,
-    borderWidth: 0.5,
-    backgroundColor: Colors.transparent,
-    marginTop: 2
-  },
-  messageCountText: {
-    color: Colors.lightGrey,
-    fontWeight: '400'
-  },
-  marginBottom: {
-    marginBottom: 5
-  },
-  noMarginBottom: {
-    marginBottom: 0
-  },
-  courseNameSubtitle: {
-    color: Colors.ios,
-    // fontSize: Fonts.size.small,
-    fontWeight: '600',
-    paddingTop: 3
-  },
-  courseNameTitle: {
-    fontWeight: '400',
-    color: Colors.lightGrey,
-    // fontSize: Fonts.size.small,
-    paddingBottom: 3
-  },
   messageSubject: {
-    fontWeight: '600',
-    // fontSize: 15,
+    fontWeight: '400',
+    fontSize: Fonts.size.regular,
     color: Colors.background,
     paddingBottom: 1,
     paddingLeft: 10,
@@ -49,55 +16,56 @@ export default StyleSheet.create({
   messageDate: {
     // fontWeight: '300',
     color: Colors.lightGrey,
-    // fontSize: Fonts.size.small,
+    fontSize: Fonts.size.regular,
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
     textAlign: 'right',
-    paddingRight: 10,
-    paddingBottom: 2,
+    paddingRight: 10, // paddingBottom: 10,
     flex: 1
   },
   messageSubtitle: {
     paddingLeft: 10
   },
+  messageRightContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1
+  },
   messageSubtitleSubject: {
-    fontWeight: '400',
+    fontSize: Fonts.size.regular,
+    fontWeight: '600',
     paddingBottom: 1,
-    color: Colors.ios
+    alignSelf: 'flex-start',
+    color: Colors.ios,
+    flex: 0.96
   },
   messageText: {
+    alignSelf: 'flex-start',
     fontWeight: '400',
-    color: Colors.darkGrey
+    color: Colors.darkGrey,
+    fontSize: Fonts.size.regular
   },
-  fullMessageText: {
-    paddingTop: 10,
+  metaContainer: {
+    padding: 20
+  },
+  fullMessageTextContainer: {
+    backgroundColor: Colors.white,
+    paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
     paddingBottom: 20
   },
+  fullMessageText: {
+    fontSize: Fonts.size.regular
+  },
   fullMessageTitle: {
-    fontWeight: '600',
-    paddingBottom: 25
-  },
-  messageHeader: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  messageContentContainer: {
-    flexDirection: 'column'
-  },
-  messageDateContainer: {
-    color: Colors.lightGrey,
-    justifyContent: 'flex-start',
-    paddingBottom: 15
-  },
-  messageTextContainer: {
-    justifyContent: 'flex-start'
+    fontSize: Fonts.size.regular + 2,
+    fontWeight: '600'
   },
   attachmentContainer: {
     padding: 10,
     flexDirection: 'row',
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderRadius: 3,
     borderColor: Colors.lighterGrey,
     justifyContent: 'flex-start',
@@ -119,21 +87,11 @@ export default StyleSheet.create({
     color: Colors.lightGrey,
     fontSize: Fonts.size.small
   },
-  textLeft: {
-    alignItems: 'flex-end'
-  },
-  textRight: {
-    alignItems: 'center'
-  },
-  conversationThread: {
-    borderTopWidth: 0,
-    borderBottomWidth: 0.5
-  },
   textInput: {
-    fontSize: Fonts.size.medium,
-    width: width(100),
+    fontSize: Fonts.size.regular, // width: width(100),
     height: height(100),
-    paddingLeft: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
     paddingTop: 10
   },
   ...Containers

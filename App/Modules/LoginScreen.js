@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, TextInput, View } from 'react-native'
-import { Colors } from '../Common/index'
 
 import LoginButton from '../../App/Components/LoginButton'
+import { Colors } from '../Common/index'
 import styles from './Styles/LoginScreenStyles'
 
 export default class LoginScreen extends Component {
@@ -12,16 +12,18 @@ export default class LoginScreen extends Component {
       borderBottomColor: Colors.darkyellow
     }
   }
+
   onFocus () {
     this.setState({
       borderBottomColor: Colors.white
     })
   }
+
   render () {
     return (
       <View style={styles.loginContainer}>
         <ScrollView style={styles.centeredContainer}>
-          <View style={styles.section} >
+          <View style={styles.section}>
             <Text style={styles.subtitle}>
               OCAD University
             </Text>
@@ -29,7 +31,12 @@ export default class LoginScreen extends Component {
               Canvas Login
             </Text>
           </View>
-          <View style={[styles.section, {borderBottomWidth: 1, borderBottomColor: this.state.borderBottomColor}]} >
+          <View style={[
+            styles.section, {
+              borderBottomWidth: 1,
+              borderBottomColor: this.state.borderBottomColor
+            }
+          ]}>
             <TextInput
               style={styles.loginInput}
               autoCorrect={false}
@@ -38,7 +45,12 @@ export default class LoginScreen extends Component {
               onFocus={() => this.onFocus()}
             />
           </View>
-          <View style={[styles.section, {borderBottomWidth: 1, borderBottomColor: this.state.borderBottomColor}]} >
+          <View style={[
+            styles.section, {
+              borderBottomWidth: 1,
+              borderBottomColor: this.state.borderBottomColor
+            }
+          ]}>
             <TextInput
               style={styles.loginInput}
               autoCorrect={false}

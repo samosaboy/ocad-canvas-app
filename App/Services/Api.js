@@ -16,8 +16,8 @@ const create = (baseURL = Config.APP_URL) => {
   // Required
   const getCourses = (state) => api.get('courses', { 'enrollment_state': state || 'active', 'per_page': '50', include: ['term'] })
   // Users Conversations
-  const getUserConversations = (count, page, type?) => api.get('conversations', { include: ['participant_avatars'], 'per_page': count, 'page': page, scope: type })
-  const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`)
+  const getUserConversations = (count, page, type) => api.get('conversations', { include: ['participant_avatars'], 'per_page': count, 'page': page, scope: type })
+  const getUserConversationSingle = (conversationId) => api.get(`conversations/${conversationId}`, { 'auto_mark_as_read': true })
   const getUserUnreadCount = () => api.get('conversations/unread_count')
   const postUserConversation = (params) => api.post(`conversations?${params}`)
   const editUserConversationSingle = (conversationId, params) => api.put(`conversations/${conversationId}?${params}`)

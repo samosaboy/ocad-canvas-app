@@ -17,6 +17,9 @@ export default StyleSheet.create({
     fontSize: Fonts.size.input,
     marginLeft: 0
   },
+  textCenter: {
+    textAlign: 'center'
+  },
   textBold: {
     fontWeight: '500'
   },
@@ -31,7 +34,7 @@ export default StyleSheet.create({
     paddingBottom: 10,
     paddingRight: 11,
     paddingLeft: 0,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.lighterGrey
   },
   lightBoxListWider: {
@@ -39,20 +42,14 @@ export default StyleSheet.create({
     paddingBottom: 20
   },
   lightBoxContent: {
-    marginTop: 0,
-    backgroundColor: Colors.white,
-    borderRadius: 25,
-    width: width(90),
-    minHeight: 10
-  },
-  lightBoxContentFull: {
-    marginTop: height(10),
-    // padding: 20,
-    backgroundColor: Colors.white,
+    marginTop: 5,
+    backgroundColor: Colors.iosTranslucent,
     borderRadius: 15,
-    width: width(90),
-    // minHeight: 20,
-    maxHeight: height(30)
+    width: width(96),
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    overflow: 'hidden'
   },
   lightBoxContentFullContainer: {
     paddingLeft: 20,
@@ -75,11 +72,20 @@ export default StyleSheet.create({
     color: Colors.lightGrey
   },
   textInput: {
-    fontSize: Fonts.size.medium,
-    width: width(100),
-    height: height(100),
+    fontSize: Fonts.size.regular,
+    // width: width(100),
+    // height: height(100)
+    paddingRight: 10,
     paddingLeft: 10,
     paddingTop: 10
+  },
+  destroy: {
+    color: Colors.fire,
+    fontWeight: '600'
+  },
+  close: {
+    color: Colors.blue,
+    fontWeight: '600'
   },
   ...Containers
 })
