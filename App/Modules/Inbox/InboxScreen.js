@@ -2,7 +2,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import React from 'react'
 import { FlatList, Text, View } from 'react-native'
-import { ListItem } from 'react-native-elements'
+import { Badge, ListItem } from 'react-native-elements'
 import { IconsLoaded, IconsMap } from '../../Common/Icons'
 import ScreenLadda from '../../Components/ScreenLadda'
 import UnreadMarker from '../../Components/UnreadMarker'
@@ -12,7 +12,8 @@ import styles from './InboxScreenStyles'
 
 export default class InboxScreen extends React.Component {
   static navigatorStyle = {
-    ...navigatorStyle
+    ...navigatorStyle,
+    prefersLargeTitles: true
   }
   static navigatorButtons = {
     rightButtons: [
@@ -25,133 +26,6 @@ export default class InboxScreen extends React.Component {
       }
     ]
   }
-  api = {}
-  _getConversations = () => {
-    this.api.getUserConversations(this.state.count,
-      this.state.page)
-    .then((response) => {
-      this.setState({
-        messages: [...this.state.messages, ...response.data],
-        loading: false,
-        refreshing: false
-      })
-    })
-  }
-  _getUnreadCount = () => {
-    this.api.getUserUnreadCount()
-    .then((response) => {
-      this.props.navigator.setTabBadge({
-        badge: response.data.unread_count > 0
-          ? response.data.unread_count
-          : null
-      })
-    })
-  }
-  _getMoreConversations = () => {
-    this.setState({page: this.state.page + 1},
-      () => {
-        this._getConversations()
-      })
-  }
-  tick = () => {
-    const timeStamp = this.state.refreshTime
-    this.props.navigator.setSubTitle({
-      subtitle: 'updated ' + moment(timeStamp)
-      .fromNow()
-    })
-    this.props.navigator.setStyle({
-      navBarSubtitleFontSize: 13,
-      navBarSubtitleColor: '#b0b0b0'
-    })
-  }
-  refreshConversationList = () => {
-    this.setState({
-      page: 1,
-      refreshing: true
-    },
-    () => {
-      this._getUnreadCount()
-      this.api.getUserConversations(this.state.count,
-        this.state.page)
-      .then((response) => {
-        this.setState({
-          messages: [...this.state.messages, ...response.data],
-          loading: false,
-          refreshing: false,
-          refreshTime: moment()
-          .toISOString()
-        })
-      })
-    })
-  }
-  _onRefresh = () => {
-    this.refreshConversationList()
-  }
-  _removeLineBreaks = (message) => {
-    return message.replace(/[\n\r]+/g,
-      ' ')
-  }
-  _formatDate = (date) => {
-    return moment.utc(date)
-    .fromNow() // TODO: Update time stamp with tick()?
-  }
-  _showSubject = (item) => {
-    return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'row'
-      }}>
-        <UnreadMarker requirements={item.workflow_state === 'read'} />
-        <Text style={styles.messageSubject}>
-          {item.participants[0].id === item.audience[0]
-            ? item.participants[0].name
-            : (
-              _.indexOf(item.properties,
-                'last_author') !== -1
-                ? item.participants[0].name
-                : item.participants[1].name
-            )}
-        </Text>
-        <Text style={styles.messageDate}>
-          {item.last_authored_message_at && (_.indexOf(item.properties,
-            'last_author') !== -1)
-            ? (this._formatDate(item.last_authored_message_at))
-            : (this._formatDate(item.last_message_at))}
-        </Text>
-      </View>
-    )
-  }
-  _showMessage = (item) => {
-    return (
-      <View>
-        <Text style={styles.messageSubtitleSubject}>
-          { // TODO: come back to this, see all cases (i.e. multiple people conversation threads)
-            item.subject !== '' && item.subject !== null
-              ? item.subject
-              : 'No subject'}
-          {item.message_count > 1
-            ? ` (${item.message_count})`
-            : null}
-        </Text>
-        <Text style={styles.messageText}>{this._removeLineBreaks(item.last_message)}</Text>
-      </View>
-    )
-  }
-  _getConversationDetails = (id, subject, course) => {
-    const markedAsRead = _.cloneDeep(this.state.messages)
-    _.filter(markedAsRead,
-      ['id', id])[0].workflow_state = 'read'
-    this.setState({messages: markedAsRead})
-    this.props.navigator.push({
-      screen: 'SingleConversationView', // backButtonTitle: '',
-      passProps: {
-        id,
-        subject,
-        course
-      }
-    })
-  }
-
   constructor (props) {
     super(props)
     this.state = {
@@ -160,8 +34,7 @@ export default class InboxScreen extends React.Component {
       page: 1,
       loading: true,
       refreshing: false,
-      refreshTime: moment()
-      .toISOString(),
+      refreshTime: moment().toISOString(),
       unreadCounter: null,
       timer: 600000
     }
@@ -185,9 +58,6 @@ export default class InboxScreen extends React.Component {
           }
         ]
       })
-      // this.props.navigator.setSubTitle({
-      //   subtitle: moment().toISOString()
-      // })
     })
   }
 
@@ -201,17 +71,6 @@ export default class InboxScreen extends React.Component {
       }
     }
     switch (event.id) {
-      case 'willAppear':
-        this._getUnreadCount()
-        this.tick()
-        break
-      case 'didAppear':
-        this.interval = setInterval(this.tick,
-          1000)
-        break
-      case 'willDisappear':
-        clearInterval(this.interval)
-        break
       case 'didDisappear':
         this.props.navigator.setSubTitle({
           subtitle: null
@@ -221,15 +80,167 @@ export default class InboxScreen extends React.Component {
   }
 
   componentDidMount () {
+    moment.updateLocale('en', {
+      relativeTime: {
+        future: 'in %s',
+        past: '%s ago',
+        s: 'a few seconds',
+        ss: '%ds',
+        m: '1m',
+        mm: '%dm',
+        h: '1h',
+        hh: '%dh',
+        d: '1d',
+        dd: '%dd',
+        M: 'a month',
+        MM: '%d month',
+        y: 'a year',
+        yy: '%d year'
+      }
+    })
     this._getUnreadCount()
-    this._getConversations(this.state.count,
-      this.state.page)
-    setInterval(() => this.refreshConversationList(),
-      this.state.timer)
+    this.interval = setInterval(this.tick, 1000)
+    this._getConversations(this.state.count, this.state.page)
+    setInterval(() => this.refreshConversationList(), this.state.timer)
   }
 
   componentWillUnmount () {
     clearInterval(this.interval)
+  }
+
+  api = {}
+  _getConversations = () => {
+    this.api.getUserConversations(this.state.count, this.state.page)
+      .then((response) => {
+        this.setState({
+          messages: [...this.state.messages, ...response.data],
+          loading: false,
+          refreshing: false
+        })
+      })
+  }
+
+  _getUnreadCount = () => {
+    this.api.getUserUnreadCount()
+    .then((response) => {
+      this.props.navigator.setTabBadge({
+        badge: response.data.unread_count > 0 ? response.data.unread_count : null
+      })
+      this.tick()
+    })
+  }
+
+  _getMoreConversations = () => {
+    this.setState({page: this.state.page + 1},
+      () => {
+        this._getConversations()
+      })
+  }
+
+  tick = () => {
+    const timeStamp = this.state.refreshTime
+    this.props.navigator.setSubTitle({
+      subtitle: 'updated ' + moment(timeStamp).fromNow()
+    })
+    this.props.navigator.setStyle({
+      navBarSubtitleFontSize: 13,
+      navBarSubtitleColor: '#b0b0b0'
+    })
+  }
+
+  refreshConversationList = () => {
+    this.setState({
+      page: 1,
+      refreshing: true
+    }, () => {
+      this._getUnreadCount()
+      this.api.getUserConversations(this.state.count, this.state.page)
+        .then((response) => {
+          this.setState({
+            messages: [...this.state.messages, ...response.data],
+            refreshing: false,
+            refreshTime: moment().toISOString()
+          })
+        })
+    })
+  }
+
+  _onRefresh = () => {
+    this.refreshConversationList()
+  }
+
+  _removeLineBreaks = (message) => {
+    return message.replace(/[\n\r]+/g,
+      ' ')
+  }
+
+  _formatDate = (date) => {
+    return moment.utc(date).fromNow() // TODO: Update time stamp with tick()?
+  }
+
+  _showSubject = (item) => {
+    return (
+      <View style={{
+        flex: 1,
+        flexDirection: 'row'
+      }}>
+        <UnreadMarker requirements={item.workflow_state === 'read'} />
+        <Text style={styles.messageSubject}>
+          {item.participants[0].id === item.audience[0]
+            ? item.participants[0].name
+            : (
+              _.indexOf(item.properties,
+                'last_author') !== -1
+                ? item.participants[0].name
+                : item.participants[1].name
+            )}
+        </Text>
+        <Text style={[styles.messageDate]}>
+          {item.last_authored_message_at && (_.indexOf(item.properties,
+            'last_author') !== -1)
+            ? (this._formatDate(item.last_authored_message_at))
+            : (this._formatDate(item.last_message_at))}
+        </Text>
+      </View>
+    )
+  }
+
+  _showMessage = (item) => {
+    return (
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flex: 0.98}}>
+          <Text style={styles.messageSubtitleSubject}>
+            { // TODO: come back to this, see all cases (i.e. multiple people conversation threads)
+              item.subject !== '' && item.subject !== null
+                ? item.subject
+                : 'No subject'}
+          </Text>
+          <Text style={styles.messageText}>{this._removeLineBreaks(item.last_message)}</Text>
+        </View>
+        {item.message_count > 1
+          ? (<View style={{flex: 0.1, marginRight: 10, paddingLeft: 5}}>
+            <Badge
+              value={item.message_count}
+              containerStyle={{padding: 0, backgroundColor: '#E8E8E8'}}
+              textStyle={{color: '#737373'}} /></View>)
+          : null}
+      </View>
+    )
+  }
+
+  _getConversationDetails = (id, subject, course) => {
+    const markedAsRead = _.cloneDeep(this.state.messages)
+    _.filter(markedAsRead,
+      ['id', id])[0].workflow_state = 'read'
+    this.setState({messages: markedAsRead})
+    this.props.navigator.push({
+      screen: 'SingleConversationView', // backButtonTitle: '',
+      passProps: {
+        id,
+        subject,
+        course
+      }
+    })
   }
 
   render () {
@@ -244,9 +255,9 @@ export default class InboxScreen extends React.Component {
         <FlatList
           refreshing={this.state.refreshing}
           data={this.state.messages}
-          keyExtractor={(item, index) => item.id * index} // cant use index b/c they are duplicates
+          keyExtractor={(item, index) => index} // cant use index b/c they are duplicates
           onEndReached={this._getMoreConversations}
-          onEndReachedThreshold={1}
+          onEndReachedThreshold={0.01}
           onRefresh={this._onRefresh.bind(this)}
           renderItem={({item}) => (
             <ListItem

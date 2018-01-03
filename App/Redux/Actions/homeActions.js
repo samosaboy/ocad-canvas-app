@@ -1,5 +1,6 @@
 import API from '../../Services/Api'
 import * as types from '../Reducers/constants'
+
 this.api = API.create()
 
 export function isLoading (bool) {
@@ -66,6 +67,7 @@ export function createMessageSent () {
 }
 
 export function retrieveCourses (state?: string) {
+  // implmenet react-persist for asynch storage of course lists
   return (dispatch) => {
     if (state === 'active') {
       dispatch(isLoading(true))
@@ -98,5 +100,20 @@ export function retrieveCourses (state?: string) {
           dispatch(isLoading(true))
         })
     }
+  }
+}
+
+export function unreadCounter () {
+  return (dispatch) => {
+    return this.api.getUserUnreadCount()
+      .then((response) => {
+        dispatch({
+          type: types.RETRIEVE_UNREAD_COUNT,
+          badge: {
+            tabIndex: 1,
+            badge: response.data.unread_count > 0 ? response.data.unread_count : null
+          }
+        })
+      })
   }
 }

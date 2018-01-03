@@ -1,13 +1,17 @@
 import { StyleSheet } from 'react-native'
-import { Containers, Colors, Fonts } from '../../Common/index'
-import { width, height } from 'react-native-dimension'
+import { height, width } from 'react-native-dimension'
+import { Colors, Containers, Fonts } from '../../Common/index'
 
 export default StyleSheet.create({
   lightBoxContainer: {
-    width: width(100),
+    // width: width(100),
     height: height(100),
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
+    display: 'flex',
+    flex: 0.5,
+    paddingBottom: 10
   },
   textError: {
     color: Colors.black,
@@ -24,18 +28,9 @@ export default StyleSheet.create({
     fontWeight: '500'
   },
   lightBoxListLabel: {
-    // fontSize: Fonts.size.small,
+    fontSize: Fonts.size.regular,
     color: Colors.lightGrey,
     alignSelf: 'center'
-  },
-  lightBoxList: {
-    marginTop: 0,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 11,
-    paddingLeft: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.lighterGrey
   },
   lightBoxListWider: {
     paddingTop: 20,
@@ -43,11 +38,11 @@ export default StyleSheet.create({
   },
   lightBoxContent: {
     marginTop: 5,
-    backgroundColor: Colors.iosTranslucent,
+    backgroundColor: Colors.white,
     borderRadius: 15,
     width: width(96),
     display: 'flex',
-    flexDirection: 'row',
+    // flexDirection: 'row',
     justifyContent: 'center',
     overflow: 'hidden'
   },
@@ -86,6 +81,15 @@ export default StyleSheet.create({
   close: {
     color: Colors.blue,
     fontWeight: '600'
+  },
+  link: {
+    color: '#000000',
+    textAlign: 'center',
+    fontSize: 20,
+    padding: 20
+  },
+  userNav: {
+    marginTop: 10
   },
   ...Containers
 })

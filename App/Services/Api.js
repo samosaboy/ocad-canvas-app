@@ -22,6 +22,7 @@ const create = (baseURL = Config.APP_URL) => {
   const postUserConversation = (params) => api.post(`conversations?${params}`)
   const editUserConversationSingle = (conversationId, params) => api.put(`conversations/${conversationId}?${params}`)
   const replyUserConversation = (conversationId, params) => api.post(`conversations/${conversationId}/add_message?${params}`)
+  const deleteConversation = (conversationId) => api.delete(`conversations/${conversationId}`)
   // User
   const getUserGroups = () => api.get('users/self/groups')
   const getUserGroupsSingle = (groupId) => api.get(`groups/${groupId}`)
@@ -57,6 +58,7 @@ const create = (baseURL = Config.APP_URL) => {
     postUserConversation,
     editUserConversationSingle,
     replyUserConversation,
+    deleteConversation,
     // User
     getUserGroups,
     getUserGroupsSingle,

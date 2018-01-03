@@ -28,6 +28,7 @@ export default class CoursesScreenSinglePeople extends React.Component {
     this.props.navigator.showLightBox({
       screen: 'CoursesScreenSinglePeopleSingle',
       style: {
+        tapBackgroundToDismiss: true,
         backgroundColor: '#00000060'
       },
       passProps: {
@@ -53,7 +54,7 @@ export default class CoursesScreenSinglePeople extends React.Component {
   render () {
     if (this.state.loading) {
       return (
-        <ScreenLadda text={'Listing recipients'} />
+        <ScreenLadda text={'Getting course members'} />
       )
     }
     return (
@@ -68,9 +69,7 @@ export default class CoursesScreenSinglePeople extends React.Component {
             avatar={{uri: participants.avatar_url}}
             key={participants.id}
             title={participants.name}
-            label={participants.enrollments[0].type === 'TeacherEnrollment'
-              ? <Text style={styles.label}>(Instructor)</Text>
-              : null}
+            label={participants.enrollments[0].type === 'TeacherEnrollment' && <Text style={styles.label}>(Instructor)</Text>}
             rightTitleContainerStyle={{
               flex: 1,
               alignItems: 'flex-start'

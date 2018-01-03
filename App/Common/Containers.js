@@ -1,56 +1,33 @@
 import Colors from './Colors'
-import Metrics from './Metrics'
+import { height } from 'react-native-dimension'
 
 const Containers = {
+  loginContainer: {
+    height: height(100),
+    marginLeft: 20,
+    marginRight: 20,
+    alignItems: 'stretch',
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
   messageContainer: {
     backgroundColor: Colors.white,
     borderTopWidth: 0,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.iosLight
-    // paddingTop: 10,
-    // paddingBottom: 10
-  },
-  mainContainer: {
-    justifyContent: 'flex-start',
-    // margin: Metrics.section,
-    flexDirection: 'column',
-    alignItems: 'center',
-    flex: 1
-  },
-  section: {
-    backgroundColor: Colors.transparent,
-    padding: Metrics.baseMargin,
-    margin: Metrics.section,
-    alignItems: 'center'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.transparent,
-    paddingTop: Metrics.baseMargin
-  },
-  centeredContainer: {
-    flex: 1,
-    backgroundColor: Colors.transparent,
-    paddingTop: Metrics.baseMargin
-  },
-  groupContainer: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  homeContainer: {
-    // backgroundColor: Colors.bloodOrange
+    borderBottomColor: Colors.basicallyWhite,
+    paddingTop: 10,
+    paddingBottom: 10
   },
   noBorderContainer: {
     borderBottomWidth: 0,
     borderTopWidth: 0
   },
   authorContainer: {
+    marginLeft: 10,
     borderBottomColor: Colors.iosLight,
-    borderBottomWidth: 1,
-    borderTopWidth: 0,
-    paddingLeft: 10,
-    paddingRight: 10
+    borderBottomWidth: 0,
+    borderTopWidth: 0
   },
   listContainer: {
     backgroundColor: Colors.white,
@@ -88,6 +65,25 @@ const Containers = {
     fontSize: 17,
     fontWeight: '600',
     marginBottom: 10
+  },
+  inputContainer: {
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomColor: Colors.borderLight,
+    borderLeftColor: Colors.borderLight,
+    borderRightColor: Colors.borderLight,
+    borderTopColor: Colors.borderLight,
+    borderRadius: 30,
+    marginRight: 10,
+    marginLeft: 10
+  },
+  dropDownContainer: {
+    backgroundColor: Colors.basicallyWhite,
+    marginLeft: 10,
+    marginRight: 10,
+    borderRadius: 30
   }
 }
 

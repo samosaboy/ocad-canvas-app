@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { List, ListItem } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Divider, ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
+import { height } from 'react-native-dimension'
 import { bindActionCreators } from 'redux'
 import styles from '../../Components/Styles/LightBoxStyles'
 import * as homeActions from '../../Redux/Actions/homeActions'
@@ -34,23 +34,19 @@ class CreateMessageSelectUser extends Component {
   }
 
   render () {
-    // TODO: Come back to the way you add Icons here...
     return (
       <View style={styles.lightBoxContainer}>
-        <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
-          <Icon name='close' size={35} color='#000000' />
-        </TouchableOpacity>
-        <ScrollView style={[styles.lightBoxContent, {maxHeight: this.state.itemHeight}]}>
-          <List style={{marginTop: 0}}>
-            {this.props.possibleUsers.map((user) => (
+        <View style={[styles.lightBoxContent]}>
+          <ScrollView style={{maxHeight: height(60)}}>
+            {this.props.possibleUsers.map(user => (
               <ListItem
                 roundAvatar
                 hideChevron
                 avatar={{uri: user.avatar_url}}
                 title={user.name}
                 titleStyle={{marginLeft: 10}}
+                containerStyle={[{marginTop: 0, borderBottomColor: '#E1E8EE'}]}
                 key={user.id}
-                style={styles.lightBoxList}
                 label={_.head(_.flatMap(user.common_courses)) === 'TeacherEnrollment'
                   ? <Text style={styles.lightBoxListLabel}>(Instructor)</Text>
                   : null}
@@ -62,8 +58,12 @@ class CreateMessageSelectUser extends Component {
                   user.name)}
               />
             ))}
-          </List>
-        </ScrollView>
+          </ScrollView>
+          <TouchableOpacity onPress={() => this._closeModal()}>
+            <Divider />
+            <Text style={[styles.link, styles.close]}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

@@ -2,7 +2,7 @@ import _ from 'lodash'
 import moment from 'moment'
 // import { stringify } from 'qs'
 import React, { Component } from 'react'
-import { Linking, ScrollView, Text, TouchableHighlight, View } from 'react-native'
+import { Alert, Linking, ScrollView, Text, TouchableHighlight, View } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { IconsMap } from '../../Common/Icons'
 import { Colors } from '../../Common/index'
@@ -20,14 +20,14 @@ export default class InboxScreenSingle extends Component {
     statusBarHideWithNavBar: false,
     tabBarHidden: true,
     navBarSubtitleFontSize: 11,
-    navBarSubtitleColor: '#b0b0b0'
+    navBarSubtitleColor: '#b0b0b0',
+    screenBackgroundColor: '#FFFFFF'
   }
 
   api = {}
 
   _formatDate = (date) => {
-    return moment.utc(date)
-    .fromNow()
+    return moment.utc(date).fromNow()
   }
 
   _getConversationParticipants = (members) => {
@@ -127,10 +127,36 @@ export default class InboxScreenSingle extends Component {
       } else if (event.id === 'people') {
         this._getConversationParticipants(this.state.messages.participants)
       }
+      if (event.id === 'delete') {
+        Alert.alert(
+          'Are you sure you want to delete this message?',
+          null,
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel'
+            }, {
+              text: 'Continue',
+              style: 'destructive',
+              onPress: () => {
+                this.api.deleteConversation(this.props.id)
+                .then((response) => {
+                  this.props.navigator.resetTo({
+                    screen: 'InboxScreen',
+                    animated: false
+                  })
+                })
+              }
+            }
+          ])
+      }
     }
   }
 
   componentDidMount () {
+    this.props.navigator.setSubTitle({
+      subtitle: null
+    })
     // const queryParams = stringify({conversation: {'workflow_state': 'read'}}, {arrayFormat: 'brackets'})
     this.api.getUserConversationSingle(this.props.id)
     .then((response) => {
@@ -156,28 +182,8 @@ export default class InboxScreenSingle extends Component {
     return (
       <ScrollView>
         <View>
-          <View style={styles.metaContainer}>
-            {this.state.messages.subject !== '' && this.state.messages.subject !== null
-              ? <Text style={styles.fullMessageTitle}>{this.state.messages.subject}</Text>
-              : <Text style={styles.fullMessageTitle}>No Subject</Text>}
-            {this.state.messages.participants
-              ? (
-                <Text style={{marginTop: 5}}>
-                  <Text style={{color: Colors.darkGrey}}>To:</Text>
-                  {this.state.messages.participants.map((user, index) => (
-                    ' ' + user.name + ((index + 1) === this.state.messages.participants.length
-                      ? ''
-                      : ',')
-                  ))}
-                </Text>
-              )
-              : null}
-          </View>
           {this.state.messages.messages.map((messages, index) => (
-            <View key={index} style={{
-              marginTop: 10,
-              marginBottom: 10
-            }}>
+            <View key={index} style={{marginBottom: 5}}>
               <ListItem
                 roundAvatar
                 hideChevron
@@ -188,10 +194,29 @@ export default class InboxScreenSingle extends Component {
                 key={messages.id}
                 title={_.find(this.state.messages.participants,
                   ['id', messages.author_id]).name}
-                subtitle={this._formatDate(messages.created_at)}
-                containerStyle={[styles.noBorderContainer, styles.authorContainer]}
+                label={<Text style={styles.date}>{this._formatDate(messages.created_at)}</Text>}
+                containerStyle={styles.authorContainer}
                 onPress={() => this.goToUser(messages.author_id)}
               />
+              {
+                index === 0 && <View style={styles.metaContainer}>
+                  {this.state.messages.subject !== '' && this.state.messages.subject !== null
+                    ? <Text style={styles.fullMessageTitle}>{this.state.messages.subject}</Text>
+                    : <Text style={styles.fullMessageTitle}>No Subject</Text>}
+                  {this.state.messages.participants
+                    ? (
+                      <Text style={{marginTop: 5}}>
+                        <Text style={{color: Colors.darkGrey}}>To:</Text>
+                        {this.state.messages.participants.map((user, index) => (
+                          ' ' + user.name + ((index + 1) === this.state.messages.participants.length
+                            ? ''
+                            : ',')
+                        ))}
+                      </Text>
+                    )
+                    : null}
+                </View>
+              }
               <View style={[styles.fullMessageTextContainer]}>
                 <Text key={messages.id} style={styles.fullMessageText}>
                   {messages.body}

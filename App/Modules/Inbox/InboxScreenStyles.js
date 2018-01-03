@@ -1,17 +1,15 @@
 import { StyleSheet } from 'react-native'
-import { height } from 'react-native-dimension'
 import { Colors, Containers, Fonts } from '../../Common/index'
 
 export default StyleSheet.create({
   messageSubject: {
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: Fonts.size.regular,
     color: Colors.background,
     paddingBottom: 1,
     paddingLeft: 10,
     alignSelf: 'flex-start',
-    flexWrap: 'nowrap',
-    flex: 1
+    flexWrap: 'nowrap'
   },
   messageDate: {
     // fontWeight: '300',
@@ -33,7 +31,7 @@ export default StyleSheet.create({
   },
   messageSubtitleSubject: {
     fontSize: Fonts.size.regular,
-    fontWeight: '600',
+    fontWeight: '500',
     paddingBottom: 1,
     alignSelf: 'flex-start',
     color: Colors.ios,
@@ -46,7 +44,9 @@ export default StyleSheet.create({
     fontSize: Fonts.size.regular
   },
   metaContainer: {
-    padding: 20
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10
   },
   fullMessageTextContainer: {
     backgroundColor: Colors.white,
@@ -88,11 +88,17 @@ export default StyleSheet.create({
     fontSize: Fonts.size.small
   },
   textInput: {
-    fontSize: Fonts.size.regular, // width: width(100),
-    height: height(100),
-    paddingRight: 20,
-    paddingLeft: 20,
-    paddingTop: 10
+    fontSize: Fonts.size.regular,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  date: {
+    alignSelf: 'center',
+    marginRight: 10,
+    fontSize: Fonts.size.regular,
+    color: Colors.lightGrey
   },
   ...Containers
 })

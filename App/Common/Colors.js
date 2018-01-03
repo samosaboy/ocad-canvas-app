@@ -31,6 +31,7 @@ const colors = {
   borderLight: '#E8E8E8',
   lightGrey: '#ADADAD',
   lighterGrey: '#DBDBDB',
+  basicallyWhite: '#f4f4f4',
   darkGrey: '#737373'
 }
 

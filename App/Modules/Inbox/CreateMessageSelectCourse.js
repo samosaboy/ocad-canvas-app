@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
-import { List, ListItem } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Divider, ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import styles from '../../Components/Styles/LightBoxStyles'
@@ -11,12 +10,13 @@ class CreateMessageSelectCourse extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      text: ''
+      itemHeight: 0
     }
   }
 
   componentDidMount () {
     this.setState({itemHeight: this.props.courseList.length * 60})
+    console.tron.log(this.props)
   }
 
   _closeModal () {
@@ -27,31 +27,30 @@ class CreateMessageSelectCourse extends Component {
     this.props.actions.createMessageSelectCourse(id,
       name)
     this.props.actions.createMessagePopulateUsers(id)
-    this.props.navigator.dismissLightBox()
+    this._closeModal()
   }
 
   render () {
-    // TODO: Come back to the way you add Icons here...
     return (
       <View style={styles.lightBoxContainer}>
-        <TouchableOpacity style={styles.lightBoxIcon} onPress={() => this._closeModal()}>
-          <Icon name='close' size={35} color='#000000' />
-        </TouchableOpacity>
-        <ScrollView style={[styles.lightBoxContent, {maxHeight: this.state.itemHeight}]}>
-          <List style={{marginTop: 0}}>
-            {this.props.courseList.map((course) => (
+        <View style={[styles.lightBoxContent]}>
+          <ScrollView>
+            {this.props.courseList.map(course => (
               <ListItem
                 hideChevron
-                title={course.name}
-                titleStyle={{marginLeft: 0}}
+                title={<Text style={styles.link}>{course.course_code}</Text>}
+                titleNumberOfLines={1}
                 key={course.id}
-                style={[styles.lightBoxList, styles.lightBoxListWider]}
-                onPress={() => this._dismissCourseListView(course.id,
-                  course.name)}
+                containerStyle={[styles.userNav, {marginTop: 0, borderBottomColor: '#E1E8EE'}]}
+                onPress={() => this._dismissCourseListView(course.id, course.name)}
               />
             ))}
-          </List>
-        </ScrollView>
+          </ScrollView>
+          <Divider />
+          <TouchableOpacity onPress={() => this._closeModal()}>
+            <Text style={[styles.link, styles.close]}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

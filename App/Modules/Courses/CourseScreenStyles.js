@@ -3,15 +3,13 @@ import { Colors, Containers, Fonts, Metrics } from '../../Common/index'
 
 const styles = EStyleSheet.create({
   courseBox: {
-    borderColor: Colors.iosLight,
-    borderWidth: 1,
-    borderRadius: 5,
-    minHeight: 200,
+    backgroundColor: Colors.basicallyWhite,
+    borderRadius: 20,
+    minHeight: 150,
     marginLeft: Metrics.baseMargin,
     marginRight: Metrics.baseMargin,
     marginTop: Metrics.baseMargin,
-    padding: Metrics.doubleBaseMargin,
-    backgroundColor: Colors.white
+    padding: Metrics.doubleBaseMargin
   },
   label: {
     fontSize: Fonts.size.regular,
@@ -19,7 +17,7 @@ const styles = EStyleSheet.create({
     alignSelf: 'center'
   },
   courseCode: {
-    fontSize: Fonts.size.input,
+    fontSize: Fonts.size.regular,
     color: Colors.lightGrey,
     textAlign: 'left',
     fontWeight: '400',
@@ -27,10 +25,10 @@ const styles = EStyleSheet.create({
     marginLeft: -2
   },
   courseName: {
-    fontSize: Fonts.size.input,
+    fontSize: Fonts.size.regular,
     color: Colors.ios,
     textAlign: 'left',
-    fontWeight: '400',
+    fontWeight: '700',
     padding: 0,
     margin: 0
   },
@@ -45,7 +43,7 @@ const styles = EStyleSheet.create({
     backgroundColor: Colors.white,
     margin: Metrics.baseMargin,
     borderWidth: 1,
-    height: 200, // padding: 20,
+    // height: 150, // padding: 20,
     display: 'flex',
     overflow: 'hidden',
     borderRadius: 5,
@@ -54,6 +52,9 @@ const styles = EStyleSheet.create({
     justifyContent: 'space-between'
   },
   summaryBoxContent: {
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10

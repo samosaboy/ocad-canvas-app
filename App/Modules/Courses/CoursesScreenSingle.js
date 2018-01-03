@@ -72,6 +72,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
     statusBarHideWithNavBar: false
   }
   api = {}
+
   _getCourseActivity = () => {
     this.api.getCourseActivity(this.props.id)
     .then((response) => {
@@ -90,16 +91,19 @@ export default class CoursesScreenSingle extends React.PureComponent {
       this.setState({courseActivitySummary: response.data})
     })
   }
+
   _formatDate = (date) => {
     return moment.utc(date)
     .fromNow()
   }
+
   _formatCourseName = (fullName) => {
     return fullName.replace(`, ${this.props.fullName}`,
       '')
     .replace(`: ${this.props.fullName}`,
       '')
   }
+
   _activityFull = (item) => {
     console.tron.log(item)
     switch (item.type) {
@@ -145,18 +149,17 @@ export default class CoursesScreenSingle extends React.PureComponent {
         return (
           <View>
             <Text>Grade: {item.grade}</Text>
-            {item.submission_comments.length
-              ? <View style={styles.iconItem}>
+            {item.submission_comments.length > 0 &&
+              <View style={styles.iconItem}>
                 <Icon type='ionicon' name='ios-text-outline' size={20} color='#000000' />
                 <Text style={styles.iconItemText}>{item.submission_comments.length}</Text>
-              </View>
-              : null}
+              </View>}
           </View>
         )
       default:
         return (
-          item.message
-            ? (
+          item.message &&
+            (
               <Text>
                 {_.truncate(item.message.replace(/<\/?[^>]+>/gi,
                   '')
@@ -170,7 +173,6 @@ export default class CoursesScreenSingle extends React.PureComponent {
                   })}
               </Text>
             )
-            : null
         )
     }
   }
@@ -194,7 +196,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
           <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
         </View>
         <Divider />
-        <View style={[styles.summaryBoxContent, {flex: 0.9}]}>
+        <View style={[styles.summaryBoxContent, {flex: 0.9, paddingLeft: 10, paddingRight: 20, paddingTop: 0}]}>
           <Text style={styles.summaryBoxTitle} numberOfLines={1}>
             {item.title}
           </Text>

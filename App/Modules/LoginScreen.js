@@ -1,68 +1,66 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, TextInput, View } from 'react-native'
-
-import LoginButton from '../../App/Components/LoginButton'
-import { Colors } from '../Common/index'
-import styles from './Styles/LoginScreenStyles'
+import { Switch, Text, TextInput, View } from 'react-native'
+import { Button } from 'react-native-elements'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { styles } from './Styles/LoginScreenStyles'
 
 export default class LoginScreen extends Component {
+  static navigatorStyle = {
+    navBarHidden: true
+  }
+
   constructor (props) {
     super(props)
     this.state = {
-      borderBottomColor: Colors.darkyellow
+      rememberMe: false,
+      autoLogin: true
     }
   }
 
-  onFocus () {
-    this.setState({
-      borderBottomColor: Colors.white
+  login () {
+    this.props.navigator.push({
+      screen: 'CoursesScreen'
     })
   }
 
   render () {
     return (
-      <View style={styles.loginContainer}>
-        <ScrollView style={styles.centeredContainer}>
-          <View style={styles.section}>
-            <Text style={styles.subtitle}>
-              OCAD University
-            </Text>
-            <Text style={styles.header}>
-              Canvas Login
-            </Text>
-          </View>
-          <View style={[
-            styles.section, {
-              borderBottomWidth: 1,
-              borderBottomColor: this.state.borderBottomColor
-            }
-          ]}>
-            <TextInput
-              style={styles.loginInput}
-              autoCorrect={false}
-              placeholder={'Enter your username'}
-              placeholderTextColor='#A2891A'
-              onFocus={() => this.onFocus()}
+      <KeyboardAwareScrollView>
+        <View style={styles.loginContainer}>
+          <TextInput
+            autoCorrect={false}
+            placeholder={'Canvas Username'}
+            style={styles.input}
+          />
+          <TextInput
+            secureTextEntry
+            autoCorrect={false}
+            placeholder={'Password'}
+            style={styles.input}
+          />
+          <Button
+            large
+            title='Login'
+            buttonStyle={styles.button}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
+            onPress={() => this.login()}
+          />
+          <View style={{flexDirection: 'row', marginTop: 25}}>
+            <Text style={styles.switch}>Use TouchID on Login</Text>
+            <Switch
+              value={this.state.rememberMe}
+              onValueChange={(value) => this.setState({rememberMe: value})}
             />
           </View>
-          <View style={[
-            styles.section, {
-              borderBottomWidth: 1,
-              borderBottomColor: this.state.borderBottomColor
-            }
-          ]}>
-            <TextInput
-              style={styles.loginInput}
-              autoCorrect={false}
-              placeholder={'Enter your password'}
-              placeholderTextColor='#A2891A'
-              onFocus={() => this.onFocus()}
-              secureTextEntry
+          <View style={{flexDirection: 'row', marginTop: 15}}>
+            <Text style={styles.switch}>Auto login for next time</Text>
+            <Switch
+              value={this.state.autoLogin}
+              onValueChange={(value) => this.setState({autoLogin: value})}
             />
           </View>
-          <LoginButton />
-        </ScrollView>
-      </View>
+        </View>
+      </KeyboardAwareScrollView>
     )
   }
 }

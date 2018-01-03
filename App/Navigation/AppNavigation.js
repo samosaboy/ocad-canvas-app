@@ -1,8 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 
 import { Navigation } from 'react-native-navigation'
-import CoursesScreen from '../Modules/Courses/CoursesScreen'
 
+import NoAuthScreen from '../Modules/LoginScreen'
+import CoursesScreen from '../Modules/Courses/CoursesScreen'
 import InboxScreen from '../Modules/Inbox/InboxScreen'
 import SingleCourseView from '../Modules/Courses/CoursesScreenSingle'
 import CoursesScreenSinglePeople from '../Modules/Courses/CoursesScreenSinglePeople'
@@ -29,6 +30,7 @@ import CreateMessageSelectCourse from '../Modules/Inbox/CreateMessageSelectCours
 import CreateMessageSelectUser from '../Modules/Inbox/CreateMessageSelectUser'
 
 export function registerScreens (store, Provider) {
+  Navigation.registerComponent('NoAuthScreen', () => NoAuthScreen, store, Provider)
   Navigation.registerComponent('CoursesScreen', () => CoursesScreen, store, Provider)
   Navigation.registerComponent('InboxScreen', () => InboxScreen)
   Navigation.registerComponent('SingleCourseView', () => SingleCourseView)

@@ -1,10 +1,11 @@
 import _ from 'lodash'
 import { stringify } from 'qs'
 import React, { Component } from 'react'
-import { Alert, ScrollView, TextInput, View } from 'react-native'
+import { Keyboard, Alert, Dimensions, ScrollView, TextInput, View } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Colors from '../../Common/Colors'
 import { IconsLoaded, IconsMap } from '../../Common/Icons'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import * as homeActions from '../../Redux/Actions/homeActions'
@@ -129,19 +130,20 @@ class CreateMessageScreen extends Component {
   }
 
   _popupCourseList () {
+    Keyboard.dismiss()
     this.props.navigator.showLightBox({
       screen: 'CreateMessageSelectCourse',
       adjustSoftInput: 'resize',
       style: {
-        backgroundBlur: 'light',
-        backgroundColor: '#00000030',
-        tapBackgroundToDismiss: true
+        tapBackgroundToDismiss: true,
+        backgroundColor: '#00000060'
       }
     })
     this.setState({errorMessage: null})
   }
 
   _popupUserList (e) {
+    Keyboard.dismiss()
     if (this.props.courseId && this.props.possibleUsersLoaded) {
       this.setState({errorMessage: null})
       this.props.navigator.showLightBox({
@@ -149,9 +151,8 @@ class CreateMessageScreen extends Component {
         adjustSoftInput: 'resize',
         title: 'Create Message',
         style: {
-          backgroundBlur: 'light',
           tapBackgroundToDismiss: true,
-          backgroundColor: '#00000030'
+          backgroundColor: '#00000060'
         }
       })
     }
@@ -161,14 +162,15 @@ class CreateMessageScreen extends Component {
   }
 
   render () {
+    const { height } = Dimensions.get('window')
     return (
-      <ScrollView>
-        <View style={{backgroundColor: '#FFF'}}>
+      <View style={{display: 'flex', paddingTop: 10, height}}>
+        <View style={{ flex: 0.18 }}>
           <ListItem
             title={this.props.courseName
               ? this.props.courseName
-              : 'Select A Course'}
-            containerStyle={{borderBottomWidth: 1}}
+              : 'Select a Course'}
+            containerStyle={[styles.noBorderContainer, styles.dropDownContainer]}
             onPress={() => this._popupCourseList()}
           />
           <ListItem
@@ -177,30 +179,29 @@ class CreateMessageScreen extends Component {
               ? this.state.errorMessage
               : (this.props.selectedUserName && this.props.possibleUsersLoaded) || this.props.selectedUserName
                 ? this.props.selectedUserName
-                : 'Select A User'}
+                : 'Select a User'}
             onPress={(e) => this._popupUserList(e)}
-            containerStyle={{borderBottomWidth: 1}}
+            containerStyle={[styles.noBorderContainer, styles.dropDownContainer, {marginTop: 10}]}
           />
+        </View>
+        <View style={{marginLeft: 20, marginRight: 20, flex: 0.66}}>
           <TextInput
             placeholder='Enter a title'
-            style={[
-              styles.textInput, {
-                height: 50,
-                fontWeight: '600'
-              }
-            ]}
+            style={[styles.textInput, { borderBottomColor: Colors.borderLight, borderBottomWidth: 1 }]}
             onChangeText={(title) => this.setState({title})}
             value={this.state.title}
           />
-          <TextInput
-            multiline
-            placeholder='Enter a message'
-            style={styles.textInput}
-            onChangeText={(message) => this.setState({message})}
-            value={this.state.message}
-          />
+          <ScrollView>
+            <TextInput
+              multiline
+              placeholder='Enter a message'
+              style={styles.textInput}
+              onChangeText={(message) => this.setState({message})}
+              value={this.state.message}
+            />
+          </ScrollView>
         </View>
-      </ScrollView>
+      </View>
     )
   }
 }

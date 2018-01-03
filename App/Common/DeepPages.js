@@ -41,10 +41,9 @@ const Pages = {
     padding: 20
   },
   metaContainer: {
-    // borderBottomWidth: 1,
-    // borderBottomColor: Colors.iosLight,
-    marginTop: 20,
-    marginBottom: 20
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10
   },
   bodyTitle: {
     fontWeight: '600',

@@ -19,9 +19,11 @@ class CoursesScreen extends Component {
   static navigatorStyle = {
     ...navigatorStyle,
     navBarHideOnScroll: false,
-    statusBarHideWithNavBar: false
+    statusBarHideWithNavBar: false,
+    navBarButtonColor: '#8E8E93'
   }
   api = {}
+
   _changeCourseType = (value) => {
     if (value === 'All') {
       if (!this.props.courseListComplete) {
@@ -36,6 +38,7 @@ class CoursesScreen extends Component {
       this.setState({courseState: 0})
     }
   }
+
   _getCourseDetails = (id, fullName, shortName) => {
     // send ID down as a prop?
     this.props.navigator.push({
@@ -48,10 +51,12 @@ class CoursesScreen extends Component {
       }
     })
   }
+
   _showCourseName = (code) => {
     return code.replace(/.{3}$/,
       '')
   }
+
   _showCourseCode = (name) => {
     const txt = name
     const re1 = '.*?'
@@ -116,7 +121,7 @@ class CoursesScreen extends Component {
             disabled: false,
             disableIconTint: false,
             showAsAction: 'ifRoom',
-            icon: IconsMap['options']
+            icon: IconsMap['type']
           }
         ]
       })
@@ -148,6 +153,11 @@ class CoursesScreen extends Component {
         })
       }
     }
+    switch (event.id) {
+      case 'didAppear':
+        this.props.actions.unreadCounter()
+        break
+    }
   }
 
   componentDidMount () {
@@ -178,11 +188,12 @@ class CoursesScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     courseList: state.courseReducer.courseList,
     courseListComplete: state.courseReducer.courseListComplete,
     userId: state.courseReducer.userId,
+    unreadCounter: ownProps.navigator.setTabBadge(state.courseReducer.badge),
     stateType: state.courseReducer.stateType,
     isLoaded: state.itemLoadReducer.isLoading
   }

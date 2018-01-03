@@ -12,7 +12,9 @@ export default class UserDetails extends Component {
     courseId: PropTypes.any,
     userId: PropTypes.number
   }
+
   api = {}
+
   _getUserByCourse = () => {
     this.api.getUserByCourse(this.props.courseId,
       this.props.userId)
@@ -23,9 +25,6 @@ export default class UserDetails extends Component {
           loading: false
         })
       }
-      console.log(this.props.courseId,
-        this.props.userId,
-        this.state)
     })
     .catch((err) => {
       console.log(err)
@@ -62,12 +61,11 @@ export default class UserDetails extends Component {
       </View>
     )
   }
+
   _renderLadda = () => {
     return (
-      <View>
-        <View style={memberStyles.laddaContainer}>
-          <ActivityIndicator size='small' />
-        </View>
+      <View style={memberStyles.laddaContainer}>
+        <ActivityIndicator size='small' />
       </View>
     )
   }
@@ -89,38 +87,32 @@ export default class UserDetails extends Component {
     this.props.navigator.dismissLightBox()
   }
 
-// <TouchableOpacity style={[styles.lightBoxIcon, memberStyles.closeContainer]} onPress={() => this._closeModal()}>
-// <Icon name='ios-close' size={50} color='#000000' />
-// </TouchableOpacity>
-
   render () {
     return (
-      <TouchableOpacity style={styles.lightBoxContainer} onPress={() => this._closeModal()} activeOpacity={100}>
-        <View style={memberStyles.container}>
-          <View style={styles.lightBoxContent}>
-            {this.state.loading
-              ? <View style={{top: 35}}>{this._renderLadda()}</View>
-              : this._renderUser()}
-          </View>
-          <View style={[styles.lightBoxContent, memberStyles.userNav]}>
-            {this.state.loading
-              ? this._renderLadda()
-              : (
-                <View style={{width: width(100)}}>
-                  <TouchableOpacity onPress={() => this._messageUser()}>
-                    <Text style={[memberStyles.link]}>
-                      Message User
-                    </Text>
-                  </TouchableOpacity>
-                  <Divider />
-                  <TouchableOpacity onPress={() => this._closeModal()}>
-                    <Text style={[memberStyles.link, styles.close]}>Cancel</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-          </View>
+      <View style={styles.lightBoxContainer}>
+        <View style={styles.lightBoxContent}>
+          {this.state.loading
+            ? <View style={{top: 35}}>{this._renderLadda()}</View>
+            : this._renderUser()}
         </View>
-      </TouchableOpacity>
+        <View style={[styles.lightBoxContent, styles.userNav]}>
+          {this.state.loading
+            ? this._renderLadda()
+            : (
+              <View style={{width: width(100)}}>
+                <TouchableOpacity onPress={() => this._messageUser()}>
+                  <Text style={[styles.link]}>
+                    Message User
+                  </Text>
+                </TouchableOpacity>
+                <Divider />
+                <TouchableOpacity onPress={() => this._closeModal()}>
+                  <Text style={[styles.link, styles.close]}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+        </View>
+      </View>
     )
   }
 }
@@ -135,8 +127,6 @@ const memberStyles = StyleSheet.create({
     zIndex: 500
   },
   container: {
-    flex: 1,
-    justifyContent: 'flex-end',
     marginBottom: 10
   },
   avatar: {
@@ -146,20 +136,9 @@ const memberStyles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5
   },
-  userNav: {
-    backgroundColor: '#FFFFFF',
-    marginTop: 10
-  },
   user: {
     justifyContent: 'center',
     padding: 0
-  },
-  link: {
-    color: '#007AFF',
-    textAlign: 'center',
-    fontSize: 20,
-    paddingTop: 20,
-    paddingBottom: 20
   },
   userBio: {
     fontSize: size.medium

@@ -3,6 +3,7 @@ package com.reactocadcanvasapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.reactnativenavigation.NavigationReactPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNNotificationsPackage(),
             new BlurViewPackage(),
             new ReactNativeConfigPackage(),
             new NavigationReactPackage(),
