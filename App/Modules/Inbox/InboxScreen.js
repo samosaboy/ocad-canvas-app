@@ -71,10 +71,8 @@ export default class InboxScreen extends React.Component {
       }
     }
     switch (event.id) {
-      case 'didDisappear':
-        this.props.navigator.setSubTitle({
-          subtitle: null
-        })
+      case 'willDisappear':
+        clearInterval(this.interval)
         break
     }
   }
@@ -102,10 +100,7 @@ export default class InboxScreen extends React.Component {
     this.interval = setInterval(this.tick, 1000)
     this._getConversations(this.state.count, this.state.page)
     setInterval(() => this.refreshConversationList(), this.state.timer)
-  }
-
-  componentWillUnmount () {
-    clearInterval(this.interval)
+    this.tick()
   }
 
   api = {}
@@ -126,7 +121,6 @@ export default class InboxScreen extends React.Component {
       this.props.navigator.setTabBadge({
         badge: response.data.unread_count > 0 ? response.data.unread_count : null
       })
-      this.tick()
     })
   }
 
@@ -250,7 +244,6 @@ export default class InboxScreen extends React.Component {
       )
     }
     return (
-      // TODO: Fix group messages (currently shows the first avatar and name in a group message)
       <View>
         <FlatList
           refreshing={this.state.refreshing}

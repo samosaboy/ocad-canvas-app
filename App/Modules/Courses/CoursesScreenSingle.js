@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
-import { Divider, Icon, ListItem } from 'react-native-elements'
+import { Icon, ListItem } from 'react-native-elements'
 import ScreenLadda from '../../Components/ScreenLadda'
 import { navigatorStyle } from '../../Navigation/Styles/NavigationStyles'
 import API from '../../Services/Api'
@@ -76,7 +76,6 @@ export default class CoursesScreenSingle extends React.PureComponent {
   _getCourseActivity = () => {
     this.api.getCourseActivity(this.props.id)
     .then((response) => {
-      console.log(response.data)
       this.setState({
         courseActivity: _.reject(response.data,
           {
@@ -105,7 +104,6 @@ export default class CoursesScreenSingle extends React.PureComponent {
   }
 
   _activityFull = (item) => {
-    console.tron.log(item)
     switch (item.type) {
       case 'DiscussionTopic':
         this.props.navigator.push({
@@ -122,6 +120,16 @@ export default class CoursesScreenSingle extends React.PureComponent {
           passProps: {
             courseId: item.course_id,
             itemId: item.announcement_id
+          }
+        })
+        break
+      case 'Message':
+        const assignmentId = _.trimStart(item.url, `https://canvas.ocadu.ca/courses/${item.course_id}/assignments/`)
+        this.props.navigator.push({
+          screen: 'CoursesScreenSingleAssignmentsSingle',
+          passProps: {
+            courseId: item.course_id,
+            assignId: _.toNumber(assignmentId)
           }
         })
         break
@@ -168,7 +176,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
                   .replace('           ',
                     ''),
                   {
-                    length: 150,
+                    length: 50,
                     seperator: '...'
                   })}
               </Text>
@@ -195,17 +203,15 @@ export default class CoursesScreenSingle extends React.PureComponent {
           </Text>
           <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
         </View>
-        <Divider />
-        <View style={[styles.summaryBoxContent, {flex: 0.9, paddingLeft: 10, paddingRight: 20, paddingTop: 0}]}>
-          <Text style={styles.summaryBoxTitle} numberOfLines={1}>
+        <View style={[styles.summaryBoxContent, {flex: 0.9, paddingLeft: 10, paddingRight: 20, paddingTop: 10}]}>
+          <Text style={styles.summaryBoxTitle} numberOfLines={5}>
             {item.title}
           </Text>
-          <View style={styles.summaryBoxMessage} numberOfLines={4}>
+          <View style={styles.summaryBoxMessage} numberOfLines={1}>
             {this._showText(item)}
           </View>
         </View>
         <View>
-          <Divider />
           <Text style={styles.componentButton}>View {this._showType(item)}</Text>
         </View>
       </TouchableOpacity>
@@ -293,7 +299,7 @@ export default class CoursesScreenSingle extends React.PureComponent {
               containerStyle={styles.listContainer}
               onPress={() => this._toCourseModule(module.screen,
                 module.title)}
-              leftIcon={<Icon type='ionicon' name={module.icon} size={25} color='#007AFF' style={courseStyle.icon} />}
+              leftIcon={<Icon type='ionicon' name={module.icon} size={25} color='#3D4AD0' style={courseStyle.icon} />}
             />
           ))}
         </ScrollView>

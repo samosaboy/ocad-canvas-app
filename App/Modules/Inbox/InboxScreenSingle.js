@@ -16,12 +16,9 @@ import styles from './InboxScreenStyles'
 export default class InboxScreenSingle extends Component {
   static navigatorStyle = {
     ...navigatorStyle,
-    navBarHideOnScroll: false,
-    statusBarHideWithNavBar: false,
-    tabBarHidden: true,
-    navBarSubtitleFontSize: 11,
-    navBarSubtitleColor: '#b0b0b0',
-    screenBackgroundColor: '#FFFFFF'
+    navBarHideOnScroll: true,
+    statusBarHideWithNavBar: true,
+    tabBarHidden: true
   }
 
   api = {}
@@ -78,10 +75,6 @@ export default class InboxScreenSingle extends Component {
       messages: {},
       loading: true
     }
-    this.props.navigator.setStyle({
-      navBarSubtitleFontSize: 11,
-      navBarSubtitleColor: '#b0b0b0'
-    })
     this.api = API.create()
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
     this._renderNavComponents()
@@ -154,9 +147,6 @@ export default class InboxScreenSingle extends Component {
   }
 
   componentDidMount () {
-    this.props.navigator.setSubTitle({
-      subtitle: null
-    })
     // const queryParams = stringify({conversation: {'workflow_state': 'read'}}, {arrayFormat: 'brackets'})
     this.api.getUserConversationSingle(this.props.id)
     .then((response) => {

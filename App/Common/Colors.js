@@ -32,7 +32,8 @@ const colors = {
   lightGrey: '#ADADAD',
   lighterGrey: '#DBDBDB',
   basicallyWhite: '#f4f4f4',
-  darkGrey: '#737373'
+  darkGrey: '#737373',
+  primary: '#3D4AD0'
 }
 
 export default colors

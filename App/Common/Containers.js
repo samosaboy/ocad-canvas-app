@@ -31,11 +31,11 @@ const Containers = {
   },
   listContainer: {
     backgroundColor: Colors.white,
-    borderTopWidth: 1,
-    borderBottomWidth: 0,
-    borderTopColor: Colors.iosLight,
-    paddingTop: 15, // TODO: Check if this looks right
-    paddingBottom: 15
+    borderTopWidth: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.basicallyWhite,
+    paddingTop: 10,
+    paddingBottom: 10
   },
   infoContainer: {
     flex: 1,

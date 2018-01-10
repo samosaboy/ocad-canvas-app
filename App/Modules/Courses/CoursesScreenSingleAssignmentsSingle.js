@@ -22,10 +22,13 @@ export default class CoursesScreenSingleAssignments extends React.Component {
     this.api.getCourseAssignmentsSingle(this.props.courseId,
       this.props.assignId)
     .then((response) => {
-      this.setState({
-        assignment: response.data,
-        loading: false
-      })
+      console.tron.log(response)
+      if (response.status === 200) {
+        this.setState({
+          assignment: response.data,
+          loading: false
+        })
+      }
     })
   }
   _formatDate = (date) => {
@@ -98,18 +101,18 @@ export default class CoursesScreenSingleAssignments extends React.Component {
           url: this.state.assignment.html_url,
           subject: `I just shared an OCADU Assignment with you!`
         },
-        (error) => {
-          console.error(error)
-        },
-        (success, method) => {
-          let text
-          if (success) {
-            text = `Shared via ${method}`
-          } else {
-            text = 'You didn\'t share'
-          }
-          console.log(text)
-        })
+          (error) => {
+            console.error(error)
+          },
+          (success, method) => {
+            let text
+            if (success) {
+              text = `Shared via ${method}`
+            } else {
+              text = 'You didn\'t share'
+            }
+            console.log(text)
+          })
       }
     }
   }

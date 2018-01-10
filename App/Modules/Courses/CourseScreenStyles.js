@@ -47,7 +47,7 @@ const styles = EStyleSheet.create({
     display: 'flex',
     overflow: 'hidden',
     borderRadius: 5,
-    borderColor: Colors.iosLight,
+    borderColor: Colors.basicallyWhite,
     flexDirection: 'column',
     justifyContent: 'space-between'
   },
@@ -83,9 +83,9 @@ const styles = EStyleSheet.create({
   },
   componentButton: {
     textAlign: 'center',
-    color: Colors.blue,
-    paddingTop: 10,
-    paddingBottom: 10,
+    color: Colors.primary,
+    paddingTop: 15,
+    paddingBottom: 15,
     fontSize: Fonts.size.regular
   },
   pageTableContainer: {
