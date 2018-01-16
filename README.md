@@ -3,7 +3,9 @@
 
 ## Build
 
-**Warning** Build requies a `.env` file in the root directory with the following:
+**Note**
+
+Build requies a `.env` file in the root directory with the following:
 
 ```
 APP_URL=https://canvas.ocadu.ca/api/v1/
