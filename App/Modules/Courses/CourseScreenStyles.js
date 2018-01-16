@@ -43,18 +43,21 @@ const styles = EStyleSheet.create({
     backgroundColor: Colors.white,
     margin: Metrics.baseMargin,
     borderWidth: 1,
-    // height: 150, // padding: 20,
+    width: 300,
+    height: 150,
     display: 'flex',
-    overflow: 'hidden',
+    paddingLeft: 20,
+    paddingRight: 20,
     borderRadius: 5,
     borderColor: Colors.basicallyWhite,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
-  summaryBoxContent: {
-    flexDirection: 'column',
+  summaryBoxRow: {
+    flexDirection: 'row',
     alignContent: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10
@@ -65,8 +68,10 @@ const styles = EStyleSheet.create({
   },
   summaryBoxTitle: {
     fontWeight: '500',
-    fontSize: Fonts.size.regular,
-    alignItems: 'flex-start'
+    fontSize: Fonts.size.button,
+    alignItems: 'flex-start',
+    marginTop: 5,
+    marginBottom: 5
   },
   summaryBoxCategory: {},
   summaryBoxMessage: {

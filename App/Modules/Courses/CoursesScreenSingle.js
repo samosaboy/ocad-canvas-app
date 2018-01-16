@@ -23,43 +23,43 @@ const moduleLinks = [
   {
     title: 'Announcements',
     screen: 'CoursesScreenSingleAnnouncements',
-    icon: 'ios-megaphone-outline',
+    icon: 'bullhorn',
     badge: null,
     props: {}
   }, {
     title: 'Assignments',
     screen: 'CoursesScreenSingleAssignments',
-    icon: 'ios-paper-outline',
+    icon: 'book-multiple-variant',
     badge: null,
     props: {}
   }, {
     title: 'Discussions',
     screen: 'CoursesScreenSingleDiscussions',
-    icon: 'ios-list-box-outline',
+    icon: 'clipboard-text',
     badge: null,
     props: {}
   }, {
     title: 'Grades',
     screen: 'CoursesScreenSingleGrades',
-    icon: 'ios-podium-outline',
+    icon: 'chart-histogram',
     badge: null,
     props: {}
   }, {
     title: 'People',
     screen: 'CoursesScreenSinglePeople',
-    icon: 'ios-people-outline',
+    icon: 'account-multiple',
     badge: null,
     props: {}
   }, {
     title: 'Files',
     screen: 'CoursesScreenSingleFiles',
-    icon: 'ios-briefcase-outline',
+    icon: 'folder-multiple',
     badge: null,
     props: {}
   }, {
     title: 'Outline',
     screen: 'CoursesScreenSingleSyllabus',
-    icon: 'ios-book-outline',
+    icon: 'library-books',
     badge: null,
     props: {}
   }
@@ -184,35 +184,26 @@ export default class CoursesScreenSingle extends React.PureComponent {
         )
     }
   }
+
+  // <View style={styles.summaryBoxMessage} numberOfLines={1}>
+  //           {this._showText(item)}
+  //         </View>
+  //         <View>
+  //         <Text style={styles.componentButton}>View {this._showType(item)}</Text>
+  //       </View>
   _activitySummary = ({item}) => {
     // TODO: Come back to this
     return (
-      <TouchableOpacity style={[styles.summaryBox, {width: width - 80}]} onPress={() => {
-        this._activityFull(item)
-      }}>
-        <View
-          style={[
-            styles.summaryBoxContent, {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap'
-            }
-          ]}>
-          <Text>
-            {this._showType(item)}
-          </Text>
+      <TouchableOpacity style={styles.summaryBox} onPress={() => { this._activityFull(item) }}>
+        <View>
           <Text style={styles.summaryBoxDate}>{this._formatDate(item.created_at)}</Text>
-        </View>
-        <View style={[styles.summaryBoxContent, {flex: 0.9, paddingLeft: 10, paddingRight: 20, paddingTop: 10}]}>
-          <Text style={styles.summaryBoxTitle} numberOfLines={5}>
-            {item.title}
-          </Text>
-          <View style={styles.summaryBoxMessage} numberOfLines={1}>
-            {this._showText(item)}
-          </View>
+          <Text>{this._showType(item)}</Text>
         </View>
         <View>
-          <Text style={styles.componentButton}>View {this._showType(item)}</Text>
+          <Text style={styles.summaryBoxTitle} numberOfLines={3}>
+            {item.title}
+          </Text>
+
         </View>
       </TouchableOpacity>
     )
@@ -296,10 +287,11 @@ export default class CoursesScreenSingle extends React.PureComponent {
             <ListItem
               key={module.screen}
               title={module.title}
+              titleStyle={{fontWeight: '500'}}
               containerStyle={styles.listContainer}
               onPress={() => this._toCourseModule(module.screen,
                 module.title)}
-              leftIcon={<Icon type='ionicon' name={module.icon} size={25} color='#3D4AD0' style={courseStyle.icon} />}
+              leftIcon={<Icon type='material-community' name={module.icon} size={25} color='#3D4AD0' style={courseStyle.icon} />}
             />
           ))}
         </ScrollView>

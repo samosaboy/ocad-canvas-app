@@ -1,17 +1,15 @@
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const icons = {
-  'compose': [Ionicons, 'ios-create-outline', 35, '#8E8E93'],
-  // 'compose': [MaterialCommunityIcons, 'pencil-circle', 35, '#8E8E93'],
-  'send': [Ionicons, 'ios-send-outline', 35, '#8E8E93'],
-  'close': [Ionicons, 'ios-close', 45, '#8E8E93'],
-  'reply': [Ionicons, 'ios-add', 40, '#8E8E93'],
-  'options': [Ionicons, 'ios-options-outline', 30, '#8E8E93'],
-  'type': [Ionicons, 'ios-calendar-outline', 30, '#8E8E93'],
-  'people': [Ionicons, 'ios-people-outline', 35, '#8E8E93'],
-  'delete': [Ionicons, 'ios-trash-outline', 30, '#8E8E93'],
-  'share': [Ionicons, 'ios-share-outline', 35, '#8E8E93'],
+  'compose': [MaterialCommunityIcons, 'message-plus', 30, '#8E8E93'],
+  'send': [MaterialCommunityIcons, 'send', 30, '#8E8E93'],
+  'close': [MaterialCommunityIcons, 'close', 30, '#8E8E93'],
+  'reply': [MaterialCommunityIcons, 'reply', 30, '#8E8E93'],
+  'options': [MaterialCommunityIcons, 'dots-vertical', 30, '#8E8E93'],
+  'type': [MaterialCommunityIcons, 'calendar-multiple', 30, '#8E8E93'],
+  'people': [MaterialCommunityIcons, 'account-multiple', 30, '#8E8E93'],
+  'delete': [MaterialCommunityIcons, 'delete', 25, '#8E8E93'],
+  'share': [MaterialCommunityIcons, 'share-variant', 25, '#8E8E93'],
 
   // Tabs
   'messages': [MaterialCommunityIcons, 'email', 30, '#8E8E93'],
